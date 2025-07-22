@@ -1,0 +1,66 @@
+{
+  "name": "Terraform 101 Racing Lab",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "latest",
+      "tflint": true,
+      "terragrunt": false
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "HashiCorp.terraform",
+        "ms-vscode.vscode-codetour", 
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-json",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ],
+      "settings": {
+        "terraform.experimentalFeatures.validateOnSave": true,
+        "terraform.languageServer.enable": true,
+        "terraform.codelens.referenceCount": true,
+        "files.associations": {
+          "*.tf": "terraform",
+          "*.tfvars": "terraform",
+          "*.tfvars.example": "terraform"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+        }
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  "remoteEnv": {
+    "TF_CLI_ARGS": "-no-color",
+    "TF_IN_AUTOMATION": "true"
+  },
+
+  "portsAttributes": {
+    "8080": {
+      "label": "Preview Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "forwardPorts": [8080],
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/.terraform,target=/workspace/.terraform,type=bind,consistency=cached"
+  ]
+}

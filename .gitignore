@@ -1,0 +1,84 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+.terraform/
+.terraform.lock.hcl
+*.auto.tfvars
+terraform.tfvars
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which are likely to contain sensitive data
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are usually used to override resources locally
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# IMPORTANT: Keep terraform.tfvars.example files for educational purposes
+!terraform.tfvars.example
+!**/terraform.tfvars.example
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Security and credential files
+credentials.json
+secrets.json
+api_keys.txt
+.okta_credentials
+.terraform-credentials
+
+# Exercise tracking (optional - participants can choose to commit)
+# Uncomment these lines if you want to exclude participant progress
+# exercises/*/terraform.tfstate*
+# exercises/*/.terraform/
+# solutions/*/terraform.tfstate*
+# solutions/*/.terraform/

@@ -1,0 +1,227 @@
+# Terraform 101 Racing Lab - Example Configuration
+# Copy this file to terraform.tfvars and customize for your racing organization
+# This file shows you all the settings you can customize
+
+# Basic Organization Settings
+racing_organization_name = "Formula Infrastructure Racing League"
+racing_season           = "2024"
+environment             = "development"
+
+# Enable advanced features for production environments
+enable_advanced_features = false
+
+# Team Principals Configuration
+# Customize the team management structure
+team_principals = {
+  "velocity-racing" = {
+    name             = "Sam Velocity"
+    experience_years = 15
+    specialty        = "aerodynamics"
+  }
+  "thunder-motors" = {
+    name             = "Alex Thunder"
+    experience_years = 12
+    specialty        = "engine_performance"
+  }
+  "phoenix-speed" = {
+    name             = "Jordan Phoenix"
+    experience_years = 18
+    specialty        = "race_strategy"
+  }
+  "storm-racing" = {
+    name             = "Casey Storm"
+    experience_years = 20
+    specialty        = "weather_strategy"
+  }
+}
+
+# Team Colors for Branding
+team_colors = {
+  "velocity-racing" = "velocity-blue"
+  "thunder-motors"  = "thunder-red"
+  "phoenix-speed"   = "phoenix-orange"
+  "storm-racing"    = "storm-purple"
+}
+
+# Home Circuits (like home stadiums)
+home_circuits = {
+  "velocity-racing" = "Monaco Street Circuit"
+  "thunder-motors"  = "Monza Speedway"
+  "phoenix-speed"   = "Suzuka International"
+  "storm-racing"    = "Silverstone Circuit"
+}
+
+# Racing Driver Configuration
+# Add or modify drivers for your teams
+drivers = {
+  "alex-speedwell" = {
+    first_name      = "Alex"
+    last_name       = "Speedwell"
+    driver_number   = "7"
+    team           = "velocity-racing"
+    championships  = 2
+    preferred_tire = "soft"
+    racing_style   = "aggressive"
+    email_domain   = "velocityracing.com"
+  }
+  "jordan-swift" = {
+    first_name      = "Jordan"
+    last_name       = "Swift"
+    driver_number   = "23"
+    team           = "thunder-motors"
+    championships  = 1
+    preferred_tire = "medium"
+    racing_style   = "calculated"
+    email_domain   = "thundermotors.com"
+  }
+  "casey-turbo" = {
+    first_name      = "Casey"
+    last_name       = "Turbo"
+    driver_number   = "11"
+    team           = "phoenix-speed"
+    championships  = 0
+    preferred_tire = "hard"
+    racing_style   = "strategic"
+    email_domain   = "phoenixspeed.com"
+  }
+  "riley-flash" = {
+    first_name      = "Riley"
+    last_name       = "Flash"
+    driver_number   = "44"
+    team           = "storm-racing"
+    championships  = 3
+    preferred_tire = "intermediate"
+    racing_style   = "adaptive"
+    email_domain   = "stormracing.com"
+  }
+}
+
+# Racing Applications Configuration
+# Customize the applications your racing teams will use
+racing_applications = {
+  "race-dashboard" = {
+    display_name     = "Race Dashboard"
+    description      = "Real-time race telemetry and live timing data for teams and drivers"
+    app_type         = "racing_telemetry"
+    data_sensitivity = "high"
+    real_time        = true
+    redirect_uri     = "https://race-dashboard.racing.local/callback"
+  }
+  "timing-portal" = {
+    display_name     = "Timing Portal"
+    description      = "Lap timing analysis and sector performance tracking"
+    app_type         = "timing_system"
+    data_sensitivity = "medium"
+    real_time        = true
+    redirect_uri     = "https://timing-portal.racing.local/callback"
+  }
+  "team-communication" = {
+    display_name     = "Team Communication"
+    description      = "Secure team communications between pit wall and drivers"
+    app_type         = "communication"
+    data_sensitivity = "high"
+    real_time        = true
+    redirect_uri     = "https://team-comm.racing.local/callback"
+  }
+  "data-analytics" = {
+    display_name     = "Data Analytics"
+    description      = "Historical performance data and strategic race analysis"
+    app_type         = "analytics"
+    data_sensitivity = "medium"
+    real_time        = false
+    redirect_uri     = "https://analytics.racing.local/callback"
+  }
+}
+
+# Access Control Matrix
+# Define which teams can access which applications
+application_access_matrix = {
+  "race-dashboard" = {
+    teams_with_access = ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"]
+    access_level      = "read-write"
+    requires_approval = false
+  }
+  "timing-portal" = {
+    teams_with_access = ["velocity-racing", "thunder-motors"]
+    access_level      = "read-only"
+    requires_approval = false
+  }
+  "team-communication" = {
+    teams_with_access = ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"]
+    access_level      = "read-write"
+    requires_approval = true
+  }
+  "data-analytics" = {
+    teams_with_access = ["phoenix-speed", "storm-racing"]
+    access_level      = "read-write"
+    requires_approval = false
+  }
+}
+
+# Security and Policy Settings
+user_password_policy = {
+  min_length        = 8
+  require_uppercase = true
+  require_lowercase = true
+  require_numbers   = true
+  require_symbols   = false
+}
+
+session_timeout_hours = 8
+
+# Resource Tagging for Organization
+resource_tags = {
+  Project     = "terraform-101-racing-lab"
+  Environment = "development"
+  Owner       = "racing-infrastructure-team"
+  Purpose     = "educational"
+  Workshop    = "terraform-basics"
+}
+
+# Okta-specific Settings
+okta_group_description_suffix = " (Managed by Terraform Racing Lab)"
+
+# Example customizations you might want to try:
+#
+# 1. Add a new racing team:
+# team_principals = {
+#   # ... existing teams ...
+#   "lightning-speed" = {
+#     name             = "Taylor Lightning"
+#     experience_years = 8
+#     specialty        = "tire_strategy"
+#   }
+# }
+#
+# 2. Add a new driver:
+# drivers = {
+#   # ... existing drivers ...
+#   "morgan-rapid" = {
+#     first_name      = "Morgan"
+#     last_name       = "Rapid"
+#     driver_number   = "88"
+#     team           = "lightning-speed"
+#     championships  = 0
+#     preferred_tire = "wet"
+#     racing_style   = "defensive"
+#     email_domain   = "lightningspeed.com"
+#   }
+# }
+#
+# 3. Add a new racing application:
+# racing_applications = {
+#   # ... existing apps ...
+#   "weather-radar" = {
+#     display_name     = "Weather Radar"
+#     description      = "Real-time weather tracking for race strategy"
+#     app_type         = "weather_system"
+#     data_sensitivity = "low"
+#     real_time        = true
+#     redirect_uri     = "https://weather.racing.local/callback"
+#   }
+# }
+#
+# Remember: After making changes, run:
+# 1. terraform plan    (to preview changes)
+# 2. terraform apply   (to apply changes)
+# 3. terraform show    (to see current state)

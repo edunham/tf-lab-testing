@@ -1,0 +1,36 @@
+# Exercise 1: Team Formation - Example Configuration
+# Copy this file to terraform.tfvars and customize with your Okta details
+
+# Basic settings for this exercise
+racing_season = "2024"
+include_team_metadata = true
+max_teams_per_league = 10
+
+# Optional: Customize team specialties
+team_specialties = [
+  "aerodynamics",
+  "engine_performance",
+  "race_strategy", 
+  "weather_strategy"
+]
+
+# Optional: Add more racing circuits
+circuit_locations = {
+  "Monaco Street Circuit"  = "Monte Carlo, Monaco"
+  "Monza Speedway"        = "Monza, Italy"
+  "Suzuka International"  = "Suzuka, Japan"
+  "Silverstone Circuit"   = "Silverstone, United Kingdom"
+}
+
+# League configuration
+league_configuration = {
+  name            = "Formula Infrastructure Racing League"
+  founded_year    = 2024
+  championship_points_system = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+  safety_car_enabled = true
+}
+
+# Remember to set your Okta environment variables:
+# export OKTA_ORG_NAME="your-dev-org"
+# export OKTA_BASE_URL="oktapreview.com"
+# export OKTA_API_TOKEN="your-api-token"

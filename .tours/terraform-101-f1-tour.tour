@@ -1,0 +1,48 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "🏎️ Terraform 101 Tour",
+  "description": "Learn Infrastructure as Code by managing racing teams, drivers, and applications using Okta. No prior Terraform knowledge required.",
+  "steps": [
+    {
+      "file": "README.md",
+      "description": "# Welcome to Terraform 101\n\nThis lab teaches Infrastructure as Code fundamentals using Okta's identity platform.\n\n**What you'll learn:**\n- Terraform basics: providers, resources, variables, outputs\n- Identity management with Okta\n- Infrastructure as Code best practices\n\nYou'll manage racing teams, drivers, and applications - just like managing organizational units, users, and systems in any company.",
+      "line": 1
+    },
+    {
+      "file": "terraform.tfvars.example",
+      "description": "# Configuration\n\nTerraform uses variables to configure infrastructure. This file shows example values for:\n\n- **Okta domain**: Your organization's Okta URL\n- **API token**: Credentials for accessing Okta's API\n- **Environment**: Whether this is development, staging, or production\n\n**Action needed:** Copy this file to `terraform.tfvars` and add your real Okta credentials (the real file is excluded from git for security).",
+      "line": 1
+    },
+    {
+      "file": "variables.tf",
+      "description": "# Variables\n\nTerraform variables make code reusable and configurable. Notice how each variable has:\n\n- **Description**: What this variable configures\n- **Type**: The kind of data expected (string, number, list, etc.)\n- **Default**: Fallback value if not specified\n- **Validation**: Rules to prevent invalid configurations\n\nThese variables let you use the same Terraform code across different environments by changing only the input values.",
+      "line": 1
+    },
+    {
+      "file": "main.tf",
+      "description": "# Main Configuration\n\nThe `main.tf` file defines your infrastructure resources. Key components:\n\n1. **terraform block**: Specifies required providers and versions\n2. **provider block**: Configures connection to Okta\n3. **resource blocks**: The actual infrastructure being created\n\nThis is your infrastructure definition - everything needed to create and manage your Okta resources.",
+      "line": 1
+    },
+    {
+      "file": "outputs.tf",
+      "description": "# Outputs\n\nTerraform outputs return information after infrastructure is created. Outputs are useful for:\n\n- **Displaying results**: See what was created\n- **Chaining resources**: Use outputs from one terraform configuration in another\n- **Integration**: Share resource IDs with other systems\n- **Debugging**: Verify your infrastructure matches expectations",
+      "line": 1
+    },
+    {
+      "file": "exercises/01-team-formation/README.md",
+      "description": "# Exercise 1: Team Formation\n\nIn this exercise, you'll create your first infrastructure using Terraform.\n\n**What you'll learn:**\n- Basic Terraform workflow: init → plan → apply\n- Creating Okta groups\n- Understanding resource syntax\n\n**Real-world application:** This is like creating organizational units in a company - departments, project teams, or business units.",
+      "line": 1
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "description": "# Your First Resources\n\nThis Terraform code creates your first infrastructure resources.\n\n**Key concepts:**\n- Each `okta_group` resource creates a group in Okta\n- Groups have names and descriptions\n- Terraform manages the entire resource lifecycle\n\n**Notice the structure:**\n- `resource \"okta_group\" \"velocity_racing\"` - Creates a new group\n- `name` and `description` are resource properties\n- Each resource has a unique identifier\n\n**Try it:** Run `terraform plan` to preview what will be created.",
+      "line": 7
+    },
+    {
+      "file": "exercises/02-driver-roster/README.md",
+      "description": "# Exercise 2: User Management\n\nNow that you have groups, you'll add users and manage group memberships.\n\n**What you'll learn:**\n- Creating Okta users\n- Using variables for flexible configuration\n- Understanding resource relationships and dependencies\n- Group membership management\n\n**Real-world application:** This is like onboarding new employees, assigning them to departments, and managing their access permissions.",
+      "line": 1
+    }
+  ],
+  "ref": "main"
+}
