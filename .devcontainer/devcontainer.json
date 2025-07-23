@@ -4,8 +4,8 @@
   
   "features": {
     "ghcr.io/devcontainers/features/terraform:1": {
-      "version": "latest",
-      "tflint": true,
+      "version": "1.5.7",
+      "tflint": false,
       "terragrunt": false
     },
     "ghcr.io/devcontainers/features/git:1": {
