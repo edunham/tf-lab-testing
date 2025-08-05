@@ -80,39 +80,59 @@ Your Okta organization has specific URL formats:
 2. **Wait for setup**: The devcontainer will automatically install Terraform and configure your environment
 3. **Verify installation**: Run `terraform --version` in the terminal
 
-### Set Up Your Racing Lab Credentials
+### 🔐 Set Up Your Racing Lab Credentials (Secure Method)
 
-Now configure Terraform to connect to your Okta organization:
+**⚠️ SECURITY NOTICE**: Never expose API tokens in your terminal history or commit them to git!
 
-1. **In your Codespaces terminal**, set these environment variables with YOUR values:
+GitHub Codespaces provides **secure secrets management** for sensitive data like API tokens. Use this secure method:
 
+#### **Method 1: GitHub Codespaces Secrets (Recommended)**
+
+1. **Create your Codespaces secrets**:
+   - Go to **GitHub.com** → **Settings** (your profile) → **Codespaces**
+   - Click **"New secret"** and create these three secrets:
+
+   | Secret Name | Value | Example |
+   |-------------|-------|---------|
+   | `OKTA_ORG_NAME` | Your org name (before .okta.com) | `dev-123456` |
+   | `OKTA_BASE_URL` | Your base URL | `okta.com` |
+   | `OKTA_API_TOKEN` | Your API token from Step 3 | `00abc123def456...` |
+
+2. **Grant repository access**:
+   - For each secret, select this repository in "Repository access"
+   - Click **"Add secret"**
+
+3. **Restart your Codespace** to load the secrets:
+   - In VS Code: `Ctrl+Shift+P` → "Codespaces: Stop Current Codespace"
+   - Then restart it from GitHub.com
+
+4. **Verify secrets are loaded** (they'll be available as environment variables):
    ```bash
-   # Replace with YOUR org name (the part before .oktapreview.com)
-   export OKTA_ORG_NAME="dev-123456"
-   
-   # Use oktapreview.com for developer accounts (most common)
-   export OKTA_BASE_URL="oktapreview.com"
-   
-   # Replace with YOUR API token from Step 3 above
-   export OKTA_API_TOKEN="00abc123def456ghi789jkl012mno345pqr678stu"
+   echo "Org: $OKTA_ORG_NAME"
+   echo "Base URL: $OKTA_BASE_URL" 
+   echo "Token loaded: $([ -n "$OKTA_API_TOKEN" ] && echo "✅ Yes" || echo "❌ No")"
    ```
 
-2. **Verify your connection**:
-   ```bash
-   # Test that your credentials work
-   curl -H "Authorization: SSWS $OKTA_API_TOKEN" \
-        "https://$OKTA_ORG_NAME.$OKTA_BASE_URL/api/v1/users/me"
-   ```
+#### **Method 2: Temporary Setup (Less Secure)**
 
-   **Expected result**: You should see JSON data about your user account.
+⚠️ **Only use this for testing** - secrets won't persist and may be exposed in terminal history:
 
-3. **Make credentials persistent** (optional but recommended):
-   ```bash
-   # Add to your shell profile so they persist across terminal sessions
-   echo "export OKTA_ORG_NAME=\"$OKTA_ORG_NAME\"" >> ~/.bashrc
-   echo "export OKTA_BASE_URL=\"$OKTA_BASE_URL\"" >> ~/.bashrc
-   echo "export OKTA_API_TOKEN=\"$OKTA_API_TOKEN\"" >> ~/.bashrc
-   ```
+```bash
+# Set temporarily (will be lost when codespace restarts)
+read -s -p "Enter your OKTA_ORG_NAME: " OKTA_ORG_NAME && export OKTA_ORG_NAME
+read -s -p "Enter your OKTA_BASE_URL: " OKTA_BASE_URL && export OKTA_BASE_URL  
+read -s -p "Enter your OKTA_API_TOKEN: " OKTA_API_TOKEN && export OKTA_API_TOKEN
+echo "Credentials set temporarily"
+```
+
+#### **Verify Your Connection**
+```bash
+# Test that your credentials work
+curl -H "Authorization: SSWS $OKTA_API_TOKEN" \
+     "https://$OKTA_ORG_NAME.$OKTA_BASE_URL/api/v1/users/me"
+```
+
+**Expected result**: You should see JSON data about your user account.
 
 ### 🏁 Test Your Setup
 
@@ -333,6 +353,33 @@ terraform destroy
 - **After workshop**: Check the solutions/ directory for complete examples
 - **Terraform docs**: https://registry.terraform.io/providers/okta/okta/latest/docs
 - **Okta developer docs**: https://developer.okta.com/
+
+## 🔒 Security Best Practices
+
+### **Secrets Management**
+- ✅ **Use GitHub Codespaces secrets** for API tokens and sensitive data
+- ✅ **Never commit secrets** to git repositories  
+- ✅ **Limit secret access** to only repositories that need them
+- ❌ **Avoid export commands** in terminal (they expose secrets in history)
+- ❌ **Don't share codespaces** with secrets loaded
+
+### **Okta Security**
+- 🔑 **Use developer accounts** (developer.okta.com) for labs - they're isolated
+- 🔑 **Rotate API tokens** regularly in production environments
+- 🔑 **Use least-privilege access** - only grant permissions needed for the task
+- 🔑 **Monitor audit logs** in real Okta environments
+
+### **Terraform Security**
+- 📁 **Use `.gitignore`** to exclude `terraform.tfvars` and state files
+- 📁 **Enable state locking** in team environments
+- 📁 **Review plans carefully** before applying changes
+- 📁 **Use remote state** for production workloads
+
+### **If You Suspect Secrets Are Compromised**
+1. **Immediately revoke** the API token in Okta console
+2. **Create a new token** with a different name
+3. **Update your Codespaces secrets** with the new token
+4. **Check audit logs** for unauthorized activity
 
 ## 🏆 Completion Certificates
 
