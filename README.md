@@ -22,12 +22,12 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
 
 ### Prerequisites
 - GitHub account (for Codespaces)
-- Okta developer account (see setup below)
+- Okta integrator account (see setup below)
 - Basic familiarity with command line
 
-### 🔧 Okta Developer Account Setup
+### 🔧 Okta Integrator Account Setup
 
-#### Step 1: Create Your Free Okta Developer Account
+#### Step 1: Create Your Free Okta Integrator Account
 
 1. **Visit** [developer.okta.com](https://developer.okta.com)
 2. **Click "Sign Up"** in the top right corner
@@ -36,7 +36,7 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
    - First and last name
    - Company (can use "Personal" or "Learning")
    - Country
-4. **Choose "Developer"** when asked about your role
+4. **Choose "Integrator"** when asked about your role
 5. **Complete email verification** - check your inbox and click the verification link
 6. **Set your password** when prompted
 7. **Choose your Okta domain** - this creates your unique organization URL like `dev-123456.oktapreview.com`
@@ -70,11 +70,10 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
 
 Your Okta organization has specific URL formats:
 
-- **Full Org URL**: `https://dev-123456.oktapreview.com` (what you see in the browser)
-- **Org Name**: `dev-123456` (the part before `.oktapreview.com`)
-- **Base URL**: `oktapreview.com` (for developer accounts) or `okta.com` (for production accounts)
+- **Full Org URL**: `https://dev-123456.okta.com` (what you see in the browser)
+- **Org Name**: `dev-123456` (the part before `.okta.com`)
+- **Base URL**: `okta.com`
 
-**For most users**: You'll use `oktapreview.com` as your base URL.
 
 ### Launch Environment
 1. **Open in Codespaces**: Click the green "Code" button → "Codespaces" → "Create codespace"
@@ -146,23 +145,31 @@ This lab includes **interactive guided tours** that walk you through the code st
 
 ### 📱 How to Use CodeTour
 
-**In VS Code (Codespaces):**
+**In VS Code (Codespaces) - Multiple Ways to Start:**
 
-1. **Start a tour**: 
-   - Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
-   - Type "CodeTour" and select **"CodeTour: Start Tour"**
-   - Choose from the available tours
+#### **Method 1: Using the Command Palette**
+- **Keyboard**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+- **Mouse Alternative**: Click the **gear icon** ⚙️ in the bottom-left corner → **"Command Palette"**
+- Type "CodeTour" and select **"CodeTour: Start Tour"**
+- Choose from the available tours
 
-2. **Navigate during tours**:
-   - **Next step**: Click the "Next" button or press `Ctrl+Right`
-   - **Previous step**: Click "Previous" or press `Ctrl+Left`
-   - **Exit tour**: Click the "×" button or press `Escape`
+#### **Method 2: Using the Explorer Panel** (Recommended for browsers)
+1. **Look for the CodeTour icon** 🗺️ in the left sidebar (Activity Bar)
+2. **Click the CodeTour icon** to open the CodeTour panel
+3. **Click "Start Tour"** next to any available tour
+4. **Choose your tour** from the list
 
-3. **Tour controls**:
-   - Tours appear as a sidebar panel
-   - Each step highlights relevant code
-   - Follow along with explanations and instructions
-   - Tours can navigate between files automatically
+#### **Method 3: Via the View Menu**
+- Click **"View"** in the top menu bar
+- Select **"Command Palette"** from the dropdown
+- Type "CodeTour" and select **"CodeTour: Start Tour"**
+
+### **During Tours:**
+- **Next step**: Click the "Next" button or press `→` (right arrow)
+- **Previous step**: Click "Previous" or press `←` (left arrow) 
+- **Exit tour**: Click the "×" button or press `Escape`
+- **Tour controls**: Tours appear as a sidebar panel with step-by-step guidance
+- **File navigation**: Tours automatically highlight relevant code and switch files
 
 ### 🏁 Recommended Learning Path
 
@@ -271,7 +278,7 @@ terraform destroy
 - **Verify your org is active**: Try logging into the Okta admin console manually
 
 **"Insufficient permissions" errors**
-- **Developer accounts have full admin**: This shouldn't happen with developer.okta.com accounts
+- **Integrator accounts have full admin**: This shouldn't happen with developer.okta.com accounts
 - **Check if you're using a work Okta account**: Work accounts may have restricted permissions
 - **Solution**: Use a developer.okta.com account for this lab
 
