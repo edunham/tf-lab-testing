@@ -167,22 +167,26 @@ This lab includes **interactive guided tours** that walk you through the code st
 
 **In VS Code (Codespaces) - Multiple Ways to Start:**
 
-#### **Method 1: Using the Command Palette**
-- **Keyboard**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
-- **Mouse Alternative**: Click the **gear icon** ⚙️ in the bottom-left corner → **"Command Palette"**
-- Type "CodeTour" and select **"CodeTour: Start Tour"**
-- Choose from the available tours
+#### **Method 1: Via the Hamburger Menu** (Best for browsers)
+1. **Click the 3 horizontal lines** ☰ at the top-left of VS Code
+2. **Select "View"** from the dropdown menu
+3. **Select "Command Palette"** from the submenu
+4. **Type "CodeTour"** in the search box
+5. **Select "CodeTour: Start Tour"** from the results
+6. **Choose your tour** from the list
 
-#### **Method 2: Using the Explorer Panel** (Recommended for browsers)
-1. **Look for the CodeTour icon** 🗺️ in the left sidebar (Activity Bar)
-2. **Click the CodeTour icon** to open the CodeTour panel
-3. **Click "Start Tour"** next to any available tour
+#### **Method 2: Using the Explorer Panel**
+1. **Click the Explorer icon** 📁 in the left sidebar (first icon in Activity Bar)
+2. **Look for "CODETOUR" section** in the Explorer panel (below your file tree)
+3. **Click the ▶️ play button** next to any available tour
 4. **Choose your tour** from the list
 
-#### **Method 3: Via the View Menu**
-- Click **"View"** in the top menu bar
-- Select **"Command Palette"** from the dropdown
-- Type "CodeTour" and select **"CodeTour: Start Tour"**
+**Note**: CodeTour section only appears when the extension is installed and `.tour` files are detected
+
+#### **Method 3: Keyboard Shortcut** (May not work in browsers)
+- **Keyboard**: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+- **Type "CodeTour"** and select **"CodeTour: Start Tour"**
+- **Choose from the available tours**
 
 ### **During Tours:**
 - **Next step**: Click the "Next" button or press `→` (right arrow)
@@ -198,6 +202,24 @@ This lab includes **interactive guided tours** that walk you through the code st
 3. **Use tours as reference** when you need explanations
 
 **Pro tip**: You can start/stop tours anytime and resume where you left off!
+
+### 🔧 CodeTour Troubleshooting
+
+**Don't see the CODETOUR section in Explorer?**
+- ✅ **Check extension is installed**: Look for "CodeTour" in VS Code Extensions panel
+- ✅ **Refresh the window**: Press `F5` or reload the Codespace
+- ✅ **Verify tour files exist**: Check that `.tours/` directory contains `.tour` files
+- ✅ **Try Command Palette**: Use Method 1 above as backup
+
+**Tours not loading?**
+- 🔄 **Reload window**: `Ctrl+Shift+P` → "Developer: Reload Window"
+- 🔄 **Check file permissions**: Ensure `.tour` files are readable
+- 🔄 **Restart Codespace**: Close and reopen from GitHub
+
+**Can't start a tour?**
+- 📝 **Use Command Palette**: Most reliable method across all environments
+- 📝 **Check workspace**: Ensure you're in the `terraform-101-okta` directory
+- 📝 **Manual navigation**: Open tour files directly from `.tours/` folder
 
 ## 🏁 Exercises
 

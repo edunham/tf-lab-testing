@@ -8,7 +8,7 @@
     "vscode": {
       "extensions": [
         "HashiCorp.terraform",
-        "ms-vscode.vscode-codetour", 
+        "vsls-contrib.codetour", 
         "redhat.vscode-yaml",
         "ms-vscode.vscode-json",
         "GitHub.copilot",
