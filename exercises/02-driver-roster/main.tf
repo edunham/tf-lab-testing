@@ -5,7 +5,7 @@
 # Configure Terraform and required providers
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     okta = {
       source  = "okta/okta"
@@ -20,52 +20,34 @@ provider "okta" {
   # - OKTA_ORG_NAME, OKTA_BASE_URL, OKTA_API_TOKEN
 }
 
-# Data Sources - Reference existing teams from Exercise 1
-# This demonstrates how to build on previous infrastructure
+# BEST PRACTICE: Use data sources to reference existing infrastructure
+# This demonstrates building on previous Exercise 1 infrastructure
+# Data sources are preferred over hard-coding for dependencies
 
-data "okta_group" "velocity_racing" {
-  name = "Velocity Racing"
-}
-
-data "okta_group" "thunder_motors" {
-  name = "Thunder Motors"
-}
-
-data "okta_group" "phoenix_speed" {
-  name = "Phoenix Speed"
-}
-
-data "okta_group" "storm_racing" {
-  name = "Storm Racing"
+data "okta_group" "racing_teams" {
+  for_each = var.team_display_names
+  name     = each.value
 }
 
 # Create Racing Drivers using for_each
 # This demonstrates variable-driven resource creation
 resource "okta_user" "racing_drivers" {
   for_each = var.create_example_drivers ? var.drivers : {}
-  
+
   first_name = each.value.first_name
   last_name  = each.value.last_name
   login      = "${each.value.first_name}.${each.value.last_name}@${each.value.email_domain}"
   email      = "${each.value.first_name}.${each.value.last_name}@${each.value.email_domain}"
-  
-  # Optional: Add racing-specific profile metadata
-  custom_profile_attributes = var.include_driver_metadata ? jsonencode({
-    driver_number       = each.value.driver_number
-    racing_team        = each.value.team
-    championships      = each.value.championships
-    preferred_tire     = each.value.preferred_tire
-    racing_style       = each.value.racing_style
-    season            = var.racing_season
-    league            = "Formula Infrastructure Racing League"
-  }) : null
+
+  # Note: Custom profile attributes would require schema definition first
+  # For this educational lab, we keep the user profile simple and standard
 }
 
 # Assign Drivers to Teams using Group Memberships
 # This demonstrates resource dependencies and data source usage
 resource "okta_group_memberships" "team_memberships" {
   for_each = var.create_example_drivers ? local.driver_team_assignments : {}
-  
+
   group_id = each.value.group_id
   users    = [okta_user.racing_drivers[each.key].id]
 }
@@ -73,21 +55,24 @@ resource "okta_group_memberships" "team_memberships" {
 # Local Values for Organization and Computation
 # This demonstrates computed values and DRY principles
 locals {
+  # BEST PRACTICE: Use dynamic lookups instead of hard-coded conditionals
+  # This creates a map from team identifiers to their actual group IDs
+  team_id_map = {
+    for team_key, team_name in var.team_display_names : team_key => data.okta_group.racing_teams[team_key].id
+  }
+
   # Create a map of driver keys to their team group IDs
   driver_team_assignments = {
     for driver_key, driver in var.drivers : driver_key => {
       driver_name = "${driver.first_name} ${driver.last_name}"
       team_name   = driver.team
-      group_id    = driver.team == "velocity-racing" ? data.okta_group.velocity_racing.id :
-                    driver.team == "thunder-motors" ? data.okta_group.thunder_motors.id :
-                    driver.team == "phoenix-speed" ? data.okta_group.phoenix_speed.id :
-                    data.okta_group.storm_racing.id
+      group_id    = local.team_id_map[driver.team]
     }
   }
-  
+
   # Calculate total drivers
   total_drivers = length(var.drivers)
-  
+
   # Group drivers by team
   drivers_by_team = {
     for team in ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"] : team => [
@@ -95,7 +80,7 @@ locals {
       if driver.team == team
     ]
   }
-  
+
   # Calculate team statistics
   team_stats = {
     for team in ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"] : team => {

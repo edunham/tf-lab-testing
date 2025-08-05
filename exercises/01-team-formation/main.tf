@@ -5,7 +5,7 @@
 # Configure Terraform and the Okta provider
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     okta = {
       source  = "okta/okta"
@@ -24,94 +24,52 @@ provider "okta" {
   # This keeps sensitive information out of our code
 }
 
-# Create Racing Teams as Okta Groups
-# Each team represents a different racing organization with unique characteristics
+# BEST PRACTICE: Create Racing Teams using for_each for scalable, maintainable code
+# This demonstrates how to use variables to drive resource creation
+# Benefits: DRY principle, easier to add/remove teams, consistent configuration
 
-resource "okta_group" "velocity_racing" {
-  name        = "Velocity Racing"
-  description = "Speed-focused racing team known for aerodynamic excellence and quick pit stops"
-  
-  # Optional: Custom attributes for racing-specific metadata
-  # In a real scenario, these could drive access policies
-  custom_profile_attributes = jsonencode({
-    team_color      = "velocity-blue"
-    team_principal  = "Sam Velocity"
-    home_circuit    = "Monaco Street Circuit"
-    specialty       = "aerodynamics"
-    season          = "2024"
-  })
+resource "okta_group" "racing_teams" {
+  for_each = var.racing_teams
+
+  # BEST PRACTICE: Use descriptive, consistent naming
+  name = each.value.display_name
+
+  # BEST PRACTICE: Build descriptions from structured data rather than hard-coding
+  description = "${each.value.description} | Team Principal: ${each.value.team_principal} | Home Circuit: ${each.value.home_circuit} | Specialty: ${title(replace(each.value.specialty, "_", " "))} | Season: ${var.racing_season}"
 }
 
-resource "okta_group" "thunder_motors" {
-  name        = "Thunder Motors"
-  description = "Power-focused racing team specializing in engine performance and straight-line speed"
-  
-  custom_profile_attributes = jsonencode({
-    team_color      = "thunder-red"
-    team_principal  = "Alex Thunder"
-    home_circuit    = "Monza Speedway"
-    specialty       = "engine_performance"
-    season          = "2024"
-  })
-}
-
-resource "okta_group" "phoenix_speed" {
-  name        = "Phoenix Speed"
-  description = "Precision-focused racing team known for strategic race management and consistency"
-  
-  custom_profile_attributes = jsonencode({
-    team_color      = "phoenix-orange"
-    team_principal  = "Jordan Phoenix"
-    home_circuit    = "Suzuka International"
-    specialty       = "race_strategy"
-    season          = "2024"
-  })
-}
-
-resource "okta_group" "storm_racing" {
-  name        = "Storm Racing"
-  description = "Strategy-focused racing team excelling in wet weather conditions and adaptability"
-  
-  custom_profile_attributes = jsonencode({
-    team_color      = "storm-purple"
-    team_principal  = "Casey Storm"
-    home_circuit    = "Silverstone Circuit"
-    specialty       = "weather_strategy"
-    season          = "2024"
-  })
-}
-
-# Local values help organize and compute information
-# Think of these as "calculated fields" based on our resources
+# BEST PRACTICE: Use locals for computed values and business logic
+# This keeps complex logic separate from resource definitions
 locals {
-  # Count total teams created
-  total_teams = 4
-  
-  # Create a summary of all teams
+  # BEST PRACTICE: Calculate values dynamically instead of hard-coding
+  total_teams = length(var.racing_teams)
+
+  # BEST PRACTICE: Build comprehensive team summary from variable data and resource attributes
   team_summary = {
-    velocity_racing = {
-      id           = okta_group.velocity_racing.id
-      name         = okta_group.velocity_racing.name
-      specialty    = "aerodynamics"
-      team_principal = "Sam Velocity"
+    for team_key, team_config in var.racing_teams : team_key => {
+      group_id       = okta_group.racing_teams[team_key].id
+      group_name     = okta_group.racing_teams[team_key].name
+      specialty      = team_config.specialty
+      team_principal = team_config.team_principal
+      home_circuit   = team_config.home_circuit
+      team_color     = team_config.team_color
+      founded_year   = team_config.founded_year
     }
-    thunder_motors = {
-      id           = okta_group.thunder_motors.id
-      name         = okta_group.thunder_motors.name
-      specialty    = "engine_performance"
-      team_principal = "Alex Thunder"
-    }
-    phoenix_speed = {
-      id           = okta_group.phoenix_speed.id
-      name         = okta_group.phoenix_speed.name
-      specialty    = "race_strategy"
-      team_principal = "Jordan Phoenix"
-    }
-    storm_racing = {
-      id           = okta_group.storm_racing.id
-      name         = okta_group.storm_racing.name
-      specialty    = "weather_strategy"
-      team_principal = "Casey Storm"
-    }
+  }
+
+  # BEST PRACTICE: Add useful computed values for outputs and other resources
+  teams_by_specialty = {
+    for specialty in distinct([for team in var.racing_teams : team.specialty]) : specialty => [
+      for team_key, team in var.racing_teams : team_key
+      if team.specialty == specialty
+    ]
+  }
+
+  # BEST PRACTICE: Consistent tagging strategy (would be used if Okta supported tags)
+  common_tags = {
+    Environment = "lab"
+    Purpose     = "terraform-101"
+    Season      = var.racing_season
+    League      = var.league_configuration.name
   }
 }

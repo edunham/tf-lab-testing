@@ -39,7 +39,7 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
 4. **Choose "Integrator"** when asked about your role
 5. **Complete email verification** - check your inbox and click the verification link
 6. **Set your password** when prompted
-7. **Choose your Okta domain** - this creates your unique organization URL like `dev-123456.oktapreview.com`
+7. **Choose your Okta domain** - this creates your unique organization URL like `dev-123456.okta.com`
 
 **Important**: Write down your Okta domain URL - you'll need it for configuration!
 
@@ -49,7 +49,7 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
 2. **You should see the Okta Admin Dashboard** - this confirms your account is ready
 3. **Note your org details** in the top-right corner:
    - Your email address
-   - Your org domain (e.g., `dev-123456.oktapreview.com`)
+   - Your org domain (e.g., `dev-123456.okta.com`)
 
 #### Step 3: Create an API Token
 
@@ -59,8 +59,11 @@ You're managing identity infrastructure for multiple racing teams. You'll set up
 2. **Click the "Tokens" tab**
 3. **Click "Create Token"**
 4. **Enter a token name**: `Terraform Racing Lab` (or similar)
-5. **Click "Create Token"**
-6. **IMMEDIATELY COPY THE TOKEN** - this is the only time you'll see it!
+5. **Set IP restrictions**: For "API calls made with this token must originate from", select **"Any IP"**
+   - ⚠️ **For labs only**: In production, you'd restrict to specific IP ranges
+   - 📡 **Why "Any IP"**: Codespaces use dynamic IP addresses that change
+6. **Click "Create Token"**
+7. **IMMEDIATELY COPY THE TOKEN** - this is the only time you'll see it!
    - It looks like: `00abc123def456ghi789jkl012mno345pqr678stu`
    - Store it somewhere safe (password manager, secure note, etc.)
 
@@ -316,7 +319,7 @@ terraform destroy
 
 **"Could not resolve host" or connection errors**
 - **Check your org name**: Run `echo $OKTA_ORG_NAME` - should be just `dev-123456`, not the full URL
-- **Check your base URL**: Run `echo $OKTA_BASE_URL` - should be `oktapreview.com` for developer accounts
+- **Check your base URL**: Run `echo $OKTA_BASE_URL` - should be `okta.com` for integrator accounts
 - **Verify your org is active**: Try logging into the Okta admin console manually
 
 **"Insufficient permissions" errors**
@@ -386,8 +389,9 @@ terraform destroy
 - ❌ **Don't share codespaces** with secrets loaded
 
 ### **Okta Security**
-- 🔑 **Use developer accounts** (developer.okta.com) for labs - they're isolated
+- 🔑 **Use integrator accounts** (developer.okta.com) for labs - they're isolated
 - 🔑 **Rotate API tokens** regularly in production environments
+- 🔑 **Restrict API token IPs** in production - only allow necessary IP ranges
 - 🔑 **Use least-privilege access** - only grant permissions needed for the task
 - 🔑 **Monitor audit logs** in real Okta environments
 

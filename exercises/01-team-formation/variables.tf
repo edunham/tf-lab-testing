@@ -6,12 +6,12 @@
 variable "racing_season" {
   description = "The current racing season year"
   type        = string
-  default     = "2024"
-  
+  default     = "2025"
+
   # Validation ensures we get a valid year format
   validation {
     condition     = can(regex("^20[0-9]{2}$", var.racing_season))
-    error_message = "Racing season must be a valid year like 2024."
+    error_message = "Racing season must be a valid year like 2025."
   }
 }
 
@@ -27,7 +27,7 @@ variable "max_teams_per_league" {
   description = "Maximum number of teams allowed in the racing league"
   type        = number
   default     = 10
-  
+
   validation {
     condition     = var.max_teams_per_league >= 2 && var.max_teams_per_league <= 20
     error_message = "Must have between 2 and 20 teams for a proper racing league."
@@ -41,7 +41,7 @@ variable "team_specialties" {
   default = [
     "aerodynamics",
     "engine_performance",
-    "race_strategy", 
+    "race_strategy",
     "weather_strategy",
     "tire_management",
     "pit_stop_efficiency"
@@ -53,10 +53,79 @@ variable "circuit_locations" {
   description = "Map of racing circuits to their locations"
   type        = map(string)
   default = {
-    "Monaco Street Circuit"  = "Monte Carlo, Monaco"
+    "Monaco Street Circuit" = "Monte Carlo, Monaco"
     "Monza Speedway"        = "Monza, Italy"
     "Suzuka International"  = "Suzuka, Japan"
     "Silverstone Circuit"   = "Silverstone, United Kingdom"
+  }
+}
+
+# Racing Teams Configuration - Demonstrates best practice of data-driven resources
+variable "racing_teams" {
+  description = "Configuration for racing teams to be created as Okta groups"
+  type = map(object({
+    display_name   = string
+    description    = string
+    team_principal = string
+    home_circuit   = string
+    specialty      = string
+    team_color     = string
+    founded_year   = number
+  }))
+
+  default = {
+    velocity-racing = {
+      display_name   = "Velocity Racing"
+      description    = "Speed-focused racing team known for aerodynamic excellence and quick pit stops"
+      team_principal = "Sam Velocity"
+      home_circuit   = "Monaco Street Circuit"
+      specialty      = "aerodynamics"
+      team_color     = "velocity-blue"
+      founded_year   = 2020
+    }
+    thunder-motors = {
+      display_name   = "Thunder Motors"
+      description    = "Power-focused racing team specializing in engine performance and straight-line speed"
+      team_principal = "Alex Thunder"
+      home_circuit   = "Monza Speedway"
+      specialty      = "engine_performance"
+      team_color     = "thunder-red"
+      founded_year   = 2018
+    }
+    phoenix-speed = {
+      display_name   = "Phoenix Speed"
+      description    = "Precision-focused racing team known for strategic race management and consistency"
+      team_principal = "Jordan Phoenix"
+      home_circuit   = "Suzuka International"
+      specialty      = "race_strategy"
+      team_color     = "phoenix-orange"
+      founded_year   = 2019
+    }
+    storm-racing = {
+      display_name   = "Storm Racing"
+      description    = "Strategy-focused racing team excelling in wet weather conditions and adaptability"
+      team_principal = "Casey Storm"
+      home_circuit   = "Silverstone Circuit"
+      specialty      = "weather_strategy"
+      team_color     = "storm-purple"
+      founded_year   = 2021
+    }
+  }
+
+  validation {
+    condition = alltrue([
+      for team in var.racing_teams :
+      contains(var.team_specialties, team.specialty)
+    ])
+    error_message = "Team specialty must be one of the allowed specialties."
+  }
+
+  validation {
+    condition = alltrue([
+      for team in var.racing_teams :
+      team.founded_year >= 2010 && team.founded_year <= tonumber(var.racing_season)
+    ])
+    error_message = "Team founded year must be between 2010 and current racing season."
   }
 }
 
@@ -64,17 +133,17 @@ variable "circuit_locations" {
 variable "league_configuration" {
   description = "Configuration for the racing league"
   type = object({
-    name            = string
-    founded_year    = number
+    name                       = string
+    founded_year               = number
     championship_points_system = list(number)
-    safety_car_enabled = bool
+    safety_car_enabled         = bool
   })
-  
+
   default = {
-    name            = "Formula Infrastructure Racing League"
-    founded_year    = 2024
+    name                       = "Formula Infrastructure Racing League"
+    founded_year               = 2020
     championship_points_system = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
-    safety_car_enabled = true
+    safety_car_enabled         = true
   }
 }
 
@@ -90,14 +159,14 @@ locals {
       map    = "Key-value pairs like {key1 = value1}"
       object = "Complex structures with multiple typed fields"
     }
-    
+
     best_practices = {
       descriptions = "Always include clear descriptions"
       validation   = "Use validation blocks to catch errors early"
       defaults     = "Provide sensible defaults when possible"
       naming       = "Use descriptive names like 'racing_season' not 'rs'"
     }
-    
+
     usage_patterns = {
       required = "Variables without defaults must be provided"
       optional = "Variables with defaults are optional to override"

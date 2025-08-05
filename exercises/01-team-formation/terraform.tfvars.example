@@ -1,31 +1,66 @@
 # Exercise 1: Team Formation - Example Configuration
-# Copy this file to terraform.tfvars and customize with your Okta details
+# Copy this file to terraform.tfvars and customize with your preferences
+# This demonstrates Terraform best practice of using .tfvars files for environment-specific values
 
-# Basic settings for this exercise
-racing_season = "2024"
+# BEST PRACTICE: Override default values through .tfvars files
+racing_season = "2025"
 include_team_metadata = true
-max_teams_per_league = 10
 
-# Optional: Customize team specialties
-team_specialties = [
-  "aerodynamics",
-  "engine_performance",
-  "race_strategy", 
-  "weather_strategy"
-]
+# BEST PRACTICE: Demonstrate how easy it is to add teams with data-driven approach
+# Uncomment and modify to add a fifth team:
+# racing_teams = {
+#   velocity-racing = {
+#     display_name   = "Velocity Racing"
+#     description    = "Speed-focused racing team known for aerodynamic excellence"
+#     team_principal = "Sam Velocity"
+#     home_circuit   = "Monaco Street Circuit"
+#     specialty      = "aerodynamics"
+#     team_color     = "velocity-blue"
+#     founded_year   = 2020
+#   }
+#   thunder-motors = {
+#     display_name   = "Thunder Motors"
+#     description    = "Power-focused racing team specializing in engine performance"
+#     team_principal = "Alex Thunder"
+#     home_circuit   = "Monza Speedway" 
+#     specialty      = "engine_performance"
+#     team_color     = "thunder-red"
+#     founded_year   = 2018
+#   }
+#   phoenix-speed = {
+#     display_name   = "Phoenix Speed"
+#     description    = "Precision-focused racing team known for strategic management"
+#     team_principal = "Jordan Phoenix"
+#     home_circuit   = "Suzuka International"
+#     specialty      = "race_strategy"
+#     team_color     = "phoenix-orange"
+#     founded_year   = 2019
+#   }
+#   storm-racing = {
+#     display_name   = "Storm Racing"
+#     description    = "Strategy-focused racing team excelling in wet conditions"
+#     team_principal = "Casey Storm"
+#     home_circuit   = "Silverstone Circuit"
+#     specialty      = "weather_strategy"
+#     team_color     = "storm-purple"
+#     founded_year   = 2021
+#   }
+#   # Add your own team here!
+#   apex-motorsport = {
+#     display_name   = "Apex Motorsport"
+#     description    = "New team focused on innovative tire strategies"
+#     team_principal = "Taylor Apex"
+#     home_circuit   = "Spa-Francorchamps"
+#     specialty      = "tire_management"
+#     team_color     = "apex-green"
+#     founded_year   = 2024
+#   }
+# }
 
-# Optional: Add more racing circuits
-circuit_locations = {
-  "Monaco Street Circuit"  = "Monte Carlo, Monaco"
-  "Monza Speedway"        = "Monza, Italy"
-  "Suzuka International"  = "Suzuka, Japan"
-  "Silverstone Circuit"   = "Silverstone, United Kingdom"
-}
-
-# League configuration
+# League configuration override example
 league_configuration = {
   name            = "Formula Infrastructure Racing League"
-  founded_year    = 2024
+  founded_year    = 2020
   championship_points_system = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
   safety_car_enabled = true
 }

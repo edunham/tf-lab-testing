@@ -22,11 +22,11 @@ variable "include_driver_metadata" {
 variable "racing_season" {
   description = "Current racing season year"
   type        = string
-  default     = "2024"
-  
+  default     = "2025"
+
   validation {
     condition     = can(regex("^20[0-9]{2}$", var.racing_season))
-    error_message = "Racing season must be a valid year (e.g., 2024)."
+    error_message = "Racing season must be a valid year (e.g., 2025)."
   }
 }
 
@@ -36,98 +36,98 @@ variable "racing_season" {
 variable "drivers" {
   description = "Configuration for racing drivers with detailed profiles"
   type = map(object({
-    first_name       = string
-    last_name        = string
-    driver_number    = string
-    team            = string
-    championships   = number
-    preferred_tire  = string
-    racing_style    = string
-    email_domain    = string
+    first_name     = string
+    last_name      = string
+    driver_number  = string
+    team           = string
+    championships  = number
+    preferred_tire = string
+    racing_style   = string
+    email_domain   = string
   }))
-  
+
   # Default driver roster for the racing league
   default = {
     "alex-speedwell" = {
-      first_name       = "Alex"
-      last_name        = "Speedwell"
-      driver_number    = "7"
-      team            = "velocity-racing"
-      championships   = 2
-      preferred_tire  = "soft"
-      racing_style    = "aggressive"
-      email_domain    = "velocityracing.com"
+      first_name     = "Alex"
+      last_name      = "Speedwell"
+      driver_number  = "7"
+      team           = "velocity-racing"
+      championships  = 2
+      preferred_tire = "soft"
+      racing_style   = "aggressive"
+      email_domain   = "velocityracing.com"
     }
     "jordan-swift" = {
-      first_name       = "Jordan"
-      last_name        = "Swift"
-      driver_number    = "23"
-      team            = "thunder-motors"
-      championships   = 1
-      preferred_tire  = "medium"
-      racing_style    = "calculated"
-      email_domain    = "thundermotors.com"
+      first_name     = "Jordan"
+      last_name      = "Swift"
+      driver_number  = "23"
+      team           = "thunder-motors"
+      championships  = 1
+      preferred_tire = "medium"
+      racing_style   = "calculated"
+      email_domain   = "thundermotors.com"
     }
     "casey-turbo" = {
-      first_name       = "Casey"
-      last_name        = "Turbo"
-      driver_number    = "11"
-      team            = "phoenix-speed"
-      championships   = 0
-      preferred_tire  = "hard"
-      racing_style    = "strategic"
-      email_domain    = "phoenixspeed.com"
+      first_name     = "Casey"
+      last_name      = "Turbo"
+      driver_number  = "11"
+      team           = "phoenix-speed"
+      championships  = 0
+      preferred_tire = "hard"
+      racing_style   = "strategic"
+      email_domain   = "phoenixspeed.com"
     }
     "riley-flash" = {
-      first_name       = "Riley"
-      last_name        = "Flash"
-      driver_number    = "44"
-      team            = "storm-racing"
-      championships   = 3
-      preferred_tire  = "intermediate"
-      racing_style    = "adaptive"
-      email_domain    = "stormracing.com"
+      first_name     = "Riley"
+      last_name      = "Flash"
+      driver_number  = "44"
+      team           = "storm-racing"
+      championships  = 3
+      preferred_tire = "intermediate"
+      racing_style   = "adaptive"
+      email_domain   = "stormracing.com"
     }
   }
-  
+
   # Validation Rules
   # These ensure data quality and catch configuration errors
-  
+
   validation {
     condition = alltrue([
-      for driver in var.drivers : 
+      for driver in var.drivers :
       can(regex("^[1-9][0-9]?$", driver.driver_number))
     ])
     error_message = "Driver numbers must be between 1-99."
   }
-  
+
   validation {
     condition = alltrue([
-      for driver in var.drivers : 
+      for driver in var.drivers :
       contains(["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"], driver.team)
     ])
     error_message = "Driver team must be one of: velocity-racing, thunder-motors, phoenix-speed, storm-racing."
   }
-  
+
   validation {
     condition = alltrue([
-      for driver in var.drivers : 
+      for driver in var.drivers :
       contains(["soft", "medium", "hard", "intermediate", "wet"], driver.preferred_tire)
     ])
     error_message = "Preferred tire must be one of: soft, medium, hard, intermediate, wet."
   }
-  
+
   validation {
     condition = alltrue([
-      for driver in var.drivers : 
+      for driver in var.drivers :
       contains(["aggressive", "calculated", "strategic", "adaptive", "defensive"], driver.racing_style)
     ])
     error_message = "Racing style must be one of: aggressive, calculated, strategic, adaptive, defensive."
   }
-  
+
   validation {
     condition = alltrue([
-      for driver in var.drivers : 
+      for driver in var.drivers :
       driver.championships >= 0 && driver.championships <= 10
     ])
     error_message = "Championships must be between 0 and 10."
@@ -142,7 +142,7 @@ variable "valid_teams" {
   type        = list(string)
   default = [
     "velocity-racing",
-    "thunder-motors", 
+    "thunder-motors",
     "phoenix-speed",
     "storm-racing"
   ]
@@ -166,9 +166,9 @@ variable "driver_email_domain" {
   description = "Override email domain for all drivers (optional)"
   type        = string
   default     = null
-  
+
   validation {
-    condition = var.driver_email_domain == null || can(regex("^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", var.driver_email_domain))
+    condition     = var.driver_email_domain == null || can(regex("^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", var.driver_email_domain))
     error_message = "Email domain must be a valid domain name (e.g., example.com)."
   }
 }
@@ -177,7 +177,7 @@ variable "minimum_experience_years" {
   description = "Minimum years of experience for drivers"
   type        = number
   default     = 0
-  
+
   validation {
     condition     = var.minimum_experience_years >= 0 && var.minimum_experience_years <= 30
     error_message = "Minimum experience years must be between 0 and 30."
@@ -196,23 +196,23 @@ variable "auto_assign_driver_numbers" {
 variable "variable_learning_examples" {
   description = "Examples of different variable types (for learning purposes)"
   type = object({
-    string_example   = string
-    number_example   = number
-    bool_example     = bool
-    list_example     = list(string)
-    map_example      = map(string)
-    object_example   = object({
+    string_example = string
+    number_example = number
+    bool_example   = bool
+    list_example   = list(string)
+    map_example    = map(string)
+    object_example = object({
       nested_string = string
       nested_number = number
     })
   })
   default = {
-    string_example   = "This is a string"
-    number_example   = 42
-    bool_example     = true
-    list_example     = ["item1", "item2", "item3"]
-    map_example      = { key1 = "value1", key2 = "value2" }
-    object_example   = { 
+    string_example = "This is a string"
+    number_example = 42
+    bool_example   = true
+    list_example   = ["item1", "item2", "item3"]
+    map_example    = { key1 = "value1", key2 = "value2" }
+    object_example = {
       nested_string = "nested value"
       nested_number = 100
     }
@@ -225,8 +225,8 @@ variable "variable_learning_examples" {
 locals {
   # Validation helpers
   unique_driver_numbers = distinct([for driver in var.drivers : driver.driver_number])
-  duplicate_numbers = length(local.unique_driver_numbers) != length(var.drivers)
-  
+  duplicate_numbers     = length(local.unique_driver_numbers) != length(var.drivers)
+
   # Team statistics
   drivers_per_team = {
     for team in var.valid_teams : team => length([
@@ -234,21 +234,21 @@ locals {
       if driver.team == team
     ])
   }
-  
+
   # Championship calculations
   total_championships = sum([for driver in var.drivers : driver.championships])
-  avg_championships = local.total_championships / length(var.drivers)
-  
+  avg_championships   = local.total_championships / length(var.drivers)
+
   # Most experienced driver
   max_championships = max([for driver in var.drivers : driver.championships])
   champions = [
     for driver_key, driver in var.drivers : driver_key
     if driver.championships == local.max_championships
   ]
-  
+
   # Email domain override logic
   effective_email_domains = {
-    for driver_key, driver in var.drivers : driver_key => 
+    for driver_key, driver in var.drivers : driver_key =>
     var.driver_email_domain != null ? var.driver_email_domain : driver.email_domain
   }
 }
