@@ -1,0 +1,57 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "🏁 Formula 1 Terraform Basics",
+  "description": "Welcome to the pit lane! This tour introduces Terraform fundamentals using our racing team infrastructure.",
+  "steps": [
+    {
+      "file": "main.tf",
+      "line": 1,
+      "description": "# 🏎️ Welcome to the Racing Lab!\n\nWelcome to our Formula 1 Terraform lab! Just like a race car is built from many precisely engineered components, our infrastructure is defined using **Infrastructure as Code** with Terraform.\n\n**What you'll learn:**\n- How Terraform manages infrastructure\n- Okta provider configuration\n- Racing team resource definitions\n- F1-themed practical examples\n\nReady to start your engines? Let's go! 🏁"
+    },
+    {
+      "file": "main.tf",
+      "line": 5,
+      "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\nJust like F1 cars must meet specific technical requirements, our Terraform code must declare its dependencies upfront."
+    },
+    {
+      "file": "main.tf",
+      "line": 8,
+      "description": "# 🏆 Provider Requirements\n\nThe `required_providers` block is like declaring which tire manufacturer we'll use for the race:\n\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\nThe Okta provider gives us resources to manage identity and access - perfect for our racing team organization!"
+    },
+    {
+      "file": "main.tf",
+      "line": 18,
+      "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use environment variables for credentials:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - Usually oktapreview.com for dev\n- `OKTA_API_TOKEN` - Your API authentication token\n\nThis keeps sensitive data out of our code, just like keeping radio frequencies secure! 📻"
+    },
+    {
+      "file": "main.tf",
+      "line": 28,
+      "description": "# 🏁 Racing Teams Resource\n\nHere's where the magic happens! This `resource` block creates Okta groups for our racing teams.\n\n**Key Terraform concepts:**\n- `for_each`: Creates multiple resources from a map (like having multiple teams)\n- `var.team_principals`: References a variable defined elsewhere\n- Dynamic naming and descriptions based on team data\n\nEach team gets its own group with unique characteristics - just like real F1 teams!"
+    },
+    {
+      "file": "main.tf",
+      "line": 35,
+      "description": "# 🎨 Custom Attributes\n\nThese custom profile attributes are like the car setup data for each team:\n\n- **team_color**: Each team's signature color scheme\n- **team_principal**: The team boss (like Toto Wolff or Christian Horner)\n- **home_circuit**: Their favorite track\n- **specialty**: What they're known for (aerodynamics, engine power, etc.)\n\nThis metadata helps us organize and understand our teams beyond just names!"
+    },
+    {
+      "file": "main.tf",
+      "line": 48,
+      "description": "# 🏎️ Racing Driver Users\n\nJust like teams need drivers, our organization needs users! This `okta_user` resource creates individual driver accounts.\n\n**Notice**: Each driver has:\n- Racing-themed names (Alex Speedwell)\n- Team assignments\n- Role-specific access levels\n\nIn the exercises, you'll create your own drivers and assign them to teams!"
+    },
+    {
+      "file": "variables.tf",
+      "line": 1,
+      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings!\n\n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\nClick through to see how team data is structured!"
+    },
+    {
+      "file": "outputs.tf",
+      "line": 1,
+      "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!"
+    },
+    {
+      "file": "README.md",
+      "line": 1,
+      "description": "# 🏁 Ready to Race!\n\nCongratulations! You've completed the Terraform basics tour. You now understand:\n\n✅ How Terraform configuration works\n✅ Provider setup and authentication\n✅ Resource definitions and relationships\n✅ Variables and outputs\n✅ F1-themed practical examples\n\n**Next steps:**\n1. Start with `exercises/01-team-formation/`\n2. Try the Team Formation CodeTour\n3. Practice with real Okta resources\n\n**Pro tip**: Use `terraform plan` before `terraform apply` - like checking your car setup before the race! 🏎️"
+    }
+  ]
+}

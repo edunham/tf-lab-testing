@@ -1,0 +1,76 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "🏁 Exercise 1: Team Formation",
+  "description": "Learn to create racing teams as Okta groups in this hands-on exercise. Perfect for F1 fans learning Infrastructure as Code!",
+  "steps": [
+    {
+      "file": "exercises/01-team-formation/README.md",
+      "line": 1,
+      "description": "# 🏎️ Welcome to Team Formation!\n\nThis exercise teaches you to create racing teams using Terraform and Okta. You'll learn:\n\n✅ **Basic resource creation**\n✅ **Okta group management**\n✅ **Custom attributes and metadata**\n✅ **Real-world Infrastructure as Code patterns**\n\nJust like how F1 teams need proper organization and structure, we'll build our digital racing organization step by step!\n\n**Ready to form your racing teams?** Let's dive in! 🏁"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 6,
+      "description": "# 🔧 Configuration Essentials\n\nEvery Terraform configuration starts here - like technical regulations for our racing series!\n\n**What this does:**\n- Sets minimum Terraform version (like engine regulations)\n- Declares the Okta provider dependency\n- Ensures consistent behavior across environments\n\n**Pro tip:** Always specify versions to avoid surprises - just like how F1 teams lock in their car specifications! 🏎️"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 22,
+      "description": "# 🔐 Provider Setup\n\nThe Okta provider is like your race control connection - it handles all communication with Okta's API.\n\n**Environment variables needed:**\n```bash\nexport OKTA_ORG_NAME=\"your-dev-org\"\nexport OKTA_BASE_URL=\"oktapreview.com\"\nexport OKTA_API_TOKEN=\"your-api-token\"\n```\n\n**Why environment variables?** Keeps credentials secure and out of version control - just like keeping radio frequencies secret! 📻"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 30,
+      "description": "# 🏎️ First Racing Team: Velocity Racing\n\nHere's our first team resource! Each `okta_group` represents a racing team in our organization.\n\n**Key elements:**\n- **name**: The team's display name\n- **description**: What makes this team special\n- **custom_profile_attributes**: Racing-specific metadata\n\n**Real-world parallel:** This is like registering a new F1 team with the FIA - they get official recognition and unique characteristics!"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 36,
+      "description": "# 🎨 Team Metadata Magic\n\nThese custom attributes are like each team's technical data sheet:\n\n- **team_color**: Visual identity (like Ferrari red or McLaren orange)\n- **team_principal**: The team boss\n- **home_circuit**: Their strongest track\n- **specialty**: What they excel at\n\n**Why this matters:** In real scenarios, these attributes can drive access policies, reporting, and automation decisions!"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 45,
+      "description": "# ⚡ Thunder Motors - Power Team\n\nNotice how each team has different characteristics but the same structure:\n\n**Thunder Motors specializes in:**\n- Engine performance (like Mercedes' power unit dominance)\n- Straight-line speed\n- Monza as their home circuit (perfect for power units!)\n\n**Pattern recognition:** We're repeating the same resource type with different values - this is a perfect candidate for later optimization with variables!"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 58,
+      "description": "# 🔥 Phoenix Speed - Strategy Masters\n\nPhoenix Speed represents the strategic side of racing:\n\n**Strategic focus:**\n- Race management and consistency\n- Suzuka as home circuit (requires technical precision)\n- **phoenix-orange** color scheme\n\n**Real F1 parallel:** Think McLaren's strategic approach or Red Bull's tactical excellence under pressure!"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 71,
+      "description": "# 🌩️ Storm Racing - Weather Warriors\n\nOur final team specializes in adaptability:\n\n**Storm Racing's strength:**\n- Wet weather performance (like Ayrton Senna in the rain!)\n- Adaptability and quick decision-making\n- Silverstone home circuit (known for unpredictable weather)\n\n**Why this matters:** Different teams excel in different conditions - just like real F1!"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 86,
+      "description": "# 🧮 Local Values - Calculated Data\n\n`locals` are like computed telemetry data - they help organize and calculate information from our resources.\n\n**What locals provide:**\n- Derived calculations\n- Data transformation\n- Avoiding repetition\n- Creating summary information\n\n**Think of it as:** Your race engineer calculating lap times and position changes from raw timing data! 📊"
+    },
+    {
+      "file": "exercises/01-team-formation/main.tf",
+      "line": 91,
+      "description": "# 📋 Team Summary Structure\n\nThis `team_summary` local creates a organized view of all our teams:\n\n**Benefits:**\n- Easy reference for outputs\n- Structured data for other systems\n- Single source of truth for team information\n- Enables automation and reporting\n\n**Real-world use:** Like the official F1 team standings - organized, consistent, and easy to reference!"
+    },
+    {
+      "file": "exercises/01-team-formation/outputs.tf",
+      "line": 1,
+      "description": "# 📊 Exercise Outputs\n\nOutputs are your race results - they show what was created and provide data for integration.\n\n**This exercise outputs:**\n- Team IDs and names\n- Team count and summary\n- Custom attribute data\n\n**Why outputs matter:** Other Terraform configurations can reference these values, and monitoring systems can track your infrastructure!"
+    },
+    {
+      "file": "exercises/01-team-formation/variables.tf",
+      "line": 1,
+      "description": "# 🎛️ Variables - Your Control Panel\n\nVariables make your Terraform code flexible and reusable - like adjustable car settings!\n\n**Benefits:**\n- Same code works for different environments\n- Easy customization without code changes\n- Type validation ensures data quality\n- Documentation through descriptions\n\n**Next level:** In Exercise 2, you'll see variables used for dynamic team and driver creation!"
+    },
+    {
+      "file": "exercises/01-team-formation/terraform.tfvars.example",
+      "line": 1,
+      "description": "# ⚙️ Configuration Template\n\nThis example file shows how to customize the exercise:\n\n**How to use:**\n1. Copy to `terraform.tfvars`\n2. Customize values for your organization\n3. Run `terraform apply`\n\n**Security note:** Never commit actual `terraform.tfvars` files - they might contain sensitive data!\n\n**Ready to race?** Time for hands-on practice! 🏎️"
+    },
+    {
+      "directory": "exercises/01-team-formation",
+      "description": "# 🏁 Ready to Deploy Your Teams!\n\n**Your mission:**\n1. **Set environment variables** for Okta authentication\n2. **Run `terraform init`** to download the Okta provider\n3. **Run `terraform plan`** to preview your racing teams\n4. **Run `terraform apply`** to create them in Okta!\n\n**Commands to run:**\n```bash\ncd exercises/01-team-formation\nterraform init\nterraform plan\nterraform apply\n```\n\n**Success criteria:** Four racing teams created in your Okta organization! 🏆\n\n**Next:** Move on to Exercise 2 to add drivers to your teams!"
+    }
+  ]
+}

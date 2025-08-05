@@ -3,10 +3,13 @@
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   
   "features": {
-    "ghcr.io/devcontainers/features/terraform:1": {
-      "version": "1.5.7",
-      "tflint": false,
-      "terragrunt": false
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "upgradePackages": true,
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest"
