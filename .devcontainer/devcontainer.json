@@ -37,7 +37,7 @@
   "containerEnv": {
     "TF_CLI_ARGS": "-no-color",
     "TF_IN_AUTOMATION": "true",
-    "TF_PLUGIN_CACHE_DIR": "/tmp/terraform-plugin-cache"
+    "TF_PLUGIN_CACHE_DIR": "/home/vscode/.terraform.d/plugin-cache"
   },
 
   "portsAttributes": {

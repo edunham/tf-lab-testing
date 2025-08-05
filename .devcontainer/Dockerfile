@@ -43,8 +43,10 @@ RUN terraform --version && gh --version
 # Clean up
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Create terraform plugin cache directory
-RUN mkdir -p /tmp/terraform-plugin-cache && chmod 777 /tmp/terraform-plugin-cache
+# Create terraform plugin cache directory with proper permissions
+RUN mkdir -p /home/vscode/.terraform.d/plugin-cache && \
+    chown -R vscode:vscode /home/vscode/.terraform.d && \
+    chmod -R 755 /home/vscode/.terraform.d
 
 # Set up terraform autocomplete for the vscode user
 USER vscode
@@ -67,7 +69,7 @@ RUN echo "\n# Terraform Lab Aliases" >> ~/.bashrc \
     && echo "alias warmup='terraform validate'" >> ~/.bashrc
 
 # Set environment variables
-ENV TF_PLUGIN_CACHE_DIR=/tmp/terraform-plugin-cache
+ENV TF_PLUGIN_CACHE_DIR=/home/vscode/.terraform.d/plugin-cache
 ENV TF_CLI_ARGS="-no-color"
 ENV TF_IN_AUTOMATION="true"
 
