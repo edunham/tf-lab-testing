@@ -137,24 +137,44 @@ curl -H "Authorization: SSWS $OKTA_API_TOKEN" \
 
 **Expected result**: You should see JSON data about your user account.
 
-### 🏁 Test Your Setup
+### 🏁 Verify Your Environment Variables
 
-Before starting the exercises, let's verify everything works:
+**First, check if your environment variables are already set** (if you used Codespaces secrets):
 
 ```bash
-# Navigate to the first exercise
-cd exercises/01-team-formation
+# Check if your environment variables are loaded
+echo "✅ Checking your Okta environment variables..."
+echo "Org Name: $OKTA_ORG_NAME"
+echo "Base URL: $OKTA_BASE_URL" 
+echo "Token loaded: $([ -n "$OKTA_API_TOKEN" ] && echo "✅ Yes" || echo "❌ No")"
+```
 
-# Initialize Terraform (downloads the Okta provider)
+**✅ If all three show values**, you're ready to go! Skip to "Test Your Setup" below.
+
+**❌ If any are missing**, you need to set them:
+
+- **If you set up Codespaces secrets**: Restart your Codespace to load them
+- **If you haven't set up secrets yet**: Follow the "Method 2: Temporary Setup" section above
+
+### 🏁 Test Your Setup
+
+Now let's verify everything works with the new module structure:
+
+```bash
+# Work from the root directory (no cd needed!)
+# Copy the example configuration
+cp terraform.tfvars.example terraform.tfvars
+
+# Initialize Terraform (downloads the Okta provider and modules)
 terraform init
 
-# Test your configuration (should show 4 groups to be created)
+# Test your configuration (should show 4 racing teams to be created)
 terraform plan
 ```
 
-**Expected output**: You should see a plan to create 4 Okta groups (racing teams) with no errors.
+**Expected output**: You should see a plan to create 4 Okta groups (racing teams) with no errors, and a message about the racing-drivers module being skipped (because `enable_drivers = false` by default).
 
-**If you see errors**, check the troubleshooting section below or verify your credentials.
+**If you see errors**, check the troubleshooting section below or verify your credentials using the connection test above.
 
 ## 🚀 Guided Learning with CodeTour
 

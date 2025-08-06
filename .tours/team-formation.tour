@@ -1,76 +1,61 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "🏁 Exercise 1: Team Formation",
-  "description": "Learn to create racing teams as Okta groups in this hands-on exercise. Perfect for F1 fans learning Infrastructure as Code!",
+  "title": "🏁 Module-Based Team Formation",
+  "description": "Learn production-quality Terraform with modules! Create racing teams using modern Infrastructure as Code patterns.",
   "steps": [
     {
-      "file": "exercises/01-team-formation/README.md",
-      "line": 1,
-      "description": "# 🏎️ Welcome to Team Formation!\n\nThis exercise teaches you to create racing teams using Terraform and Okta. You'll learn:\n\n✅ **Basic resource creation**\n✅ **Okta group management**\n✅ **Custom attributes and metadata**\n✅ **Real-world Infrastructure as Code patterns**\n\nJust like how F1 teams need proper organization and structure, we'll build our digital racing organization step by step!\n\n**Ready to form your racing teams?** Let's dive in! 🏁"
+      "file": "README.md",
+      "line": 140,
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\n```bash\necho \"Org Name: $OKTA_ORG_NAME\"\necho \"Base URL: $OKTA_BASE_URL\" \necho \"Token loaded: $([ -n \"$OKTA_API_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")\"\n```\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 6,
-      "description": "# 🔧 Configuration Essentials\n\nEvery Terraform configuration starts here - like technical regulations for our racing series!\n\n**What this does:**\n- Sets minimum Terraform version (like engine regulations)\n- Declares the Okta provider dependency\n- Ensures consistent behavior across environments\n\n**Pro tip:** Always specify versions to avoid surprises - just like how F1 teams lock in their car specifications! 🏎️"
+      "file": "terraform.tfvars.example",
+      "line": 9,
+      "description": "# ⚙️ Progressive Deployment Control\n\n**Key concept:** The new module architecture uses progressive deployment!\n\n**Start with teams only:**\n```hcl\nenable_drivers = false  # Teams first!\n```\n\n**Later, add drivers:**\n```hcl\nenable_drivers = true   # Full infrastructure!\n```\n\n**Why this rocks:** Learn incrementally while following production patterns! Real companies deploy infrastructure in stages. 🚀"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 22,
-      "description": "# 🔐 Provider Setup\n\nThe Okta provider is like your race control connection - it handles all communication with Okta's API.\n\n**Environment variables needed:**\n```bash\nexport OKTA_ORG_NAME=\"your-dev-org\"\nexport OKTA_BASE_URL=\"oktapreview.com\"\nexport OKTA_API_TOKEN=\"your-api-token\"\n```\n\n**Why environment variables?** Keeps credentials secure and out of version control - just like keeping radio frequencies secret! 📻"
+      "file": "terraform.tfvars.example",
+      "line": 114,
+      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\n```bash\ncp terraform.tfvars.example terraform.tfvars\n```\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to copy the file and start?** 🏁"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 30,
-      "description": "# 🏎️ First Racing Team: Velocity Racing\n\nHere's our first team resource! Each `okta_group` represents a racing team in our organization.\n\n**Key elements:**\n- **name**: The team's display name\n- **description**: What makes this team special\n- **custom_profile_attributes**: Racing-specific metadata\n\n**Real-world parallel:** This is like registering a new F1 team with the FIA - they get official recognition and unique characteristics!"
+      "file": "main.tf",
+      "line": 39,
+      "description": "# 🏗️ Racing Teams Module Call\n\n**This is the new way!** Instead of individual resources, we call a module:\n\n**What's happening:**\n- `source = \"./modules/racing-teams\"` - Local module path\n- Variables passed to the module (racing_season, racing_teams, etc.)\n- Module creates all team resources internally\n\n**Benefits:**\n- Organized code structure\n- Reusable components\n- Production-ready patterns\n\n**Click through to see the module internals!** 🔍"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 36,
-      "description": "# 🎨 Team Metadata Magic\n\nThese custom attributes are like each team's technical data sheet:\n\n- **team_color**: Visual identity (like Ferrari red or McLaren orange)\n- **team_principal**: The team boss\n- **home_circuit**: Their strongest track\n- **specialty**: What they excel at\n\n**Why this matters:** In real scenarios, these attributes can drive access policies, reporting, and automation decisions!"
+      "file": "modules/racing-teams/main.tf",
+      "line": 18,
+      "description": "# 🏎️ Module Resource Creation\n\n**Inside the module:** Here's where the real work happens!\n\n**Key pattern:**\n```hcl\nresource \"okta_group\" \"racing_teams\" {\n  for_each = var.racing_teams\n```\n\n**What this does:**\n- Creates one group per team in the racing_teams variable\n- Uses `for_each` for scalable resource creation\n- Builds descriptions dynamically from structured data\n\n**Real benefit:** Add a 5th team by just updating variables! 📈"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 45,
-      "description": "# ⚡ Thunder Motors - Power Team\n\nNotice how each team has different characteristics but the same structure:\n\n**Thunder Motors specializes in:**\n- Engine performance (like Mercedes' power unit dominance)\n- Straight-line speed\n- Monza as their home circuit (perfect for power units!)\n\n**Pattern recognition:** We're repeating the same resource type with different values - this is a perfect candidate for later optimization with variables!"
+      "file": "modules/racing-teams/main.tf",
+      "line": 35,
+      "description": "# 🎨 Dynamic Description Building\n\n**Smart string interpolation:**\n```hcl\ndescription = \"${each.value.description} | Team Principal: ${each.value.team_principal} | ...\"\n```\n\n**What you get:**\n- Consistent formatting across all teams\n- Rich metadata in descriptions\n- Easy to modify the template in one place\n\n**Example result:** \"Speed-focused racing team... | Team Principal: Sam Velocity | Home Circuit: Monaco Street Circuit | Specialty: Aerodynamics | Season: 2025\""
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 58,
-      "description": "# 🔥 Phoenix Speed - Strategy Masters\n\nPhoenix Speed represents the strategic side of racing:\n\n**Strategic focus:**\n- Race management and consistency\n- Suzuka as home circuit (requires technical precision)\n- **phoenix-orange** color scheme\n\n**Real F1 parallel:** Think McLaren's strategic approach or Red Bull's tactical excellence under pressure!"
+      "file": "modules/racing-teams/outputs.tf",
+      "line": 5,
+      "description": "# 📤 Module Outputs\n\n**Critical for module composition!** These outputs will be used by other modules:\n\n**Key exports:**\n- `team_ids` - Map of team keys to Okta group IDs\n- `team_names` - Map of team keys to display names\n- `team_summary` - Complete team information\n\n**Why this matters:** The drivers module will use these outputs to assign drivers to the correct teams! 🔗"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 71,
-      "description": "# 🌩️ Storm Racing - Weather Warriors\n\nOur final team specializes in adaptability:\n\n**Storm Racing's strength:**\n- Wet weather performance (like Ayrton Senna in the rain!)\n- Adaptability and quick decision-making\n- Silverstone home circuit (known for unpredictable weather)\n\n**Why this matters:** Different teams excel in different conditions - just like real F1!"
+      "file": "main.tf",
+      "line": 51,
+      "description": "# 🏁 Conditional Drivers Module\n\n**Advanced pattern:** Module with conditional deployment!\n\n```hcl\ncount = var.enable_drivers ? 1 : 0\n```\n\n**What this means:**\n- When `enable_drivers = false`: Module not deployed (0 instances)\n- When `enable_drivers = true`: Module deployed (1 instance)\n\n**Real-world value:** Deploy infrastructure incrementally, perfect for environments where you need staged rollouts!"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 86,
-      "description": "# 🧮 Local Values - Calculated Data\n\n`locals` are like computed telemetry data - they help organize and calculate information from our resources.\n\n**What locals provide:**\n- Derived calculations\n- Data transformation\n- Avoiding repetition\n- Creating summary information\n\n**Think of it as:** Your race engineer calculating lap times and position changes from raw timing data! 📊"
+      "file": "main.tf",
+      "line": 62,
+      "description": "# 🔄 Module Data Flow\n\n**See the dependency chain:**\n```hcl\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**Data flow:** racing_teams module → outputs → racing_drivers module inputs\n\n**Critical best practice:** This prevents the state file conflicts we had before! All resources managed in one state file, with proper dependencies. 🎯"
     },
     {
-      "file": "exercises/01-team-formation/main.tf",
-      "line": 91,
-      "description": "# 📋 Team Summary Structure\n\nThis `team_summary` local creates a organized view of all our teams:\n\n**Benefits:**\n- Easy reference for outputs\n- Structured data for other systems\n- Single source of truth for team information\n- Enables automation and reporting\n\n**Real-world use:** Like the official F1 team standings - organized, consistent, and easy to reference!"
+      "file": "outputs.tf",
+      "line": 5,
+      "description": "# 📊 Progressive Output Display\n\n**Smart conditional outputs:**\n```hcl\nvalue = var.enable_drivers ? local.driver_outputs.created_drivers : {}\n```\n\n**What you'll see:**\n- **Teams only:** Team information and \"drivers not enabled\" messages\n- **Full deployment:** Complete team and driver information\n\n**Educational value:** Clear feedback on what's deployed and what's next! 📈"
     },
     {
-      "file": "exercises/01-team-formation/outputs.tf",
-      "line": 1,
-      "description": "# 📊 Exercise Outputs\n\nOutputs are your race results - they show what was created and provide data for integration.\n\n**This exercise outputs:**\n- Team IDs and names\n- Team count and summary\n- Custom attribute data\n\n**Why outputs matter:** Other Terraform configurations can reference these values, and monitoring systems can track your infrastructure!"
-    },
-    {
-      "file": "exercises/01-team-formation/variables.tf",
-      "line": 1,
-      "description": "# 🎛️ Variables - Your Control Panel\n\nVariables make your Terraform code flexible and reusable - like adjustable car settings!\n\n**Benefits:**\n- Same code works for different environments\n- Easy customization without code changes\n- Type validation ensures data quality\n- Documentation through descriptions\n\n**Next level:** In Exercise 2, you'll see variables used for dynamic team and driver creation!"
-    },
-    {
-      "file": "exercises/01-team-formation/terraform.tfvars.example",
-      "line": 1,
-      "description": "# ⚙️ Configuration Template\n\nThis example file shows how to customize the exercise:\n\n**How to use:**\n1. Copy to `terraform.tfvars`\n2. Customize values for your organization\n3. Run `terraform apply`\n\n**Security note:** Never commit actual `terraform.tfvars` files - they might contain sensitive data!\n\n**Ready to race?** Time for hands-on practice! 🏎️"
-    },
-    {
-      "directory": "exercises/01-team-formation",
-      "description": "# 🏁 Ready to Deploy Your Teams!\n\n**Your mission:**\n1. **Set environment variables** for Okta authentication\n2. **Run `terraform init`** to download the Okta provider\n3. **Run `terraform plan`** to preview your racing teams\n4. **Run `terraform apply`** to create them in Okta!\n\n**Commands to run:**\n```bash\ncd exercises/01-team-formation\nterraform init\nterraform plan\nterraform apply\n```\n\n**Success criteria:** Four racing teams created in your Okta organization! 🏆\n\n**Next:** Move on to Exercise 2 to add drivers to your teams!"
+      "directory": ".",
+      "description": "# 🏁 Ready to Deploy Your Racing Teams!\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   ```bash\n   echo \"Org: $OKTA_ORG_NAME\" # Should show your org\n   ```\n\n2. **Copy and customize configuration:**\n   ```bash\n   cp terraform.tfvars.example terraform.tfvars\n   # Ensure enable_drivers = false for now\n   ```\n\n3. **Deploy teams module:**\n   ```bash\n   terraform init\n   terraform plan  # Should show 4 teams, drivers module skipped\n   terraform apply # Deploy!\n   ```\n\n**Success criteria:** 4 racing teams in Okta, clean module-based output!\n\n**Next:** Set `enable_drivers = true` and see the magic! 🚀"
     }
   ]
 }

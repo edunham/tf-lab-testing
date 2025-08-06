@@ -1,71 +1,61 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "🏎️ Exercise 2: Driver Management",
-  "description": "Learn advanced Terraform concepts by managing racing drivers! Covers variables, data sources, for_each loops, and resource dependencies.",
+  "title": "🏎️ Progressive Driver Deployment",
+  "description": "See module-based driver deployment in action! Learn module dependencies, conditional deployment, and how teams and drivers work together in production patterns.",
   "steps": [
     {
-      "file": "exercises/02-driver-roster/README.md",
+      "file": "README.md",
+      "line": 140,
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\n```bash\necho \"Org Name: $OKTA_ORG_NAME\"\necho \"Base URL: $OKTA_BASE_URL\" \necho \"Token loaded: $([ -n \"$OKTA_API_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")\"\n```\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
+    },
+    {
+      "file": "terraform.tfvars.example",
+      "line": 9,
+      "description": "# 🏎️ Ready to Enable Drivers?\n\n**Current status:** Teams are deployed, drivers module is disabled.\n\n**To proceed to driver deployment:**\n```hcl\nenable_drivers = true  # Change from false to true!\n```\n\n**What this triggers:**\n- The `racing-drivers` module will be deployed\n- Conditional deployment pattern in action!\n- Module dependencies automatically handled\n\n**Production insight:** This is how real infrastructure rollouts work - staged deployments! 🚀"
+    },
+    {
+      "file": "main.tf",
+      "line": 51,
+      "description": "# 🏁 Conditional Module Deployment\n\n**Module magic:** This shows conditional deployment patterns!\n\n```hcl\nmodule \"racing_drivers\" {\n  source = \"./modules/racing-drivers\"\n  count = var.enable_drivers ? 1 : 0  # Deploy conditionally!\n```\n\n**What happens:**\n- When `enable_drivers = false`: 0 instances (module not deployed)\n- When `enable_drivers = true`: 1 instance (module deployed)\n\n**Real-world value:** Perfect for environment-specific deployments! 🎯"
+    },
+    {
+      "file": "main.tf",
+      "line": 62,
+      "description": "# 🔗 Module Data Flow\n\n**Critical pattern:** How modules share data!\n\n```hcl\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**Data pipeline:**\n1. `racing_teams` module creates teams and exports IDs\n2. Root configuration passes those IDs to `racing_drivers`\n3. `racing_drivers` uses team IDs for driver assignments\n\n**Best practice:** This prevents state file conflicts! 🎯"
+    },
+    {
+      "file": "modules/racing-drivers/main.tf",
+      "line": 18,
+      "description": "# 🏁 Dynamic Driver Creation\n\n**Inside the drivers module:** The magic of `for_each`!\n\n```hcl\nresource \"okta_user\" \"racing_drivers\" {\n  for_each = var.racing_drivers\n```\n\n**How it works:**\n- `var.racing_drivers` contains all driver definitions\n- `for_each` creates one user per driver\n- `each.key` provides unique identifier (driver handle)\n- `each.value` accesses driver properties\n\n**Result:** One resource definition creates all drivers! 🚀"
+    },
+    {
+      "file": "modules/racing-drivers/main.tf",
+      "line": 35,
+      "description": "# 📧 Dynamic Email Generation\n\n**Smart string interpolation creates unique emails:**\n```hcl\nlogin = \"${each.value.first_name}.${each.value.last_name}@${each.value.email_domain}\"\n```\n\n**Example transformation:**\n- Input: `first_name = \"Max\"`, `last_name = \"Speedwell\"`\n- Domain: `email_domain = \"velocity-racing.com\"`\n- Result: `Max.Speedwell@velocity-racing.com`\n\n**Why this rocks:** Consistent naming, no manual email creation! ✨"
+    },
+    {
+      "file": "modules/racing-drivers/main.tf",
+      "line": 63,
+      "description": "# 👥 Team Assignments - Module Dependencies!\n\n**Critical pattern:** How drivers get assigned to teams!\n\n```hcl\nresource \"okta_group_memberships\" \"driver_team_assignments\" {\n  for_each = local.driver_team_assignments\n  group_id = var.team_ids[each.value.team_key]\n```\n\n**Data flow:**\n1. Root passes team IDs from `racing_teams` module\n2. Drivers module uses those IDs for assignments\n3. Automatic dependency management!\n\n**Best practice:** Module composition in action! 🎯"
+    },
+    {
+      "file": "modules/racing-drivers/outputs.tf",
+      "line": 5,
+      "description": "# 📤 Driver Module Outputs\n\n**Rich output structure:**\n- Individual driver information\n- Team assignment mappings\n- Championship statistics\n- Performance analytics\n\n**Key insight:** Modules should export comprehensive data for:\n- Root configuration outputs\n- Other modules that depend on this data\n- Monitoring and reporting systems\n\n**Production pattern:** Well-designed module outputs! 📊"
+    },
+    {
+      "file": "outputs.tf",
+      "line": 35,
+      "description": "# 📊 Conditional Root Outputs\n\n**Smart output patterns:**\n```hcl\nvalue = var.enable_drivers ? local.driver_outputs.created_drivers : {}\n```\n\n**What you see:**\n- **Teams only**: Team info, \"drivers not enabled\" messages  \n- **Full deployment**: Complete team and driver information\n- **Progressive feedback**: Clear next steps guidance\n\n**Why this matters:** User-friendly feedback during progressive deployment! 🚀"
+    },
+    {
+      "file": "variables.tf",
       "line": 1,
-      "description": "# 🏎️ Welcome to Driver Management!\n\nTime to recruit the best drivers for your racing teams! This exercise teaches advanced Terraform concepts:\n\n✅ **Data sources** (referencing existing resources)\n✅ **Variables and for_each loops** (dynamic resource creation)\n✅ **Resource dependencies** (drivers → team assignments)\n✅ **Complex locals** (calculations and data transformation)\n\n**Real F1 parallel:** Just like how teams sign drivers during transfer windows, we'll programmatically create and assign drivers to teams!\n\n**Prerequisites:** Complete Exercise 1 (Team Formation) first! 🏁"
+      "description": "# 🎛️ Variable-Driven Architecture\n\n**Key variables for driver deployment:**\n- `enable_drivers`: Controls conditional module deployment\n- `create_example_drivers`: Controls whether to create sample drivers\n- `racing_drivers`: Complete driver definitions\n\n**Production insight:** Variables control deployment behavior - this is how you manage different environments (dev/staging/prod) with the same code! 🏗️"
     },
     {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 26,
-      "description": "# 📊 Data Sources - Referencing Existing Teams\n\n**Key concept:** Data sources let you reference infrastructure created elsewhere (like Exercise 1)!\n\n**What's happening:**\n- We're looking up the teams we created in Exercise 1\n- No new groups are created - we're just getting references\n- These references will be used for driver assignments\n\n**Real-world parallel:** Like checking the current F1 team roster before signing new drivers! 📋"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 44,
-      "description": "# 🏁 Dynamic Driver Creation\n\n**The magic of `for_each`:** This single resource block can create multiple drivers!\n\n**How it works:**\n- `var.drivers` contains a map of driver definitions\n- `for_each` iterates through each driver\n- `each.value` accesses individual driver properties\n- `each.key` provides the unique identifier\n\n**Result:** One resource definition creates as many drivers as you define in variables! 🚀"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 49,
-      "description": "# 📧 Dynamic Email Generation\n\nSmart string interpolation creates unique emails:\n\n```hcl\nlogin = \"${each.value.first_name}.${each.value.last_name}@${each.value.email_domain}\"\n```\n\n**Example:** If driver data has:\n- first_name: \"Max\"\n- last_name: \"Speedwell\"\n- email_domain: \"velocity-racing.com\"\n\n**Result:** `Max.Speedwell@velocity-racing.com`\n\n**Why this rocks:** Consistent naming patterns, no manual email creation! ✨"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 53,
-      "description": "# 🏆 Racing Metadata Magic\n\nConditional custom attributes based on variables:\n\n**The pattern:**\n```hcl\ncustom_profile_attributes = var.include_driver_metadata ? jsonencode({...}) : null\n```\n\n**Racing data included:**\n- Driver number (like Hamilton's #44)\n- Championships won\n- Preferred tire compound\n- Racing style (aggressive, strategic, etc.)\n\n**Flexibility:** Turn metadata on/off with a single variable! 🎛️"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 66,
-      "description": "# 👥 Team Assignments - The Complex Part!\n\n**Resource dependencies in action:**\n- This resource depends on both data sources (teams) and resources (drivers)\n- `local.driver_team_assignments` maps drivers to their team's group ID\n- Creates group memberships automatically\n\n**Terraform magic:** Handles the order automatically - drivers created first, then assigned to teams!\n\n**Real F1:** Like officially registering driver contracts with the FIA! 📝"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 77,
-      "description": "# 🧮 Complex Data Transformation\n\nThis `for` expression creates a mapping from driver keys to team group IDs:\n\n**The challenge:** How do you map string team names to actual Okta group IDs?\n\n**The solution:** Conditional logic that looks up the right data source:\n```hcl\ngroup_id = driver.team == \"velocity-racing\" ? data.okta_group.velocity_racing.id : ...\n```\n\n**Result:** Each driver gets assigned to the correct team automatically! 🎯"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 92,
-      "description": "# 📊 Team Statistics - Advanced Locals\n\n**Grouping drivers by team:**\n```hcl\ndrivers_by_team = {\n  for team in [\"velocity-racing\", ...] : team => [\n    for driver_key, driver in var.drivers : driver_key\n    if driver.team == team\n  ]\n}\n```\n\n**What this creates:** A map where each team has a list of their drivers - perfect for analysis and reporting! 📈"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 100,
-      "description": "# 🏆 Championship Analytics\n\n**Advanced calculations:**\n- **Total championships** per team\n- **Average championships** per driver\n- **Driver count** per team\n\n**The `sum()` function:**\n```hcl\nsum([for driver_key in local.drivers_by_team[team] : var.drivers[driver_key].championships])\n```\n\n**Real-world value:** Infrastructure that provides business insights! Like F1 team performance analytics! 📊"
-    },
-    {
-      "file": "exercises/02-driver-roster/main.tf",
-      "line": 116,
-      "description": "# 🚀 Advanced Pattern (Commented)\n\nThis commented section shows a more scalable approach:\n\n**Problem:** The conditional logic gets messy with many teams\n**Solution:** Create a lookup map of team data sources\n\n**When to use:**\n- Many teams (10+ instead of 4)\n- Dynamic team creation\n- More complex team hierarchies\n\n**Learning point:** There are always multiple ways to solve problems in Terraform! 💡"
-    },
-    {
-      "file": "exercises/02-driver-roster/variables.tf",
-      "line": 1,
-      "description": "# 🎛️ Variable Configuration Power\n\nCheck out the complex variable definitions:\n\n**Key features:**\n- **Type validation** ensures data quality\n- **Default values** provide working examples\n- **Nested object types** for complex data structures\n- **Boolean flags** for feature toggles\n\n**The `drivers` variable** contains complete driver profiles - names, teams, championships, racing styles, and more! 🏁"
-    },
-    {
-      "file": "exercises/02-driver-roster/outputs.tf",
-      "line": 1,
-      "description": "# 📊 Rich Output Data\n\nOutputs provide comprehensive information:\n\n**What you'll see:**\n- Driver IDs and details\n- Team assignment confirmations\n- Championship statistics\n- Team composition analysis\n\n**Real value:** This data can feed into monitoring dashboards, other Terraform configurations, or business reporting systems! 📈"
-    },
-    {
-      "directory": "exercises/02-driver-roster",
-      "description": "# 🏁 Ready to Deploy Your Dream Team!\n\n**Your mission:**\n1. **Ensure Exercise 1 is complete** (teams must exist)\n2. **Customize variables** in `terraform.tfvars` (optional)\n3. **Initialize and plan:** `terraform init && terraform plan`\n4. **Deploy:** `terraform apply`\n\n**What happens:**\n- Racing drivers created in Okta\n- Drivers automatically assigned to teams\n- Championship statistics calculated\n- Rich output data displayed\n\n**Success criteria:** Drivers appear in their team groups in Okta! 🏆\n\n**Pro tip:** Check the outputs to see team statistics and driver assignments!"
+      "directory": ".",
+      "description": "# 🏁 Deploy Your Racing Drivers!\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   ```bash\n   # Edit terraform.tfvars\n   # Change: enable_drivers = false\n   # To:     enable_drivers = true\n   ```\n\n2. **Plan the driver deployment:**\n   ```bash\n   terraform plan  # Should show drivers module will be deployed\n   ```\n\n3. **Deploy drivers:**\n   ```bash\n   terraform apply  # Adds drivers to existing teams!\n   ```\n\n**Success criteria:** Drivers created and assigned to teams, single state file managing everything!\n\n**🚀 You've learned production-quality Terraform patterns!**"
     }
   ]
 }
