@@ -1,227 +1,121 @@
-# Terraform 101 Racing Lab - Example Configuration
-# Copy this file to terraform.tfvars and customize for your racing organization
-# This file shows you all the settings you can customize
+# Terraform 101 with Okta - Example Configuration
+# Copy this file to terraform.tfvars and customize as needed
+# This demonstrates progressive infrastructure deployment using modules
 
-# Basic Organization Settings
-racing_organization_name = "Formula Infrastructure Racing League"
-racing_season           = "2024"
-environment             = "development"
+# EXERCISE PROGRESSION CONTROL
+# Start with teams only, then enable drivers to see the full power of modules!
 
-# Enable advanced features for production environments
-enable_advanced_features = false
+# Set to false initially - deploy teams first (Exercise 1)
+enable_drivers = false
 
-# Team Principals Configuration
-# Customize the team management structure
-team_principals = {
-  "velocity-racing" = {
-    name             = "Sam Velocity"
-    experience_years = 15
-    specialty        = "aerodynamics"
-  }
-  "thunder-motors" = {
-    name             = "Alex Thunder"
-    experience_years = 12
-    specialty        = "engine_performance"
-  }
-  "phoenix-speed" = {
-    name             = "Jordan Phoenix"
-    experience_years = 18
-    specialty        = "race_strategy"
-  }
-  "storm-racing" = {
-    name             = "Casey Storm"
-    experience_years = 20
-    specialty        = "weather_strategy"
-  }
-}
+# After deploying teams, set this to true and redeploy (Exercise 2)
+# enable_drivers = true
 
-# Team Colors for Branding
-team_colors = {
-  "velocity-racing" = "velocity-blue"
-  "thunder-motors"  = "thunder-red"
-  "phoenix-speed"   = "phoenix-orange"
-  "storm-racing"    = "storm-purple"
-}
+# Whether to create the example drivers when drivers module is enabled
+create_example_drivers = true
 
-# Home Circuits (like home stadiums)
-home_circuits = {
-  "velocity-racing" = "Monaco Street Circuit"
-  "thunder-motors"  = "Monza Speedway"
-  "phoenix-speed"   = "Suzuka International"
-  "storm-racing"    = "Silverstone Circuit"
-}
+# BASIC CONFIGURATION
 
-# Racing Driver Configuration
-# Add or modify drivers for your teams
-drivers = {
-  "alex-speedwell" = {
-    first_name      = "Alex"
-    last_name       = "Speedwell"
-    driver_number   = "7"
-    team           = "velocity-racing"
-    championships  = 2
-    preferred_tire = "soft"
-    racing_style   = "aggressive"
-    email_domain   = "velocityracing.com"
-  }
-  "jordan-swift" = {
-    first_name      = "Jordan"
-    last_name       = "Swift"
-    driver_number   = "23"
-    team           = "thunder-motors"
-    championships  = 1
-    preferred_tire = "medium"
-    racing_style   = "calculated"
-    email_domain   = "thundermotors.com"
-  }
-  "casey-turbo" = {
-    first_name      = "Casey"
-    last_name       = "Turbo"
-    driver_number   = "11"
-    team           = "phoenix-speed"
-    championships  = 0
-    preferred_tire = "hard"
-    racing_style   = "strategic"
-    email_domain   = "phoenixspeed.com"
-  }
-  "riley-flash" = {
-    first_name      = "Riley"
-    last_name       = "Flash"
-    driver_number   = "44"
-    team           = "storm-racing"
-    championships  = 3
-    preferred_tire = "intermediate"
-    racing_style   = "adaptive"
-    email_domain   = "stormracing.com"
-  }
-}
+# Override the racing season year
+racing_season = "2025"
 
-# Racing Applications Configuration
-# Customize the applications your racing teams will use
-racing_applications = {
-  "race-dashboard" = {
-    display_name     = "Race Dashboard"
-    description      = "Real-time race telemetry and live timing data for teams and drivers"
-    app_type         = "racing_telemetry"
-    data_sensitivity = "high"
-    real_time        = true
-    redirect_uri     = "https://race-dashboard.racing.local/callback"
-  }
-  "timing-portal" = {
-    display_name     = "Timing Portal"
-    description      = "Lap timing analysis and sector performance tracking"
-    app_type         = "timing_system"
-    data_sensitivity = "medium"
-    real_time        = true
-    redirect_uri     = "https://timing-portal.racing.local/callback"
-  }
-  "team-communication" = {
-    display_name     = "Team Communication"
-    description      = "Secure team communications between pit wall and drivers"
-    app_type         = "communication"
-    data_sensitivity = "high"
-    real_time        = true
-    redirect_uri     = "https://team-comm.racing.local/callback"
-  }
-  "data-analytics" = {
-    display_name     = "Data Analytics"
-    description      = "Historical performance data and strategic race analysis"
-    app_type         = "analytics"
-    data_sensitivity = "medium"
-    real_time        = false
-    redirect_uri     = "https://analytics.racing.local/callback"
-  }
-}
+# ADVANCED CONFIGURATION
+# Uncomment and customize these to experiment with the module system
 
-# Access Control Matrix
-# Define which teams can access which applications
-application_access_matrix = {
-  "race-dashboard" = {
-    teams_with_access = ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"]
-    access_level      = "read-write"
-    requires_approval = false
-  }
-  "timing-portal" = {
-    teams_with_access = ["velocity-racing", "thunder-motors"]
-    access_level      = "read-only"
-    requires_approval = false
-  }
-  "team-communication" = {
-    teams_with_access = ["velocity-racing", "thunder-motors", "phoenix-speed", "storm-racing"]
-    access_level      = "read-write"
-    requires_approval = true
-  }
-  "data-analytics" = {
-    teams_with_access = ["phoenix-speed", "storm-racing"]
-    access_level      = "read-write"
-    requires_approval = false
-  }
-}
-
-# Security and Policy Settings
-user_password_policy = {
-  min_length        = 8
-  require_uppercase = true
-  require_lowercase = true
-  require_numbers   = true
-  require_symbols   = false
-}
-
-session_timeout_hours = 8
-
-# Resource Tagging for Organization
-resource_tags = {
-  Project     = "terraform-101-racing-lab"
-  Environment = "development"
-  Owner       = "racing-infrastructure-team"
-  Purpose     = "educational"
-  Workshop    = "terraform-basics"
-}
-
-# Okta-specific Settings
-okta_group_description_suffix = " (Managed by Terraform Racing Lab)"
-
-# Example customizations you might want to try:
-#
-# 1. Add a new racing team:
-# team_principals = {
-#   # ... existing teams ...
-#   "lightning-speed" = {
-#     name             = "Taylor Lightning"
-#     experience_years = 8
-#     specialty        = "tire_strategy"
+# Add a fifth team to demonstrate module scalability
+# racing_teams = {
+#   velocity-racing = {
+#     display_name   = "Velocity Racing"
+#     description    = "Speed-focused racing team known for aerodynamic excellence"
+#     team_principal = "Sam Velocity"
+#     home_circuit   = "Monaco Street Circuit"
+#     specialty      = "aerodynamics"
+#     team_color     = "velocity-blue"
+#     founded_year   = 2020
+#   }
+#   thunder-motors = {
+#     display_name   = "Thunder Motors"
+#     description    = "Power-focused racing team specializing in engine performance"
+#     team_principal = "Alex Thunder"
+#     home_circuit   = "Monza Speedway"
+#     specialty      = "engine_performance"
+#     team_color     = "thunder-red"
+#     founded_year   = 2018
+#   }
+#   phoenix-speed = {
+#     display_name   = "Phoenix Speed"
+#     description    = "Precision-focused racing team known for strategic management"
+#     team_principal = "Jordan Phoenix"
+#     home_circuit   = "Suzuka International"
+#     specialty      = "race_strategy"
+#     team_color     = "phoenix-orange"
+#     founded_year   = 2019
+#   }
+#   storm-racing = {
+#     display_name   = "Storm Racing"
+#     description    = "Strategy-focused racing team excelling in wet conditions"
+#     team_principal = "Casey Storm"
+#     home_circuit   = "Silverstone Circuit"
+#     specialty      = "weather_strategy"
+#     team_color     = "storm-purple"
+#     founded_year   = 2021
+#   }
+#   # NEW TEAM EXAMPLE - Shows how easy it is with modules!
+#   apex-motorsport = {
+#     display_name   = "Apex Motorsport"
+#     description    = "Innovation-focused team pioneering new racing technologies"
+#     team_principal = "Taylor Apex"
+#     home_circuit   = "Spa-Francorchamps"
+#     specialty      = "tire_management"
+#     team_color     = "apex-green"
+#     founded_year   = 2024
 #   }
 # }
-#
-# 2. Add a new driver:
+
+# Customize drivers (only applies when enable_drivers = true)
 # drivers = {
-#   # ... existing drivers ...
-#   "morgan-rapid" = {
-#     first_name      = "Morgan"
-#     last_name       = "Rapid"
-#     driver_number   = "88"
-#     team           = "lightning-speed"
-#     championships  = 0
-#     preferred_tire = "wet"
-#     racing_style   = "defensive"
-#     email_domain   = "lightningspeed.com"
+#   "alex-speedwell" = {
+#     first_name     = "Alex"
+#     last_name      = "Speedwell"
+#     driver_number  = "7"
+#     team           = "velocity-racing"
+#     championships  = 2
+#     preferred_tire = "soft"
+#     racing_style   = "aggressive"
+#     email_domain   = "velocityracing.com"
 #   }
-# }
-#
-# 3. Add a new racing application:
-# racing_applications = {
-#   # ... existing apps ...
-#   "weather-radar" = {
-#     display_name     = "Weather Radar"
-#     description      = "Real-time weather tracking for race strategy"
-#     app_type         = "weather_system"
-#     data_sensitivity = "low"
-#     real_time        = true
-#     redirect_uri     = "https://weather.racing.local/callback"
+#   "jordan-swift" = {
+#     first_name     = "Jordan"
+#     last_name      = "Swift"
+#     driver_number  = "23"
+#     team           = "thunder-motors"
+#     championships  = 1
+#     preferred_tire = "medium"
+#     racing_style   = "calculated"
+#     email_domain   = "thundermotors.com"
 #   }
+#   # Add more drivers here...
 # }
-#
-# Remember: After making changes, run:
-# 1. terraform plan    (to preview changes)
-# 2. terraform apply   (to apply changes)
-# 3. terraform show    (to see current state)
+
+# League configuration override
+league_configuration = {
+  name                       = "Formula Infrastructure Racing League"
+  founded_year               = 2020
+  championship_points_system = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+  safety_car_enabled         = true
+}
+
+# REMEMBER: Set your Okta environment variables before running terraform:
+# export OKTA_ORG_NAME="your-dev-org"
+# export OKTA_BASE_URL="oktapreview.com"  # or "okta.com"
+# export OKTA_API_TOKEN="your-api-token"
+
+# EXERCISE INSTRUCTIONS:
+# 1. Copy this file to terraform.tfvars
+# 2. Start with enable_drivers = false
+# 3. Run: terraform init && terraform plan && terraform apply
+# 4. Check teams in Okta admin console
+# 5. Set enable_drivers = true in terraform.tfvars
+# 6. Run: terraform plan (see the driver module changes!)
+# 7. Run: terraform apply (deploy the full infrastructure!)
+# 8. Experiment with adding new teams or drivers

@@ -224,57 +224,63 @@ This lab includes **interactive guided tours** that walk you through the code st
 - 📝 **Check workspace**: Ensure you're in the `terraform-101-okta` directory
 - 📝 **Manual navigation**: Open tour files directly from `.tours/` folder
 
-## 🏁 Exercises
+## 🏁 Progressive Learning with Modules
 
-### 🏎️ Exercise 1: Team Formation (30 minutes)
-**Learn**: Basic Terraform workflow, providers, simple resources
-**CodeTour**: Use "Team Formation" tour for guided walkthrough
+This lab now uses a **module-based architecture** that demonstrates production-quality Terraform patterns!
 
-Create four teams as Okta groups:
-- Velocity Racing
-- Thunder Motors 
-- Phoenix Speed
-- Storm Racing
+### 🏎️ Exercise 1: Racing Teams Module (20 minutes)
+**Learn**: Module basics, single state management, variable-driven configuration
 
-**Key Concepts**: `terraform init`, `terraform plan`, `terraform apply`, basic resource syntax
+Deploy F1 racing teams using the `racing-teams` module:
+- Start with `enable_drivers = false` in `terraform.tfvars`
+- Create four teams: Velocity Racing, Thunder Motors, Phoenix Speed, Storm Racing
+- Observe clean module outputs and single state file
 
-### 🏎️ Exercise 2: Driver Roster (45 minutes)
-**Learn**: Variables, locals, resource dependencies, data sources, for_each loops
-**CodeTour**: Use "Driver Management" tour for guided walkthrough
+**Key Concepts**: Module composition, variable patterns, progressive deployment
 
-Add racing drivers to your teams:
-- Create users with racing-specific profiles
-- Assign drivers to teams using group memberships
-- Calculate team statistics and analytics
+### 🏎️ Exercise 2: Racing Drivers Module (25 minutes)  
+**Learn**: Module dependencies, conditional deployment, real-world patterns
 
-**Key Concepts**: `for_each`, data sources, complex locals, resource dependencies
+Add drivers using the `racing-drivers` module:
+- Set `enable_drivers = true` in `terraform.tfvars`
+- Watch how modules pass data between each other
+- See drivers automatically assigned to their teams
 
-### 🏎️ Exercise 3: Race Operations (Coming Soon)
-**Learn**: Applications, assignments, outputs
+**Key Concepts**: Module dependencies, conditional resources, output composition
 
-*This exercise is under development and will be available in the next version.*
+### 🏎️ What Makes This Special
+✅ **Single State File**: All resources managed in one state (best practice!)
+✅ **Module Dependencies**: See how `racing-drivers` depends on `racing-teams` outputs
+✅ **Progressive Deployment**: Deploy teams first, then drivers - real-world pattern
+✅ **Production Patterns**: Code structure you'd use in actual projects
 
 ## 📁 Repository Structure
 
 ```
 terraform-101-okta/
-├── README.md                    # This file
-├── main.tf                      # Core Terraform configuration
-├── variables.tf                 # Input variables
-├── outputs.tf                   # Output definitions
-├── terraform.tfvars.example    # Example configuration
+├── README.md                    # This file - updated for module architecture
+├── main.tf                      # Root configuration - orchestrates modules
+├── variables.tf                 # All input variables
+├── outputs.tf                   # All outputs from modules  
+├── terraform.tfvars.example    # Progressive deployment examples
+├── modules/                     # 🆕 Production-quality modules
+│   ├── racing-teams/           # Creates F1 teams as Okta groups
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   └── racing-drivers/         # Creates drivers and team assignments
+│       ├── main.tf
+│       ├── variables.tf
+│       └── outputs.tf
+├── exercises/                   # 📁 Original step-by-step exercises (legacy)
+│   ├── 01-team-formation/      # Now superseded by modules approach
+│   └── 02-driver-roster/       # Now superseded by modules approach
 ├── .devcontainer/              # Codespaces configuration
-│   ├── devcontainer.json       # Container setup
-│   └── setup.sh                # Environment setup script
-├── exercises/                   # Step-by-step exercises
-│   ├── 01-team-formation/      # Exercise 1 - creating teams
-│   └── 02-driver-roster/       # Exercise 2 - managing drivers
 ├── solutions/                   # Complete solutions (future)
 └── .tours/                      # Interactive CodeTour guides
-    ├── f1-terraform-basics.tour    # Fundamental concepts tour
-    ├── team-formation.tour         # Exercise 1 guided walkthrough  
-    └── driver-management.tour      # Exercise 2 guided walkthrough
 ```
+
+**🚀 New Module-Based Approach**: The lab now demonstrates production-ready patterns with proper module structure!
 
 ## 🛠️ Terraform Commands Reference
 
@@ -303,9 +309,13 @@ terraform destroy
 ## 🏁 Getting Started
 
 1. **Set up your environment** following the Quick Start above
-2. **Navigate to Exercise 1**: `cd exercises/01-team-formation`
-3. **Follow the README** in the exercise directory
-4. **Future exercises**: Additional exercises will be added in upcoming versions
+2. **Stay in the root directory**: Work directly from `terraform-101-okta/` (no cd needed!)
+3. **Copy configuration**: `cp terraform.tfvars.example terraform.tfvars`
+4. **Start with teams**: Ensure `enable_drivers = false` in `terraform.tfvars`
+5. **Initialize and deploy**: `terraform init && terraform apply`
+6. **Progress to drivers**: Set `enable_drivers = true` and `terraform apply` again
+
+**🎯 That's it!** You'll experience both modules deploying in a single, cohesive workflow.
 
 ## 🔧 Troubleshooting
 
