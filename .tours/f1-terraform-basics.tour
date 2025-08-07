@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "🏁 Formula 1 Terraform Basics",
+  "title": "1: 🏁 Formula 1 Terraform Basics",
+  "nextTour": "2: 🏁 Module-Based Team Formation",
   "description": "Welcome to the pit lane! This tour introduces Terraform fundamentals using our racing team infrastructure.",
   "steps": [
     {

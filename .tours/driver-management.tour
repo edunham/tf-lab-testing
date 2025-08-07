@@ -1,6 +1,6 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "🏎️ Progressive Driver Deployment",
+  "title": "3: 🏎️ Progressive Driver Deployment",
   "description": "See module-based driver deployment in action! Learn module dependencies, conditional deployment, and how teams and drivers work together in production patterns.",
   "steps": [
     {
