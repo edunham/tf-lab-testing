@@ -6,7 +6,7 @@
     {
       "file": "README.md",
       "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\n```bash\necho \"Org Name: $OKTA_ORG_NAME\"\necho \"Base URL: $OKTA_BASE_URL\" \necho \"Token loaded: $([ -n \"$OKTA_API_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")\"\n```\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name: $OKTA_ORG_NAME'\necho 'Base URL: $OKTA_BASE_URL'\necho 'Token loaded: ' && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo '✅ Yes' || echo '❌ No'\"]) to verify your credentials are still loaded.\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
     },
     {
       "file": "terraform.tfvars.example",
@@ -55,7 +55,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🏁 Deploy Your Racing Drivers!\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   ```bash\n   # Edit terraform.tfvars\n   # Change: enable_drivers = false\n   # To:     enable_drivers = true\n   ```\n\n2. **Plan the driver deployment:**\n   ```bash\n   terraform plan  # Should show drivers module will be deployed\n   ```\n\n3. **Deploy drivers:**\n   ```bash\n   terraform apply  # Adds drivers to existing teams!\n   ```\n\n**Success criteria:** Drivers created and assigned to teams, single state file managing everything!\n\n**🚀 You've learned production-quality Terraform patterns!**"
+      "description": "# 🏁 Deploy Your Racing Drivers!\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   Edit `terraform.tfvars` and change:\n   ```\n   # Change: enable_drivers = false\n   # To:     enable_drivers = true\n   ```\n\n2. **Plan the driver deployment:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to see the drivers module changes.\n\n3. **Deploy drivers:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to add drivers to existing teams!\n\n**Success criteria:** Drivers created and assigned to teams, single state file managing everything!\n\n**🏆 Verify Your Victory:** After applying, check your [Okta Admin Console](https://placeholder-org.oktapreview.com/admin/dashboard):\n- **Directory** → **Groups** → Click on a racing team → **People tab** to see your drivers!\n- **Directory** → **People** to see all your racing drivers\n\n**🚀 You've learned production-quality Terraform patterns!**"
     }
   ]
 }

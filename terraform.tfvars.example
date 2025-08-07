@@ -107,7 +107,7 @@ league_configuration = {
 
 # REMEMBER: Set your Okta environment variables before running terraform:
 # export OKTA_ORG_NAME="your-dev-org"
-# export OKTA_BASE_URL="oktapreview.com"  # or "okta.com"
+# export OKTA_BASE_URL="oktapreview.com"  # for lab orgs (default) or "okta.com" for personal accounts
 # export OKTA_API_TOKEN="your-api-token"
 
 # EXERCISE INSTRUCTIONS:

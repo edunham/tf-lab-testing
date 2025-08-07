@@ -47,9 +47,5 @@
     }
   },
 
-  "forwardPorts": [8080],
-
-  "mounts": [
-    "source=${localWorkspaceFolder}/.terraform,target=/workspace/.terraform,type=bind,consistency=cached"
-  ]
+  "forwardPorts": [8080]
 }

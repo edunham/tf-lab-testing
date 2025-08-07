@@ -7,7 +7,23 @@
     {
       "file": "main.tf",
       "line": 1,
-      "description": "# 🏎️ Welcome to the Racing Lab!\n\nWelcome to our Formula 1 Terraform lab! Just like a race car is built from many precisely engineered components, our infrastructure is defined using **Infrastructure as Code** with Terraform.\n\n**What you'll learn:**\n- How Terraform manages infrastructure\n- Okta provider configuration\n- Racing team resource definitions\n- F1-themed practical examples\n\nReady to start your engines? Let's go! 🏁"
+      "description": "# 🏎️ Welcome to the Racing Lab!\n\nWelcome to our Formula 1 Terraform lab! Just like a race car is built from many precisely engineered components, our infrastructure is defined using **Infrastructure as Code** with Terraform.\n\n**What you'll learn:**\n- How Terraform manages infrastructure\n- Okta provider configuration\n- Racing team resource definitions\n- F1-themed practical examples\n\n**First, we need to set up your Okta credentials!** Let's get you connected to your racing command center! 🏁"
+    },
+    {
+      "directory": ".",
+      "description": "# 🔐 Step 1: Create Your API Token\n\n**You'll need an API token to manage your Okta organization.**\n\n**To create your API token:**\n1. **Open your Okta Admin Console** in a new tab\n2. **Navigate to:** Security → API → Tokens tab\n3. **Click:** \"Create Token\"\n4. **Name it:** \"Terraform Racing Lab\"\n5. **Set IP restrictions:** Select \"Any IP\" (for lab purposes)\n6. **Click:** \"Create Token\"\n7. **COPY THE TOKEN IMMEDIATELY** - you won't see it again!\n\n**⚠️ Important:** Keep this token safe - it's like the keys to your racing team headquarters!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🔧 Step 2: Store Your Secrets Securely\n\n**GitHub Codespaces provides secure secret storage for your API credentials.**\n\n**Set up your Codespace secrets:**\n1. **Open:** [GitHub Codespaces Secrets](https://github.com/settings/codespaces)\n2. **Click:** \"New secret\" and create these **3 secrets**:\n\n| Secret Name | Value | Your Example |\n|-------------|-------|--------------|\n| `OKTA_ORG_NAME` | Your org name (before .oktapreview.com) | `dev-123456` |\n| `OKTA_BASE_URL` | Your base URL | `oktapreview.com` |\n| `OKTA_API_TOKEN` | Your API token from Step 1 | `00abc123def456...` |\n\n3. **For each secret:** Select this repository in \"Repository access\"\n4. **Restart your Codespace** to load the secrets\n\n**🔒 Why this way?** Keeps credentials secure and out of your code!"
+    },
+    {
+      "directory": ".",
+      "description": "# ✅ Step 3: Verify Your Environment\n\n**Let's make sure your racing communication system is working!**\n\n**Check your environment variables:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name: $OKTA_ORG_NAME'\necho 'Base URL: $OKTA_BASE_URL'\necho 'Token loaded: ' && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo '✅ Yes' || echo '❌ No'\"]) to verify your credentials are loaded.\n\n**Expected output:**\n- Org Name: dev-123456 (your org)\n- Base URL: oktapreview.com\n- Token loaded: ✅ Yes\n\n**❌ If any are missing:** Your secrets aren't loaded - restart your Codespace!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🔌 Step 4: Test Your Connection\n\n**Let's verify you can communicate with race control!**\n\n**Test your Okta API connection:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"curl -H 'Authorization: SSWS $OKTA_API_TOKEN' 'https://$OKTA_ORG_NAME.$OKTA_BASE_URL/api/v1/users/me'\"]) to test your API connection.\n\n**Expected result:** JSON data about your user account\n\n**✅ Success:** You should see your user information in JSON format  \n**❌ Error:** Check your token and org name - one might be incorrect\n\n**🏁 Ready to race?** Your pit crew (credentials) are ready!"
     },
     {
       "file": "main.tf",

@@ -7,7 +7,7 @@
     {
       "file": "README.md",
       "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\n```bash\necho \"Org Name: $OKTA_ORG_NAME\"\necho \"Base URL: $OKTA_BASE_URL\" \necho \"Token loaded: $([ -n \"$OKTA_API_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")\"\n```\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name: $OKTA_ORG_NAME'\necho 'Base URL: $OKTA_BASE_URL'\necho 'Token loaded: ' && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo '✅ Yes' || echo '❌ No'\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
     },
     {
       "file": "terraform.tfvars.example",
@@ -17,7 +17,7 @@
     {
       "file": "terraform.tfvars.example",
       "line": 114,
-      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\n```bash\ncp terraform.tfvars.example terraform.tfvars\n```\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to copy the file and start?** 🏁"
+      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example configuration.\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to copy the file and start?** 🏁"
     },
     {
       "file": "main.tf",
@@ -56,7 +56,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🏁 Ready to Deploy Your Racing Teams!\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   ```bash\n   echo \"Org: $OKTA_ORG_NAME\" # Should show your org\n   ```\n\n2. **Copy and customize configuration:**\n   ```bash\n   cp terraform.tfvars.example terraform.tfvars\n   # Ensure enable_drivers = false for now\n   ```\n\n3. **Deploy teams module:**\n   ```bash\n   terraform init\n   terraform plan  # Should show 4 teams, drivers module skipped\n   terraform apply # Deploy!\n   ```\n\n**Success criteria:** 4 racing teams in Okta, clean module-based output!\n\n**Next:** Set `enable_drivers = true` and see the magic! 🚀"
+      "description": "# 🏁 Ready to Deploy Your Racing Teams!\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo 'Org: $OKTA_ORG_NAME'\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n   (Ensure enable_drivers = false for now)\n\n3. **Deploy teams module:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to initialize.\n   Then [plan](command:codetour.sendTextToTerminal?[\"terraform plan\"]) and [apply](command:codetour.sendTextToTerminal?[\"terraform apply\"]) when ready!\n\n**Success criteria:** 4 racing teams in Okta, clean module-based output!\n\n**🏆 Verify Your Victory:** After applying, open your [Okta Admin Console](https://placeholder-org.oktapreview.com/admin/dashboard) → **Directory** → **Groups** to see your racing teams!\n\n**Next:** Set `enable_drivers = true` and see the magic! 🚀"
     }
   ]
 }

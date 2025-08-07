@@ -26,7 +26,7 @@ terraform {
 # Configure the Okta Provider
 # Authentication happens through environment variables:
 # - OKTA_ORG_NAME: your Okta organization name
-# - OKTA_BASE_URL: okta.com or oktapreview.com  
+# - OKTA_BASE_URL: oktapreview.com (for lab orgs) or okta.com (for personal accounts)  
 # - OKTA_API_TOKEN: your API token
 provider "okta" {
   # All configuration comes from environment variables

@@ -75,7 +75,7 @@ Your Okta organization has specific URL formats:
 
 - **Full Org URL**: `https://dev-123456.okta.com` (what you see in the browser)
 - **Org Name**: `dev-123456` (the part before `.okta.com`)
-- **Base URL**: `okta.com`
+- **Base URL**: `oktapreview.com` (for lab-provided orgs) or `okta.com` (for personal orgs)
 
 
 ### Launch Environment
@@ -98,7 +98,7 @@ GitHub Codespaces provides **secure secrets management** for sensitive data like
    | Secret Name | Value | Example |
    |-------------|-------|---------|
    | `OKTA_ORG_NAME` | Your org name (before .okta.com) | `dev-123456` |
-   | `OKTA_BASE_URL` | Your base URL | `okta.com` |
+   | `OKTA_BASE_URL` | Your base URL | `oktapreview.com` |
    | `OKTA_API_TOKEN` | Your API token from Step 3 | `00abc123def456...` |
 
 2. **Grant repository access**:
@@ -349,7 +349,7 @@ terraform destroy
 
 **"Could not resolve host" or connection errors**
 - **Check your org name**: Run `echo $OKTA_ORG_NAME` - should be just `dev-123456`, not the full URL
-- **Check your base URL**: Run `echo $OKTA_BASE_URL` - should be `okta.com` for integrator accounts
+- **Check your base URL**: Run `echo $OKTA_BASE_URL` - should be `oktapreview.com` for lab orgs or `okta.com` for personal integrator accounts
 - **Verify your org is active**: Try logging into the Okta admin console manually
 
 **"Insufficient permissions" errors**
