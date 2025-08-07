@@ -11,7 +11,17 @@
     },
     {
       "file": "main.tf",
-      "line": 5,
+      "line": 24,
+        "selection": {
+      "start": {
+        "line": 15,
+        "character": 1
+      },
+       "end": {
+          "line": 24,
+          "character": 30
+        }
+      },
       "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\nJust like F1 cars must meet specific technical requirements, our Terraform code must declare its dependencies upfront."
     },
     {
