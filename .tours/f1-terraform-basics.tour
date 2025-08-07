@@ -12,12 +12,12 @@
     {
       "file": "main.tf",
       "line": 24,
-        "selection": {
-      "start": {
-        "line": 15,
-        "character": 1
-      },
-       "end": {
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 1
+        },
+        "end": {
           "line": 24,
           "character": 30
         }
@@ -26,38 +26,88 @@
     },
     {
       "file": "main.tf",
-      "line": 8,
+      "line": 23,
+      "selection": {
+        "start": {
+          "line": 18,
+          "character": 1
+        },
+        "end": {
+          "line": 23,
+          "character": 30
+        }
+      },
       "description": "# 🏆 Provider Requirements\n\nThe `required_providers` block is like declaring which tire manufacturer we'll use for the race:\n\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\nThe Okta provider gives us resources to manage identity and access - perfect for our racing team organization!"
     },
     {
       "file": "main.tf",
-      "line": 18,
+      "line": 30,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 1
+        },
+        "end": {
+          "line": 30,
+          "character": 40
+        }
+      },
       "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use environment variables for credentials:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - Usually oktapreview.com for dev\n- `OKTA_API_TOKEN` - Your API authentication token\n\nThis keeps sensitive data out of our code, just like keeping radio frequencies secure! 📻"
     },
     {
       "file": "main.tf",
-      "line": 39,
+      "line": 45,
+      "selection": {
+        "start": {
+          "line": 39,
+          "character": 1
+        },
+        "end": {
+          "line": 45,
+          "character": 40
+        }
+      },
       "description": "# 🏁 Racing Teams Module\n\n**NEW: Module-based architecture!** Instead of individual resources, we use modules - this is a production-quality pattern!\n\n**Key concepts:**\n- **Modules** organize related resources together\n- **Source** points to our local module directory\n- **Input variables** pass data to the module\n- **Reusability** - modules can be used in different configurations\n\nThis is how real companies structure their Terraform code! 🏗️"
     },
     {
       "file": "main.tf",
-      "line": 51,
+      "line": 64,
+      "selection": {
+        "start": {
+          "line": 51,
+          "character": 1
+        },
+        "end": {
+          "line": 64,
+          "character": 40
+        }
+      },
       "description": "# 🏎️ Racing Drivers Module (Conditional)\n\n**Advanced pattern:** Conditional module deployment!\n\n**Key features:**\n- `count = var.enable_drivers ? 1 : 0` - Deploy only when enabled\n- **Module dependencies** - drivers module uses outputs from teams module\n- **Progressive deployment** - deploy teams first, then drivers\n\n**Real-world value:** This pattern lets you deploy infrastructure incrementally, which is crucial for production environments!"
     },
     {
       "file": "main.tf",
-      "line": 62,
-      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\n```hcl\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n**Why this matters:** This prevents the state file conflicts we fixed! 🎯"
+      "line": 63,
+      "selection": {
+        "start": {
+          "line": 62,
+          "character": 1
+        },
+        "end": {
+          "line": 63,
+          "character": 55
+        }
+      },
+      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\n```\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n**Why this matters:** This prevents the state file conflicts we fixed! 🎯"
     },
     {
       "file": "variables.tf",
       "line": 1,
-      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings!\n\n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\nClick through to see how team data is structured!"
+      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings! \n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\nNotice that `variables.tf` has been opened for you. Scroll through to see how team data is structured!"
     },
     {
       "file": "outputs.tf",
       "line": 1,
-      "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!"
+      "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!\n\nNotice that `outputs.tf` has been opened for you.\n"
     },
     {
       "file": "README.md",
