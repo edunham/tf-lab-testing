@@ -1,6 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "🏁 Module-Based Team Formation",
+  "title": "2: 🏁 Module-Based Team Formation",
+  "nextTour": "3: 🏎️ Progressive Driver Deployment",
   "description": "Learn production-quality Terraform with modules! Create racing teams using modern Infrastructure as Code patterns.",
   "steps": [
     {
