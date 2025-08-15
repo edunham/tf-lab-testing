@@ -56,7 +56,23 @@
     },
     {
       "directory": ".",
-      "description": "# 🏁 Ready to Deploy Your Racing Teams!\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo 'Org: $OKTA_ORG_NAME'\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n   (Ensure enable_drivers = false for now)\n\n3. **Deploy teams module:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to initialize.\n   Then [plan](command:codetour.sendTextToTerminal?[\"terraform plan\"]) and [apply](command:codetour.sendTextToTerminal?[\"terraform apply\"]) when ready!\n\n**Success criteria:** 4 racing teams in Okta, clean module-based output!\n\n**🏆 Verify Your Victory:** After applying, open your [Okta Admin Console](https://placeholder-org.oktapreview.com/admin/dashboard) → **Directory** → **Groups** to see your racing teams!\n\n**Next:** Set `enable_drivers = true` and see the magic! 🚀"
+      "description": "# 📋 Pre-flight Checklist\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo 'Org: $OKTA_ORG_NAME'\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n   (Ensure enable_drivers = false for now)\n\n3. **Initialize Terraform:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to download providers and initialize modules.\n\n**✅ Environment ready!** Let's check what exists before we make changes."
+    },
+    {
+      "directory": ".",
+      "description": "# 👀 Check Your Okta Dashboard - BEFORE\n\n**IMPORTANT:** Before running any terraform commands, let's see what's currently in your Okta org!\n\n🔍 **Go to your Okta Admin Console and check the Groups page**\n- You should see just \"Everyone\" and maybe a few default groups\n- Note what exists now so you can see the difference after Terraform runs\n\n**🎯 Why check first?**\n- See the \"before\" state\n- Appreciate the changes Terraform will make\n- Troubleshoot if things don't look right later\n\n**Ready to proceed?** Keep that browser tab open - you'll check again after deployment!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏁 Deploy Your Racing Teams!\n\n**Now let's create some infrastructure!**\n\n**4. Plan your deployment:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the changes.\n   \n   **📋 Review the plan carefully:** You should see 4 `okta_group` resources being created!\n\n**5. Apply the changes:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) when ready!\n   \n   **💡 Type `yes` when prompted** to confirm the deployment.\n\n**Success criteria:** 4 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**⏰ This should take 10-30 seconds** - Terraform is talking to Okta's API!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏆 Check Your Okta Dashboard - AFTER\n\n**Time to see your infrastructure magic!**\n\n🔍 **Go back to your Okta Groups page and refresh it**\n- You should now see 4 new racing teams:\n  - 🏎️ **Velocity Racing** (aerodynamics specialists)\n  - ⚡ **Thunder Racing** (speed-focused team)\n  - 🔥 **Apex Racing** (precision-focused team)  \n  - 🚀 **Quantum Racing** (technology innovators)\n\n🔍 **Click on any team to see the rich descriptions with:**\n- Team principals, home circuits, and specialties\n- Season information\n- **(No drivers yet - that's next!)**\n\n**✅ Success?** Your Infrastructure as Code is working! 🎉"
+    },
+    {
+      "directory": ".",
+      "description": "# 🚀 Next Steps - Progressive Deployment\n\n**🎯 What you just accomplished:**\n- ✅ Module-based Terraform deployment\n- ✅ Progressive infrastructure rollout (teams first)\n- ✅ Production-quality patterns\n- ✅ Verified results in Okta dashboard\n\n**🏎️ Ready for drivers?**\n- Edit `terraform.tfvars` and change `enable_drivers = false` to `true`\n- Run `terraform apply` again to add drivers to your teams!\n- The conditional module pattern will deploy the drivers module\n\n**🏁 You've learned production Terraform patterns!** This incremental deployment approach is exactly how real companies roll out infrastructure. Ready for the next tour? 🚀"
     }
   ]
 }

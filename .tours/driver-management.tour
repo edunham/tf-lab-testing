@@ -55,7 +55,23 @@
     },
     {
       "directory": ".",
-      "description": "# 🏁 Deploy Your Racing Drivers!\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   Edit `terraform.tfvars` and change:\n   ```\n   # Change: enable_drivers = false\n   # To:     enable_drivers = true\n   ```\n\n2. **Plan the driver deployment:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to see the drivers module changes.\n\n3. **Deploy drivers:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to add drivers to existing teams!\n\n**Success criteria:** Drivers created and assigned to teams, single state file managing everything!\n\n**🏆 Verify Your Victory:** After applying, check your [Okta Admin Console](https://placeholder-org.oktapreview.com/admin/dashboard):\n- **Directory** → **Groups** → Click on a racing team → **People tab** to see your drivers!\n- **Directory** → **People** to see all your racing drivers\n\n**🚀 You've learned production-quality Terraform patterns!**"
+      "description": "# 📋 Pre-Driver Deployment Checklist\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   Edit `terraform.tfvars` and change:\n   ```\n   # Change: enable_drivers = false\n   # To:     enable_drivers = true\n   ```\n\n**✅ Configuration updated!** Time to check current state before adding drivers."
+    },
+    {
+      "directory": ".",
+      "description": "# 👀 Check Your Okta Dashboard - BEFORE Drivers\n\n**IMPORTANT:** Let's verify your racing teams are ready for drivers!\n\n🔍 **Go to your Okta Groups page and verify your 4 racing teams exist:**\n- 🏎️ Velocity Racing\n- ⚡ Thunder Racing \n- 🔥 Apex Racing\n- 🚀 Quantum Racing\n\n🔍 **Click on any team → People tab → Should show 0 members**\n\n🔍 **Go to your Okta People page → Should show just admin users**\n\n**🎯 Why check first?** You'll see the dramatic difference after adding drivers!\n\n**Ready to add some racing talent?** 🏁"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏁 Deploy Your Racing Drivers!\n\n**Now let's add the racing talent!**\n\n2. **Plan the driver deployment:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to see the drivers module changes.\n   \n   **📋 Review carefully:** You should see multiple `okta_user` and `okta_group_memberships` resources!\n\n3. **Deploy drivers:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to add drivers to existing teams!\n   \n   **💡 Type `yes` when prompted** to confirm adding drivers.\n\n**Success criteria:** Drivers created and assigned to teams, single state file managing everything!\n\n**⏰ This will take 30-60 seconds** - Creating users and memberships via API!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏆 Check Your Okta Dashboard - AFTER Drivers\n\n**Time to see your complete F1 organization!**\n\n🔍 **Go back to your Okta Groups page → Click on each racing team → People tab**\n- You should see drivers like:\n  - Max Speedwell, Sarah Velocity (Velocity Racing)\n  - Jake Thunder, Emma Lightning (Thunder Racing)\n  - Liam Apex, Sophia Precision (Apex Racing)\n  - Noah Quantum, Ava Innovation (Quantum Racing)\n\n🔍 **Go to your Okta People page**\n- You should see all 8 racing drivers with F1-themed names\n- Click on any driver to see their profile and group memberships\n\n**✅ Success?** You've deployed a complete racing organization with Infrastructure as Code! 🎉"
+    },
+    {
+      "directory": ".",
+      "description": "# 🚀 Mission Accomplished!\n\n**🎯 What you just mastered:**\n- ✅ **Progressive deployment** patterns (teams → drivers)\n- ✅ **Module dependencies** and data sharing\n- ✅ **Conditional resource deployment** (`count` patterns)\n- ✅ **Single state file management** (no conflicts!)\n- ✅ **Before/after verification** workflow\n- ✅ **Production-quality Terraform** architecture\n\n**🏁 Real-World Skills Gained:**\n- How to structure Terraform modules\n- Progressive infrastructure rollouts\n- Proper state management\n- API integration verification\n\n**🏆 Congratulations!** You've learned enterprise-grade Infrastructure as Code patterns using a fun F1 theme. These are the exact patterns used by major companies to manage their infrastructure at scale!\n\n**Ready for cleanup?** Run `terraform destroy` when you're done exploring!"
     }
   ]
 }
