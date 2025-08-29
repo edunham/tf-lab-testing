@@ -7,17 +7,17 @@
     {
       "file": "README.md",
       "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name: $OKTA_ORG_NAME'\necho 'Base URL: $OKTA_BASE_URL'\necho 'Token loaded: ' && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo '✅ Yes' || echo '❌ No'\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org Name: $OKTA_ORG_NAME\\\"; echo \\\"Base URL: $OKTA_BASE_URL\\\"; echo \\\"Token loaded: \\\" && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo \\\"✅ Yes\\\" || echo \\\"❌ No\\\"\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
     },
     {
       "file": "terraform.tfvars.example",
       "line": 9,
-      "description": "# ⚙️ Progressive Deployment Control\n\n**Key concept:** The new module architecture uses progressive deployment!\n\n**Start with teams only:**\n```hcl\nenable_drivers = false  # Teams first!\n```\n\n**Later, add drivers:**\n```hcl\nenable_drivers = true   # Full infrastructure!\n```\n\n**Why this rocks:** Learn incrementally while following production patterns! Real companies deploy infrastructure in stages. 🚀"
+      "description": "# ⚙️ Progressive Deployment Control\n\n**Key concept:** The new module architecture uses progressive deployment!\n\nIn the code above, we currently start with teams only:\n\n`enable_drivers = false  # Teams first!`\n\nLater, we will add drivers by setting the `enable_drivers` variable to true!\n\n**Why this rocks:** Learn incrementally while following production patterns! Real companies deploy infrastructure in stages. 🚀"
     },
     {
       "file": "terraform.tfvars.example",
       "line": 114,
-      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example configuration.\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to copy the file and start?** 🏁"
+      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example configuration.\n\n**Next we'll learn about some key commands - don't run them yet!**\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to start?** 🏁"
     },
     {
       "file": "main.tf",
@@ -27,12 +27,32 @@
     {
       "file": "modules/racing-teams/main.tf",
       "line": 18,
-      "description": "# 🏎️ Module Resource Creation\n\n**Inside the module:** Here's where the real work happens!\n\n**Key pattern:**\n```hcl\nresource \"okta_group\" \"racing_teams\" {\n  for_each = var.racing_teams\n```\n\n**What this does:**\n- Creates one group per team in the racing_teams variable\n- Uses `for_each` for scalable resource creation\n- Builds descriptions dynamically from structured data\n\n**Real benefit:** Add a 5th team by just updating variables! 📈"
+      "selection": {
+        "start": {
+          "line": 18,
+          "character": 1
+        },
+        "end": {
+          "line": 19,
+          "character": 40
+        }
+      },
+      "description": "# 🏎️ Module Resource Creation\n\n**Inside the module:** Here's where the real work happens!\n\nNotice the key pattern in the highlighted code above.\n\n**What this does:**\n- Creates one group per team in the racing_teams variable\n- Uses `for_each` for scalable resource creation\n- Builds descriptions dynamically from structured data\n\n**Real benefit:** Add a 5th team by just updating variables! 📈"
     },
     {
       "file": "modules/racing-teams/main.tf",
-      "line": 35,
-      "description": "# 🎨 Dynamic Description Building\n\n**Smart string interpolation:**\n```hcl\ndescription = \"${each.value.description} | Team Principal: ${each.value.team_principal} | ...\"\n```\n\n**What you get:**\n- Consistent formatting across all teams\n- Rich metadata in descriptions\n- Easy to modify the template in one place\n\n**Example result:** \"Speed-focused racing team... | Team Principal: Sam Velocity | Home Circuit: Monaco Street Circuit | Specialty: Aerodynamics | Season: 2025\""
+      "line": 25,
+      "selection": {
+        "start": {
+          "line": 25,
+          "character": 3
+        },
+        "end": {
+          "line": 25,
+          "character": 180
+        }
+      },
+      "description": "# 🎨 Dynamic Description Building\n\n**Smart string interpolation in the highlighted code above.**\n\n**What you get:**\n- Consistent formatting across all teams\n- Rich metadata in descriptions\n- Easy to modify the template in one place\n\n**Example result:** \"Speed-focused racing team... | Team Principal: Sam Velocity | Home Circuit: Monaco Street Circuit | Specialty: Aerodynamics | Season: 2025\""
     },
     {
       "file": "modules/racing-teams/outputs.tf",
@@ -41,22 +61,42 @@
     },
     {
       "file": "main.tf",
-      "line": 51,
-      "description": "# 🏁 Conditional Drivers Module\n\n**Advanced pattern:** Module with conditional deployment!\n\n```hcl\ncount = var.enable_drivers ? 1 : 0\n```\n\n**What this means:**\n- When `enable_drivers = false`: Module not deployed (0 instances)\n- When `enable_drivers = true`: Module deployed (1 instance)\n\n**Real-world value:** Deploy infrastructure incrementally, perfect for environments where you need staged rollouts!"
+      "line": 55,
+      "selection": {
+        "start": {
+          "line": 55,
+          "character": 3
+        },
+        "end": {
+          "line": 55,
+          "character": 40
+        }
+      },
+      "description": "# 🏁 Conditional Drivers Module\n\n**Advanced pattern:** Module with conditional deployment!\n\nNotice the key pattern in the highlighted code above.\n\n**What this means:**\n- When `enable_drivers = false`: Module not deployed (0 instances)\n- When `enable_drivers = true`: Module deployed (1 instance)\n\n**Real-world value:** Deploy infrastructure incrementally, perfect for environments where you need staged rollouts!"
     },
     {
       "file": "main.tf",
       "line": 62,
-      "description": "# 🔄 Module Data Flow\n\n**See the dependency chain:**\n```hcl\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**Data flow:** racing_teams module → outputs → racing_drivers module inputs\n\n**Critical best practice:** This prevents the state file conflicts we had before! All resources managed in one state file, with proper dependencies. 🎯"
+      "selection": {
+        "start": {
+          "line": 62,
+          "character": 3
+        },
+        "end": {
+          "line": 63,
+          "character": 60
+        }
+      },
+      "description": "# 🔄 Module Data Flow\n\n**See the dependency chain in the highlighted code above.**\n\n**Data flow:** racing_teams module → outputs → racing_drivers module inputs\n\n**Critical best practice:** This prevents the state file conflicts we had before! All resources managed in one state file, with proper dependencies. 🎯"
     },
     {
       "file": "outputs.tf",
       "line": 5,
-      "description": "# 📊 Progressive Output Display\n\n**Smart conditional outputs:**\n```hcl\nvalue = var.enable_drivers ? local.driver_outputs.created_drivers : {}\n```\n\n**What you'll see:**\n- **Teams only:** Team information and \"drivers not enabled\" messages\n- **Full deployment:** Complete team and driver information\n\n**Educational value:** Clear feedback on what's deployed and what's next! 📈"
+      "description": "# 📊 Progressive Output Display\n\n**Smart conditional outputs in the highlighted code above.**\n\n**What you'll see:**\n- **Teams only:** Team information and \"drivers not enabled\" messages\n- **Full deployment:** Complete team and driver information\n\n**Educational value:** Clear feedback on what's deployed and what's next! 📈"
     },
     {
       "directory": ".",
-      "description": "# 📋 Pre-flight Checklist\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo 'Org: $OKTA_ORG_NAME'\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n   (Ensure enable_drivers = false for now)\n\n3. **Initialize Terraform:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to download providers and initialize modules.\n\n**✅ Environment ready!** Let's check what exists before we make changes."
+      "description": "# 📋 Pre-flight Checklist\n\n**Your mission (stay in root directory):**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org: $OKTA_ORG_NAME\\\"\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n   (Ensure enable_drivers = false for now)\n\n3. **Initialize Terraform (terraform init):**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to download providers and initialize modules.\n\n**✅ Environment ready!** Let's check what exists before we make changes."
     },
     {
       "directory": ".",
@@ -64,7 +104,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🏁 Deploy Your Racing Teams!\n\n**Now let's create some infrastructure!**\n\n**4. Plan your deployment:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the changes.\n   \n   **📋 Review the plan carefully:** You should see 4 `okta_group` resources being created!\n\n**5. Apply the changes:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) when ready!\n   \n   **💡 Type `yes` when prompted** to confirm the deployment.\n\n**Success criteria:** 4 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**⏰ This should take 10-30 seconds** - Terraform is talking to Okta's API!"
+      "description": "# 🏁 Deploy Your Racing Teams!\n\n**Now let's create some infrastructure!**\n\n**4. Plan your deployment (terraform plan):**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the changes.\n   \n   **📋 Review the plan carefully:** Look for output showing:\n   - `# okta_group.racing_teams["velocity"]` will be created\n   - `# okta_group.racing_teams["thunder"]` will be created  \n   - `# okta_group.racing_teams["apex"]` will be created\n   - `# okta_group.racing_teams["quantum"]` will be created\n   - Plan summary: \"4 to add, 0 to change, 0 to destroy\"\n\n**5. Apply the changes (terraform apply):**\n   Select [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) when ready!\n   \n   **💡 Type `yes` when prompted** to confirm the deployment.\n\n**Success criteria:** 4 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**⏰ This should take 10-30 seconds** - Terraform is talking to Okta's API!"
     },
     {
       "directory": ".",
@@ -72,7 +112,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🚀 Next Steps - Progressive Deployment\n\n**🎯 What you just accomplished:**\n- ✅ Module-based Terraform deployment\n- ✅ Progressive infrastructure rollout (teams first)\n- ✅ Production-quality patterns\n- ✅ Verified results in Okta dashboard\n\n**🏎️ Ready for drivers?**\n- Edit `terraform.tfvars` and change `enable_drivers = false` to `true`\n- Run `terraform apply` again to add drivers to your teams!\n- The conditional module pattern will deploy the drivers module\n\n**🏁 You've learned production Terraform patterns!** This incremental deployment approach is exactly how real companies roll out infrastructure. Ready for the next tour? 🚀"
+      "description": "# 🚀 Next Steps - Progressive Deployment\n\n**🎯 What you just accomplished:**\n- ✅ Module-based Terraform deployment\n- ✅ Progressive infrastructure rollout (teams first)\n- ✅ Production-quality patterns\n- ✅ Verified results in Okta dashboard\n\n**🏎️ Ready for drivers? In the next section we will:**\n\n- Edit `terraform.tfvars` and change `enable_drivers = false` to `true`\n\n- Run `terraform apply` again to add drivers to your teams!\n\n- The conditional module pattern will deploy the drivers module\n\n**🏁 You've learned production Terraform patterns!** This incremental deployment approach is exactly how real companies roll out infrastructure. Ready for the next tour? 🚀"
     }
   ]
 }

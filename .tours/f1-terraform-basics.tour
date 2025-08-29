@@ -11,7 +11,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🔐 Step 1: Create Your API Token\n\n**You'll need an API token to manage your Okta organization.**\n\n**To create your API token:**\n1. **Open your Okta Admin Console** in a new tab\n2. **Navigate to:** Security → API → Tokens tab\n3. **Click:** \"Create Token\"\n4. **Name it:** \"Terraform Racing Lab\"\n5. **Set IP restrictions:** Select \"Any IP\" (for lab purposes)\n6. **Click:** \"Create Token\"\n7. **COPY THE TOKEN IMMEDIATELY** - you won't see it again!\n\n**⚠️ Important:** Keep this token safe - it's like the keys to your racing team headquarters!"
+      "description": "# 🔐 Step 1: Create Your API Token\n\n**You'll need an API token to manage your Okta organization.**\n\n**To create your API token:**\n1. **From the Okta Admin console, go to** Security → API → Tokens tab\n2. **Click:** \"Create Token\"\n3. **Name it:** \"Terraform Racing Lab\"\n4. **Set IP restrictions:** Select \"Any IP\" (for lab purposes)\n5. **Click:** \"Create Token\"\n6. **COPY THE TOKEN IMMEDIATELY** - you won't see it again! (We'll use this in the next step so you don't need to worry about pasting it anywhere just yet.)\n\n**⚠️ Important:** Keep this token safe - it's like the keys to your racing team headquarters!"
     },
     {
       "directory": ".",
@@ -19,11 +19,11 @@
     },
     {
       "directory": ".",
-      "description": "# ✅ Step 3: Verify Your Environment\n\n**Let's make sure your racing communication system is working!**\n\n**Check your environment variables:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name: $OKTA_ORG_NAME'\necho 'Base URL: $OKTA_BASE_URL'\necho 'Token loaded: ' && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo '✅ Yes' || echo '❌ No'\"]) to verify your credentials are loaded.\n\n**Expected output:**\n- Org Name: dev-123456 (your org)\n- Base URL: oktapreview.com\n- Token loaded: ✅ Yes\n\n**❌ If any are missing:** Your secrets aren't loaded - restart your Codespace!"
+      "description": "# ✅ Step 3: Verify Your Environment\n\n**Let's make sure your racing communication system is working!**\n\n**Check your environment variables:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org Name: $OKTA_ORG_NAME\\\"; echo \\\"Base URL: $OKTA_BASE_URL\\\"; echo \\\"Token loaded: \\\" && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo \\\"✅ Yes\\\" || echo \\\"❌ No\\\"\"]) to verify your credentials are loaded.\n\n**Expected output:**\n- Org Name: dev-123456 (your org)\n- Base URL: oktapreview.com\n- Token loaded: ✅ Yes\n\n**❌ If any are missing:** Your secrets aren't loaded - restart your Codespace!"
     },
     {
       "directory": ".",
-      "description": "# 🔌 Step 4: Test Your Connection\n\n**Let's verify you can communicate with race control!**\n\n**Test your Okta API connection:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"curl -H 'Authorization: SSWS $OKTA_API_TOKEN' 'https://$OKTA_ORG_NAME.$OKTA_BASE_URL/api/v1/users/me'\"]) to test your API connection.\n\n**Expected result:** JSON data about your user account\n\n**✅ Success:** You should see your user information in JSON format  \n**❌ Error:** Check your token and org name - one might be incorrect\n\n**🏁 Ready to race?** Your pit crew (credentials) are ready!"
+      "description": "# 🔌 Step 4: Test Your Connection\n\n**Let's verify you can communicate with race control!**\n\n**Test your Okta API connection:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"curl -H \\\"Authorization: SSWS $OKTA_API_TOKEN\\\" \\\"https://$OKTA_ORG_NAME.$OKTA_BASE_URL/api/v1/users/me\\\"\"]) to test your API connection.\n\n**Expected result:** JSON data about your user account\n\n**✅ Success:** You should see your user information in JSON format  \n**❌ Error:** Check your token and org name - one might be incorrect\n\n**🏁 Ready to race?** Your pit crew (credentials) are ready!"
     },
     {
       "file": "main.tf",
@@ -113,7 +113,7 @@
           "character": 55
         }
       },
-      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\n```\nteam_ids   = module.racing_teams.team_ids\nteam_names = module.racing_teams.team_names\n```\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n**Why this matters:** This prevents the state file conflicts we fixed! 🎯"
+      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\nSee the highlighted code above showing how team_ids and team_names are passed from one module to another.\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n**Why this matters:** This prevents the state file conflicts we fixed! 🎯"
     },
     {
       "file": "variables.tf",
@@ -128,7 +128,7 @@
     {
       "file": "README.md",
       "line": 1,
-      "description": "# 🏁 Ready to Race!\n\nCongratulations! You've completed the Terraform basics tour. You now understand:\n\n✅ **Module-based architecture** (production-quality patterns!)\n✅ **Progressive deployment** (teams first, then drivers)\n✅ **Single state file management** (critical best practice)\n✅ **Module dependencies** and data sharing\n✅ **F1-themed practical examples**\n\n**🎯 Important Pattern:** Throughout the next tours, you'll **check your Okta dashboard** before and after each `terraform apply` to:\n- See the \"before\" state\n- Verify changes were applied correctly  \n- Understand what Infrastructure as Code actually does\n\n**Next tour:** \"Module-Based Team Formation\" will walk you through the complete deployment workflow with dashboard verification!\n\n**Pro tip**: Always verify your infrastructure changes in the target system - it's a production best practice! 🚀"
+      "description": "# 🏁 Ready to Race!\n\nCongratulations! You've completed the Terraform basics tour. You now understand:\n\n✅ **Module-based architecture** (production-quality patterns!)\n\n✅ **Progressive deployment** (teams first, then drivers)\n\n✅ **Single state file management** (critical best practice)\n\n✅ **Module dependencies** and data sharing\n\n✅ **F1-themed practical examples**\n\n**🎯 Important Pattern:** Throughout the next tours, you'll **check your Okta dashboard** before and after each `terraform apply` to:\n\n- See the \"before\" state\n\n- Verify changes were applied correctly\n\n- Understand what Infrastructure as Code actually does\n\n**Next tour:** \"Module-Based Team Formation\" will walk you through the complete deployment workflow with dashboard verification!\n\n**Pro tip**: Always verify your infrastructure changes in the target system - it's a production best practice! 🚀"
     }
   ]
 }
