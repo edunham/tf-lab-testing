@@ -38,7 +38,7 @@
           "character": 30
         }
       },
-      "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\nJust like F1 cars must meet specific technical requirements, our Terraform code must declare its dependencies upfront."
+      "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\n**For broader infrastructure:** If we wanted to manage AWS, Azure, or other services alongside Okta, we'd add their providers here too. But since this lab focuses on identity management, Okta is our only provider.\n\nJust like F1 cars must meet specific technical requirements, our Terraform code must declare its dependencies upfront."
     },
     {
       "file": "main.tf",
@@ -53,7 +53,7 @@
           "character": 30
         }
       },
-      "description": "# 🏆 Provider Requirements\n\nThe `required_providers` block is like declaring which tire manufacturer we'll use for the race:\n\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\nThe Okta provider gives us resources to manage identity and access - perfect for our racing team organization!"
+      "description": "# 🏆 Provider Requirements\n\nThe `required_providers` block is like declaring which tire manufacturer we'll use for the race:\n\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\n**Automatic downloads:** When you run `terraform init`, Terraform automatically downloads the required providers from their sources. No manual installation needed!\n\nThe Okta provider gives us resources to manage identity and access - perfect for our racing team organization!"
     },
     {
       "file": "main.tf",
@@ -68,7 +68,7 @@
           "character": 40
         }
       },
-      "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use environment variables for credentials:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - Usually oktapreview.com for dev\n- `OKTA_API_TOKEN` - Your API authentication token\n\nThis keeps sensitive data out of our code, just like keeping radio frequencies secure! 📻"
+      "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use environment variables for credentials:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - Usually oktapreview.com for dev\n- `OKTA_API_TOKEN` - Your API authentication token\n\n**For work environments:** If you're using Terraform at your company, talk to your DevOps or platform teams first! They'll have established patterns for secrets management (like HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault) that you should follow.\n\nThis keeps sensitive data out of our code, just like keeping radio frequencies secure! 📻"
     },
     {
       "file": "main.tf",
@@ -83,7 +83,7 @@
           "character": 40
         }
       },
-      "description": "# 🏁 Racing Teams Module\n\n**NEW: Module-based architecture!** Instead of individual resources, we use modules - this is a production-quality pattern!\n\n**Key concepts:**\n- **Modules** organize related resources together\n- **Source** points to our local module directory\n- **Input variables** pass data to the module\n- **Reusability** - modules can be used in different configurations\n\nThis is how real companies structure their Terraform code! 🏗️"
+      "description": "# 🏁 Racing Teams Module\n\n**Module-based architecture!** Instead of individual resources, we use modules - this is a production-quality pattern!\n\n**Key concepts:**\n- **Modules** organize related resources together\n- **Source** points to our local module directory\n- **Input variables** pass data to the module\n- **Reusability** - modules can be used in different configurations\n\nThis is how real companies structure their Terraform code! 🏗️"
     },
     {
       "file": "main.tf",
@@ -118,12 +118,12 @@
     {
       "file": "variables.tf",
       "line": 1,
-      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings! \n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\nNotice that `variables.tf` has been opened for you. Scroll through to see how team data is structured!"
+      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings! \n\n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\n**Take a look:** Scroll through this `variables.tf` file to see how racing team data is structured with validation rules and descriptions."
     },
     {
       "file": "outputs.tf",
       "line": 1,
-      "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!\n\nNotice that `outputs.tf` has been opened for you.\n"
+      "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!\n\n**Explore the structure:** Review this `outputs.tf` file to see how we'll display team and driver information after deployment."
     },
     {
       "file": "terraform.tfvars.example",
