@@ -126,9 +126,24 @@
       "description": "# 📊 Outputs File\n\nOutputs are like telemetry data from our infrastructure - they show us what was created and provide data for other systems.\n\n**Common uses:**\n- Display resource IDs after creation\n- Pass data between Terraform configurations\n- Integration with monitoring systems\n- Verification that resources were created correctly\n\nThink of it as the timing screens showing lap times and positions!\n\nNotice that `outputs.tf` has been opened for you.\n"
     },
     {
+      "file": "terraform.tfvars.example",
+      "line": 1,
+      "description": "# 📝 Step 5: Create Your Configuration File\n\n**Every Terraform project needs a configuration file** to specify your desired infrastructure settings.\n\n**Let's create your `terraform.tfvars` file:**\n\n**Option 1 - Command line:** Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example file.\n\n**Option 2 - VS Code interface:**\n1. Right-click on `terraform.tfvars.example` in the file explorer (left sidebar)\n2. Select \"Copy\"\n3. Right-click in empty space → \"Paste\" → Rename to `terraform.tfvars`\n\n**✅ File created!** You now have your own configuration file to customize."
+    },
+    {
+      "file": "terraform.tfvars.example",
+      "line": 9,
+      "description": "# ⚙️ Understanding Progressive Deployment\n\n**Notice this important setting:** `enable_drivers = false`\n\nThis controls our **progressive deployment strategy**:\n- **Step 1**: Deploy racing teams only (`enable_drivers = false`)\n- **Step 2**: Add drivers to teams (`enable_drivers = true`)\n\n**Why this approach?**\n- Learn concepts incrementally\n- Follow production deployment patterns\n- Verify each stage works before proceeding\n\n**For now, keep this as `false`** - we'll change it later! 🏎️"
+    },
+    {
+      "file": "terraform.tfvars",
+      "line": 9,
+      "description": "# ✏️ File Editing Tips\n\n**Your `terraform.tfvars` file is now open** (notice the tab above).\n\n**File editing basics:**\n- **Click anywhere** in the file to start editing\n- **Save changes** with Ctrl+S (Cmd+S on Mac)\n- **Unsaved changes** show as a white dot on the file tab\n- **Auto-save** is enabled by default in most cases\n\n**For this lab:** We'll guide you on what to change and when. No changes needed right now!\n\n**✅ You're ready for deployment!** The next tour will walk you through your first `terraform apply`."
+    },
+    {
       "file": "README.md",
       "line": 1,
-      "description": "# 🏁 Ready to Race!\n\nCongratulations! You've completed the Terraform basics tour. You now understand:\n\n✅ **Module-based architecture** (production-quality patterns!)\n\n✅ **Progressive deployment** (teams first, then drivers)\n\n✅ **Single state file management** (critical best practice)\n\n✅ **Module dependencies** and data sharing\n\n✅ **F1-themed practical examples**\n\n**🎯 Important Pattern:** Throughout the next tours, you'll **check your Okta dashboard** before and after each `terraform apply` to:\n\n- See the \"before\" state\n\n- Verify changes were applied correctly\n\n- Understand what Infrastructure as Code actually does\n\n**Next tour:** \"Module-Based Team Formation\" will walk you through the complete deployment workflow with dashboard verification!\n\n**Pro tip**: Always verify your infrastructure changes in the target system - it's a production best practice! 🚀"
+      "description": "# 🏁 Ready to Race!\n\nCongratulations! You've completed the Terraform basics tour. You now understand:\n\n✅ **Module-based architecture** (production-quality patterns!)\n\n✅ **Progressive deployment** (teams first, then drivers)\n\n✅ **Single state file management** (critical best practice)\n\n✅ **Module dependencies** and data sharing\n\n✅ **Configuration file creation** and editing\n\n✅ **F1-themed practical examples**\n\n**🎯 Important Pattern:** Throughout the next tours, you'll **check your Okta dashboard** before and after each `terraform apply` to:\n\n- See the \"before\" state\n\n- Verify changes were applied correctly\n\n- Understand what Infrastructure as Code actually does\n\n**Next tour:** \"Module-Based Team Formation\" will walk you through the complete deployment workflow with dashboard verification!\n\n**Pro tip**: Always verify your infrastructure changes in the target system - it's a production best practice! 🚀"
     }
   ]
 }
