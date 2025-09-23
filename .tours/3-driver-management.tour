@@ -6,7 +6,7 @@
     {
       "file": "README.md",
       "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org Name: $OKTA_ORG_NAME\\\"; echo \\\"Base URL: $OKTA_BASE_URL\\\"; echo \\\"Token loaded: \\\" && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo \\\"✅ Yes\\\" || echo \\\"❌ No\\\"\"]) to verify your credentials are still loaded.\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name:' $OKTA_ORG_NAME; echo 'Base URL:' $OKTA_BASE_URL; [ -n '$OKTA_API_TOKEN' ] && echo 'Token loaded: ✅ Yes' || echo 'Token loaded: ❌ No'\"]) to verify your credentials are still loaded.\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
     },
     {
       "file": "terraform.tfvars.example",

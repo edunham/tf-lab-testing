@@ -7,7 +7,7 @@
     {
       "file": "README.md",
       "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org Name: $OKTA_ORG_NAME\\\"; echo \\\"Base URL: $OKTA_BASE_URL\\\"; echo \\\"Token loaded: \\\" && [ -n \\\"$OKTA_API_TOKEN\\\" ] && echo \\\"✅ Yes\\\" || echo \\\"❌ No\\\"\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
+      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name:' $OKTA_ORG_NAME; echo 'Base URL:' $OKTA_BASE_URL; [ -n '$OKTA_API_TOKEN' ] && echo 'Token loaded: ✅ Yes' || echo 'Token loaded: ❌ No'\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
     },
     {
       "file": "terraform.tfvars.example",
