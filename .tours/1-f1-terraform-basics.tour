@@ -19,7 +19,7 @@
     },
     {
       "directory": ".",
-      "description": "# ✅ Step 3: Verify Your Environment\n\n**Let's make sure your racing communication system is working!**\n\n**Check your environment variables:**\n\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name:' $OKTA_ORG_NAME; echo 'Base URL:' $OKTA_BASE_URL; [ -n '$OKTA_API_TOKEN' ] && echo 'Token loaded: ✅ Yes' || echo 'Token loaded: ❌ No'\"]) to check all your credentials at once.\n\n**Expected output:**\n- Org Name: dev-123456 (your org)\n- Base URL: oktapreview.com\n- Token loaded: ✅ Yes\n\n**❌ If any are missing:** Your secrets aren't loaded - restart your Codespace!"
+      "description": "✅ Step 3: Verify Your Environment\n\nLet's make sure that your codespace can see the variables you just set.  Run the following command to check your environment variables:\n\n```bash\necho \"Org Name: $OKTA_ORG_NAME; echo Base URL: $OKTA_BASE_URL; echo API Token: ${OKTA_API_TOKEN:0:8}...\" && echo \"Token loaded: $(if [ -n \"$OKTA_API_TOKEN\" ]; then echo 'Yes'; else echo 'No'; fi)\"\n```\n\n**Expected output:**\n- Org Name: dev-12345 (your org)\n- Base URL: oktapreview.com\n- Token loaded: Yes\n\n❌ If any are missing: Your secrets aren't loaded - check that you completed the previous step, and restart your Codespace!"
     },
     {
       "directory": ".",
@@ -38,7 +38,7 @@
           "character": 30
         }
       },
-      "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\n**For broader infrastructure:** If we wanted to manage AWS, Azure, or other services alongside Okta, we'd add their providers here too. But since this lab focuses on identity management, Okta is our only provider.\n\nJust like F1 cars must meet specific technical requirements, our Terraform code must declare its dependencies upfront."
+      "description": "# 🔧 Terraform Configuration Block\n\nThis is like the technical regulations for our racing series! The `terraform` block defines:\n\n- **Required version**: Minimum Terraform version needed\n- **Required providers**: External plugins that extend Terraform's capabilities\n\n**For broader infrastructure:** If we wanted to manage AWS, Azure, or other services alongside Okta, we'd add their providers here too. But since this lab focuses on identity management, Okta is our only provider.\n\n When we run `terraform init`, Terraform will download the specified providers from Hashicorp's provider registry. Providers are how Terraform learns about different resource types, like Okta groups and Okta users. When you have questions about a resource, check the documentation of the provider that it comes from."
     },
     {
       "file": "main.tf",
@@ -53,7 +53,7 @@
           "character": 30
         }
       },
-      "description": "# 🏆 Provider Requirements\n\nThe `required_providers` block is like declaring which tire manufacturer we'll use for the race:\n\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\n**Automatic downloads:** When you run `terraform init`, Terraform automatically downloads the required providers from their sources. No manual installation needed!\n\nThe Okta provider gives us resources to manage identity and access - perfect for our racing team organization!"
+      "description": "🏆 Provider Requirements\n\nThe `required_providers` block declares which tire manufacturer we'll use for the race!\n\n**Key Points:**\n- **source**: Where to download the provider (like a parts supplier)\n- **version**: Which version to use (like tire compound specifications)\n\n**Understanding Provider Sources:**\nWhen you see `source = \"okta/okta\"`, this means:\n- The provider comes from the **Okta namespace** in the HashiCorp Registry.  You can see what's published in the Okta namespace at https://registry.terraform.io/namespaces/okta \n- This provider's docs are online at https://registry.terraform.io/providers/okta/okta/latest/docs. When you see \"providers/okta/okta\" in the URL, you know you're reading the docs for the same provider that you imported here. \n\n💡 **Pro Tip**: The provider docs are your best friend! They show:\n- Current and past versions available\n- All available resources and data sources\n- Configuration examples and guides\n\n"
     },
     {
       "file": "main.tf",
@@ -68,7 +68,7 @@
           "character": 40
         }
       },
-      "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use environment variables for credentials:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - Usually oktapreview.com for dev\n- `OKTA_API_TOKEN` - Your API authentication token\n\n**For work environments:** If you're using Terraform at your company, talk to your DevOps or platform teams first! They'll have established patterns for secrets management (like HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault) that you should follow.\n\nThis keeps sensitive data out of our code, just like keeping radio frequencies secure! 📻"
+      "description": "# 🔐 Provider Configuration\n\nThe `provider` block is like connecting to race control - it establishes communication with Okta's API.\n\n**Security Note**: We use secrets stored in environment variables for this lab, which you configured in an earlier step:\n- `OKTA_ORG_NAME` - Your organization name\n- `OKTA_BASE_URL` - oktapreview.com\n- `OKTA_API_TOKEN` - Your API authentication token\n\n **In production environments:** If you're using Terraform at your company, talk to your DevOps or platform teams! If they're using Terraform already, they'll have established patterns for secrets management (like HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault) that you should follow."
     },
     {
       "file": "main.tf",
@@ -83,7 +83,7 @@
           "character": 40
         }
       },
-      "description": "# 🏁 Racing Teams Module\n\n**Module-based architecture!** Instead of individual resources, we use modules - this is a production-quality pattern!\n\n**Key concepts:**\n- **Modules** organize related resources together\n- **Source** points to our local module directory\n- **Input variables** pass data to the module\n- **Reusability** - modules can be used in different configurations\n\nThis is how real companies structure their Terraform code! 🏗️"
+      "description": "# 🏁 Racing Teams Module\n\n Under the hood, Terraform uses your API token to make API calls to examine the current state of your Okta organization and make changes. This can cause rate limit problems as you manage more resources. Modules can help you group resources that change together. This lets Terraform get work done while making as few API calls as possible, like how engineers build race cars to have only the parts they need!   \n\n**Key concepts:**\n- **Modules** organize related resources together\n- **Source** points to our local module directory\n- **Input variables** pass data to the module\n- **Reusability** - modules can be used in different configurations\n\nThis is how real companies structure their Terraform code! 🏗️"
     },
     {
       "file": "main.tf",
@@ -98,7 +98,7 @@
           "character": 40
         }
       },
-      "description": "# 🏎️ Racing Drivers Module (Conditional)\n\n**Advanced pattern:** Conditional module deployment!\n\n**Key features:**\n- `count = var.enable_drivers ? 1 : 0` - Deploy only when enabled\n- **Module dependencies** - drivers module uses outputs from teams module\n- **Progressive deployment** - deploy teams first, then drivers\n\n**Real-world value:** This pattern lets you deploy infrastructure incrementally, which is crucial for production environments!"
+      "description": "# 🏎️ Racing Drivers Module (Conditional)\n\n**Advanced pattern:** Conditional module deployment! Sometimes checking a variable and changing Terraform's behavior as a result can be helpful. But Terraform is not the place to do complex logic about what to deploy. If you find yourself using a lot of conditionals like this in your Terraform, step back and consider whether there's a better place in your deployment architecture to keep that logic. \n\n**Key features:**\n- `count = var.enable_drivers ? 1 : 0` - Deploy only when enabled\n- **Module dependencies** - drivers module uses outputs from teams module\n- **Progressive deployment** - deploy teams first, then drivers\n\n**Where are those variables coming from?** We'll configure them soon!"
     },
     {
       "file": "main.tf",
@@ -113,12 +113,12 @@
           "character": 55
         }
       },
-      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\nSee the highlighted code above showing how team_ids and team_names are passed from one module to another.\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n**Why this matters:** This prevents the state file conflicts we fixed! 🎯"
+      "description": "# 🔗 Module Dependencies\n\n**Critical best practice:** How modules share data!\n\nSee the highlighted code above showing how team_ids and team_names are passed from one module to another.\n\n**What this demonstrates:**\n- Output from one module becomes input to another\n- Proper dependency management\n- Single source of truth\n\n"
     },
     {
       "file": "variables.tf",
       "line": 1,
-      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable - like having adjustable car settings! \n\n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\n**Take a look:** Scroll through this `variables.tf` file to see how racing team data is structured with validation rules and descriptions."
+      "description": "# 📋 Variables File\n\nVariables make our Terraform code flexible and reusable. The variables.tf file just describes the variables -- it doesn't say what values they should have in our environment yet! \n\n**Benefits:**\n- Same code works for different environments\n- Easy to modify without changing main logic\n- Type validation ensures data quality\n- Default values provide sensible starting points\n\n**Take a look:** Scroll through this `variables.tf` file to see how racing team data is structured with validation rules and descriptions."
     },
     {
       "file": "outputs.tf",
@@ -128,17 +128,17 @@
     {
       "file": "terraform.tfvars.example",
       "line": 1,
-      "description": "# 📝 Step 5: Create Your Configuration File\n\n**Every Terraform project needs a configuration file** to specify your desired infrastructure settings.\n\n**Let's create your `terraform.tfvars` file:**\n\n**Option 1 - Command line:** Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example file.\n\n**Option 2 - VS Code interface:**\n1. Right-click on `terraform.tfvars.example` in the file explorer (left sidebar)\n2. Select \"Copy\"\n3. Right-click in empty space → \"Paste\" → Rename to `terraform.tfvars`\n\n**✅ File created!** You now have your own configuration file to customize."
+      "description": "# 📝 Create Your Configuration File\n\n**terraform.tfvars** stores the **values** of the variables we're using. \n\n**Let's create your `terraform.tfvars` file:**\n\n**Option 1 - Command line:** Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example file.\n\n**Option 2 - VS Code interface:**\n1. Right-click on `terraform.tfvars.example` in the file explorer (left sidebar)\n2. Select \"Copy\"\n3. Right-click in empty space → \"Paste\" → Rename to `terraform.tfvars`\n\n**Find `terraform.tfvars` in the left sidebar.** This is where Terraform will look to see what value it should use whenever you refer to a variable."
     },
     {
-      "file": "terraform.tfvars.example",
+      "file": "terraform.tfvars",
       "line": 9,
       "description": "# ⚙️ Understanding Progressive Deployment\n\n**Notice this important setting:** `enable_drivers = false`\n\nThis controls our **progressive deployment strategy**:\n- **Step 1**: Deploy racing teams only (`enable_drivers = false`)\n- **Step 2**: Add drivers to teams (`enable_drivers = true`)\n\n**Why this approach?**\n- Learn concepts incrementally\n- Follow production deployment patterns\n- Verify each stage works before proceeding\n\n**For now, keep this as `false`** - we'll change it later! 🏎️"
     },
     {
       "file": "terraform.tfvars",
       "line": 9,
-      "description": "# ✏️ File Editing Tips\n\n**Your `terraform.tfvars` file is now open** (notice the tab above).\n\n**File editing basics:**\n- **Click anywhere** in the file to start editing\n- **Save changes** with Ctrl+S (Cmd+S on Mac)\n- **Unsaved changes** show as a white dot on the file tab\n- **Auto-save** is enabled by default in most cases\n\n**For this lab:** We'll guide you on what to change and when. No changes needed right now!\n\n**✅ You're ready for deployment!** The next tour will walk you through your first `terraform apply`."
+      "description": "# ✏️ File Editing Tips\n\n**New to codespaces?** Clicking on `terraform.tfvars` opened it for you (notice the tab above).\n\n**File editing basics:**\n- **Click anywhere** in the file to start editing\n- **Save changes** with Ctrl+S (Cmd+S on Mac)\n- **Unsaved changes** show as a white dot on the file tab\n- **Auto-save** is enabled by default in most cases\n\n**For this lab:** We'll guide you on what to change and when. No changes needed right now!\n\n**✅ You're ready for deployment!** The next tour will walk you through your first `terraform apply`."
     },
     {
       "file": "README.md",

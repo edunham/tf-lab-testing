@@ -4,14 +4,9 @@
   "description": "See module-based driver deployment in action! Learn module dependencies, conditional deployment, and how teams and drivers work together in production patterns.",
   "steps": [
     {
-      "file": "README.md",
-      "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before proceeding with drivers, verify your environment variables are still set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name:' $OKTA_ORG_NAME; echo 'Base URL:' $OKTA_BASE_URL; [ -n '$OKTA_API_TOKEN' ] && echo 'Token loaded: ✅ Yes' || echo 'Token loaded: ❌ No'\"]) to verify your credentials are still loaded.\n\n**✅ If all show values:** Ready for driver deployment!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check again?** Environment variables can be lost if you restarted your Codespace! 🔐"
-    },
-    {
-      "file": "terraform.tfvars.example",
+      "file": "terraform.tfvars",
       "line": 9,
-      "description": "# 🏎️ Ready to Enable Drivers?\n\n**Current status:** Teams are deployed, drivers module is disabled.\n\n**To proceed to driver deployment:**\nChange `enable_drivers = false` to `enable_drivers = true` in your terraform.tfvars file!\n\n**What this triggers:**\n- The `racing-drivers` module will be deployed\n- Conditional deployment pattern in action!\n- Module dependencies automatically handled\n\n**Production insight:** This is how real infrastructure rollouts work - staged deployments! 🚀"
+      "description": "# 🏎️ Ready to Enable Drivers?\n\n**Current status:** Teams are deployed, drivers module is disabled.\n\n**To proceed to driver deployment:**\nChange `enable_drivers = false` to `enable_drivers = true` in your terraform.tfvars file, then save the file (use your keyboard shortcut, or right click it and choose 'save').\n\n**What this triggers:**\n- The `racing-drivers` module will be deployed next time you run `terraform apply`\n"
     },
     {
       "file": "main.tf",
@@ -26,7 +21,27 @@
           "character": 40
         }
       },
-      "description": "# 🏁 Conditional Module Deployment\n\n**Module magic:** This shows conditional deployment patterns!\n\nNotice the key pattern in the highlighted code above.\n\n**What happens:**\n- When `enable_drivers = false`: 0 instances (module not deployed)\n- When `enable_drivers = true`: 1 instance (module deployed)\n\n**Real-world value:** Perfect for environment-specific deployments! 🎯"
+      "description": "# 🏁 **Module magic:** Only modules which you enable will run, which gives you better control of your API rate limit usage!\n\n When the drivers module was disabled, it didn't make any API calls when you ran `terraform plan` and `terraform apply`. Now that it's enabled, Terraform will include it when you plan and apply. "
+    },
+    {
+      "directory": ".",
+      "description": "# 👀 Check Your Okta Dashboard - BEFORE Drivers\n\n**IMPORTANT:** Let's verify your racing teams are ready for drivers!\n\n🔍 **Go to your Okta Groups page and verify your 4 racing teams exist:**\n- 🏎️ Velocity Racing\n- ⚡ Thunder Racing \n- 🔥 Apex Racing\n- 🚀 Quantum Racing\n\n🔍 **Click on any team → People tab → Should show 0 members**\n\n🔍 **Go to your Okta People page → Should show just default users**\n\n**🎯 Why check first?** You'll see the dramatic difference after adding drivers!\n\n**Ready to add some racing talent?** 🏁"
+    },
+    {
+      "directory": ".",
+      "description": "# 🔍 Plan Your Driver Deployment\n\n**Time to add drivers to your racing teams!**\n\n**Run terraform plan to see the changes:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the driver module deployment.\n\n**📋 What you should see:**\n- **New users:** 8 racing drivers being created\n- **Team memberships:** 8 group assignments\n- **Plan summary:** \"16 to add, 0 to change, 0 to destroy\"\n\n**Key resource types:**\n- `okta_user.racing_drivers[\"max-speedwell\"]` - Individual driver accounts\n- `okta_group_memberships.team_memberships[\"max-speedwell\"]` - Team assignments\n\n**🎯 Notice:** Existing teams are unchanged - we're adding to the infrastructure!\n\n**⏰ Takes 5-15 seconds** - Analyzing the expanded configuration."
+    },
+    {
+      "directory": ".",
+      "description": "# 🚀 Deploy Your Racing Drivers!\n\n**Ready to bring your drivers to life in Okta?**\n\n**Apply the driver deployment:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to create drivers and assign them to teams!\n\n**💡 Type `yes` when prompted** to confirm the deployment.\n\n**What you'll see during apply:**\n- **User creation:** Each driver being created with F1-themed details\n- **Team assignments:** Group memberships being established\n- **Progress updates:** Real-time status as API calls complete\n\n**Success criteria:**\n- 8 new racing drivers created in Okta\n- Each driver assigned to their racing team\n- Single state file managing everything!\n\n**⏰ Takes 30-60 seconds** - Creating users and memberships via Okta API! 🏗️"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏆 Check Your Okta Dashboard - AFTER Drivers\n\n**Time to see your complete F1 organization!**\n\n🔍 **Go back to your Okta Groups page → Click on each racing team → People tab**\n- You should see drivers like:\n  - Max Speedwell, Sarah Velocity (Velocity Racing)\n  - Jake Thunder, Emma Lightning (Thunder Racing)\n  - Liam Apex, Sophia Precision (Apex Racing)\n  - Noah Quantum, Ava Innovation (Quantum Racing)\n\n🔍 **Go to your Okta People page**\n- You should see all 8 racing drivers with F1-themed names\n- Click on any driver to see their profile and group memberships\n\n**✅ Success?** You've deployed a complete racing organization with Infrastructure as Code! 🎉"
+    },
+    {
+      "directory": ".",
+      "description": "**Congratulations!**\n\n You've used Terraform to create users and add them to groups! \n\n The following steps will walk you through how Terraform knew what to create. \n\n ⚠️ In production, Terraform should manage **configuration** but not **data**. If your users are synced to Okta from an external system, don't manage them with Terraform."
     },
     {
       "file": "main.tf",
@@ -102,26 +117,6 @@
       "file": "variables.tf",
       "line": 1,
       "description": "# 🎛️ Variable-Driven Architecture\n\n**Key variables for driver deployment:**\n- `enable_drivers`: Controls conditional module deployment\n- `create_example_drivers`: Controls whether to create sample drivers\n- `racing_drivers`: Complete driver definitions\n\n**Production insight:** Variables control deployment behavior - this is how you manage different environments (dev/staging/prod) with the same code! 🏗️"
-    },
-    {
-      "directory": ".",
-      "description": "# 📋 Pre-Driver Deployment Checklist\n\n**Your progressive deployment mission (stay in root directory):**\n\n1. **Modify configuration:**\n   Edit `terraform.tfvars` and change `enable_drivers = false` to `enable_drivers = true`\n\n**✅ Configuration updated!** Time to check current state before adding drivers."
-    },
-    {
-      "directory": ".",
-      "description": "# 👀 Check Your Okta Dashboard - BEFORE Drivers\n\n**IMPORTANT:** Let's verify your racing teams are ready for drivers!\n\n🔍 **Go to your Okta Groups page and verify your 4 racing teams exist:**\n- 🏎️ Velocity Racing\n- ⚡ Thunder Racing \n- 🔥 Apex Racing\n- 🚀 Quantum Racing\n\n🔍 **Click on any team → People tab → Should show 0 members**\n\n🔍 **Go to your Okta People page → Should show just admin users**\n\n**🎯 Why check first?** You'll see the dramatic difference after adding drivers!\n\n**Ready to add some racing talent?** 🏁"
-    },
-    {
-      "directory": ".",
-      "description": "# 🔍 Plan Your Driver Deployment\n\n**Time to add drivers to your racing teams!**\n\n**Run terraform plan to see the changes:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the driver module deployment.\n\n**📋 What you should see:**\n- **New users:** 8 racing drivers being created\n- **Team memberships:** 8 group assignments\n- **Plan summary:** \"16 to add, 0 to change, 0 to destroy\"\n\n**Key resource types:**\n- `okta_user.racing_drivers[\"max-speedwell\"]` - Individual driver accounts\n- `okta_group_memberships.team_memberships[\"max-speedwell\"]` - Team assignments\n\n**🎯 Notice:** Existing teams are unchanged - we're adding to the infrastructure!\n\n**⏰ Takes 5-15 seconds** - Analyzing the expanded configuration."
-    },
-    {
-      "directory": ".",
-      "description": "# 🚀 Deploy Your Racing Drivers!\n\n**Ready to bring your drivers to life in Okta?**\n\n**Apply the driver deployment:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to create drivers and assign them to teams!\n\n**💡 Type `yes` when prompted** to confirm the deployment.\n\n**What you'll see during apply:**\n- **User creation:** Each driver being created with F1-themed details\n- **Team assignments:** Group memberships being established\n- **Progress updates:** Real-time status as API calls complete\n\n**Success criteria:**\n- 8 new racing drivers created in Okta\n- Each driver assigned to their racing team\n- Single state file managing everything!\n\n**⏰ Takes 30-60 seconds** - Creating users and memberships via Okta API! 🏗️"
-    },
-    {
-      "directory": ".",
-      "description": "# 🏆 Check Your Okta Dashboard - AFTER Drivers\n\n**Time to see your complete F1 organization!**\n\n🔍 **Go back to your Okta Groups page → Click on each racing team → People tab**\n- You should see drivers like:\n  - Max Speedwell, Sarah Velocity (Velocity Racing)\n  - Jake Thunder, Emma Lightning (Thunder Racing)\n  - Liam Apex, Sophia Precision (Apex Racing)\n  - Noah Quantum, Ava Innovation (Quantum Racing)\n\n🔍 **Go to your Okta People page**\n- You should see all 8 racing drivers with F1-themed names\n- Click on any driver to see their profile and group memberships\n\n**✅ Success?** You've deployed a complete racing organization with Infrastructure as Code! 🎉"
     },
     {
       "directory": ".",

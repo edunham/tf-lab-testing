@@ -5,24 +5,46 @@
   "description": "Learn production-quality Terraform with modules! Create racing teams using modern Infrastructure as Code patterns.",
   "steps": [
     {
-      "file": "README.md",
-      "line": 140,
-      "description": "# 🏎️ Check Your Environment First!\n\n**IMPORTANT:** Before starting, verify your environment variables are set!\n\n**If you used Codespaces secrets at github.com/settings/codespaces:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"echo 'Org Name:' $OKTA_ORG_NAME; echo 'Base URL:' $OKTA_BASE_URL; [ -n '$OKTA_API_TOKEN' ] && echo 'Token loaded: ✅ Yes' || echo 'Token loaded: ❌ No'\"]) to verify your credentials are loaded.\n\n**✅ If all show values:** You're ready!\n**❌ If any are missing:** Set them up following the README guide.\n\n**Why check first?** Saves time and prevents authentication errors later! 🔐"
+      "file": "main.tf",
+      "line": 1,
+      "description": "# ♻️  The Terraform development cycle\n\n It's time to start running Terraform commands in the terminal below! You may find it helpful to resize the terminal in the Codespaces interface when you want to read long outputs. \n\n The following steps will walk you through the main Terraform commands: \n\n - `terraform init`: This retrieves providers and creates a state file. You only have to run it if you changed the providers. Running `terraform init` is like building a race track -- essential at the start of your project, but not something you'll do every day! \n - `terraform plan`: This asks Terraform whta will have to change to make the infrastructure look like your code. It uses API calls to read the current state of your Okta organization. `terraform plan` will print a report to your terminal that says what will have to change, but it won't make those changes. \n - `terraform apply`: This tells Terraform to go make your Okta tenant match your Terraform code! This might create or destroy resources if necessary. `terraform apply` has lots of options that we won't use today, but you can see them by running the command `terraform apply --help`"
     },
     {
-      "file": "terraform.tfvars.example",
-      "line": 9,
-      "description": "# ⚙️ Progressive Deployment Control\n\n**Key concept:** The new module architecture uses progressive deployment!\n\nIn the code above, we currently start with teams only:\n\n`enable_drivers = false  # Teams first!`\n\nLater, we will add drivers by setting the `enable_drivers` variable to true!\n\n**Why this rocks:** Learn incrementally while following production patterns! Real companies deploy infrastructure in stages. 🚀"
+      "directory": ".",
+      "description": "# 🔧 Understanding Terraform Init\n\n**What does `terraform init` do?** It prepares your workspace:\n\n- **Downloads providers** (like installing racing car parts)\n- **Initializes modules** (sets up our team and driver modules)\n- **Creates hidden files** for Terraform's internal management\n\n**Run the initialization:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to initialize your racing infrastructure workspace.\n\n**Expected output:**\n- Provider downloads (Okta provider ~50MB)\n- Module initialization messages\n- Final message: \"Terraform has been successfully initialized!\"\n\n**Files created:**\n- `.terraform/` folder (Terraform's workspace data)\n- `.terraform.lock.hcl` (locks provider versions)\n\n**⏰ Takes 10-30 seconds** depending on your connection."
     },
     {
-      "file": "terraform.tfvars.example",
-      "line": 114,
-      "description": "# 📋 Your Exercise Steps\n\n**Copy this file first:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the example configuration.\n\n**Next we'll learn about some key commands - don't run them yet!**\n\n**Key commands:**\n1. `terraform init` - Download providers and initialize modules\n2. `terraform plan` - Preview your racing teams\n3. `terraform apply` - Deploy to Okta!\n\n**Expected result:** 4 F1 racing teams created, drivers module skipped (because enable_drivers = false)\n\n**Ready to start?** 🏁"
+      "directory": ".",
+      "description": "# 📁 Verify Terraform Initialization\n\n**Confirm that initialization completed successfully:**\n\nSelect [this link](command:codetour.sendTextToTerminal?[\"ls -la\"]) to list all files including hidden ones.\n\n**Success indicators:**\n- `.terraform/` folder exists (contains downloaded providers and modules)\n- `.terraform.lock.hcl` file exists (version lock file)\n- Your original files remain unchanged (main.tf, variables.tf, etc.)\n\n**In VS Code:** The `.terraform` folder may appear in the file explorer sidebar.\n\n**✅ Verification complete:** Your Terraform workspace is ready for deployment! 📂"
+    },
+    {
+      "directory": ".",
+      "description": "# 👀 Check Your Okta Dashboard - BEFORE\n\n**IMPORTANT:** Before running any terraform commands, let's see what's currently in your Okta org!\n\n🔍 **Go to your Okta Admin Console and check the Groups page**\n- You should see some default groups that came with your organization. \n- Note what exists now so you can see the difference after Terraform runs\n\n**🎯 Why check first?**\n- See the \"before\" state\n- Appreciate the changes Terraform will make\n- Troubleshoot if things don't look right later\n\n**Ready to proceed?** Keep that browser tab open - you'll check again after deployment!"
+    },
+    {
+      "directory": ".",
+      "description": "# 🔍 Understanding Terraform Plan\n\n**What does `terraform plan` do?** It's your safety check before making changes:\n\n- **Compares** your code to current infrastructure state\n- **Shows** exactly what will be created, modified, or destroyed  \n- **Validates** your configuration without making changes\n- **Estimates** costs and potential issues\n\n**Think of it as:** Race strategy planning before the actual race!\n\n**Let's see your plan:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview what will be created.\n\n**📋 What to look for:**\n- `+ create` lines show new resources\n- Resource names like `okta_group.racing_teams[\"velocity\"]`\n- Plan summary: \"X to add, Y to change, Z to destroy\"\n\n**⏰ Takes 5-15 seconds** - Terraform is analyzing your configuration!"
+    },
+    {
+      "directory": ".",
+      "description": "# 📊 Reading Your Plan Output\n\n**Your plan should show something like:**\n\n```\n# okta_group.racing_teams[\"velocity\"] will be created\n+ resource \"okta_group\" \"racing_teams\" {\n    + description = \"Speed-focused racing team...\"\n    + name        = \"Velocity Racing\"\n    + type        = \"OKTA_GROUP\"\n  }\n```\n\n**Key symbols:**\n- `+` = Will be created\n- `~` = Will be modified \n- `-` = Will be destroyed\n- `#` = Comment explaining the action\n\n**Expected plan summary:** \"4 to add, 0 to change, 0 to destroy\"\n\n**✅ Success criteria:** Four new racing teams will be created, no existing resources affected.\n\n**Ready to deploy?** If you like the changes that your plan shows, proceed to the next step! 🏁"
+    },
+    {
+      "directory": ".",
+      "description": "# 🚀 Deploy Your Racing Teams\n\n**What does `terraform apply` do?** It executes your infrastructure plan:\n\n- **Executes** the plan you just reviewed\n- **Makes API calls** to create/modify/delete resources\n- **Updates state file** to track what exists\n- **Shows progress** as changes happen\n\n**Deploy your teams:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to create your racing infrastructure!\n\n**Important:** Type `yes` when prompted to confirm the deployment.\n\n**Expected progress:**\n- Confirmation prompt asking for approval\n- Real-time creation messages for each team\n- Success confirmation for each resource\n- Final summary showing \"Apply complete! Resources: 4 added, 0 changed, 0 destroyed.\"\n\n**✅ Success criteria:** All 4 racing teams created successfully in Okta.\n\n**⏰ Takes 10-30 seconds** - Creating real resources via Okta API! 🏗️"
+    },
+    {
+      "directory": ".",
+      "description": "# 🏆 Check Your Okta Dashboard - AFTER\n\n**Time to see your infrastructure magic!**\n\n🔍 **Go back to your Okta Groups page and refresh it**\n- You should now see 4 new racing teams:\n  - 🏎️ **Velocity Racing** (aerodynamics specialists)\n  - ⚡ **Thunder Racing** (speed-focused team)\n  - 🔥 **Apex Racing** (precision-focused team)  \n  - 🚀 **Quantum Racing** (technology innovators)\n\n🔍 **Click on any team to see the rich descriptions with:**\n- Team principals, home circuits, and specialties\n- Season information\n- **(No drivers yet - that's next!)**\n\n**✅ Success?** Your Infrastructure as Code is working! 🎉"
+    },
+    {
+      "directory": ".",
+      "description": "**Congratulations!** \n\n You've successfully created groups in your Okta dashboard. \n\n If you're low on time, continue to the next tour and create drivers. Otherwise, the following steps will show you how Terraform knew what to create. \n\n The following steps will expose you to the techniques and concepts that you'll work with as you become more familiar with Terraform, so don't worry if they're a little confusing on your first day. "
     },
     {
       "file": "main.tf",
       "line": 39,
-      "description": "# 🏗️ Racing Teams Module Call\n\n**This is the modern approach!** Instead of individual resources, we call a module:\n\n**What's happening:**\n- `source = \"./modules/racing-teams\"` - Local module path\n- Variables passed to the module (racing_season, racing_teams, etc.)\n- Module creates all team resources internally\n\n**Benefits:**\n- Organized code structure\n- Reusable components\n- Production-ready patterns\n\n**Next:** The following steps will show you how the module works internally. 🔍"
+      "description": "# 🏗️ Racing Teams Module Call\n\n we call a module:\n\n**What's happening:**\n- `source = \"./modules/racing-teams\"` - Local module path\n- Variables passed to the module (racing_season, racing_teams, etc.)\n- Module creates all team resources internally\n\n**Benefits:**\n- Organized code structure\n- Reusable components\n- Production-ready patterns\n\n**Next:** The following steps will show you how the module works internally. 🔍"
     },
     {
       "file": "modules/racing-teams/main.tf",
@@ -93,38 +115,6 @@
       "file": "outputs.tf",
       "line": 5,
       "description": "# 📊 Progressive Output Display\n\n**Smart conditional outputs in the highlighted code above.**\n\n**What you'll see:**\n- **Teams only:** Team information and \"drivers not enabled\" messages\n- **Full deployment:** Complete team and driver information\n\n**Educational value:** Clear feedback on what's deployed and what's next! 📈"
-    },
-    {
-      "directory": ".",
-      "description": "# 📋 Pre-Deployment Checklist\n\n**Complete these setup steps:**\n\n1. **Verify environment variables:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"echo \\\"Org: $OKTA_ORG_NAME\\\"\"]) to check your org name.\n\n2. **Copy and customize configuration:**\n   Select [this link](command:codetour.sendTextToTerminal?[\"cp terraform.tfvars.example terraform.tfvars\"]) to copy the configuration.\n\n**Important:** Keep `enable_drivers = false` for now - we'll deploy teams first, then drivers.\n\n**✅ Setup complete!** Now let's initialize our Terraform workspace."
-    },
-    {
-      "directory": ".",
-      "description": "# 🔧 Understanding Terraform Init\n\n**What does `terraform init` do?** It prepares your workspace:\n\n- **Downloads providers** (like installing racing car parts)\n- **Initializes modules** (sets up our team and driver modules)\n- **Creates hidden files** for Terraform's internal management\n\n**Run the initialization:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform init\"]) to initialize your racing infrastructure workspace.\n\n**Expected output:**\n- Provider downloads (Okta provider ~50MB)\n- Module initialization messages\n- Final message: \"Terraform has been successfully initialized!\"\n\n**Files created:**\n- `.terraform/` folder (Terraform's workspace data)\n- `.terraform.lock.hcl` (locks provider versions)\n\n**⏰ Takes 10-30 seconds** depending on your connection."
-    },
-    {
-      "directory": ".",
-      "description": "# 📁 Verify Terraform Initialization\n\n**Confirm that initialization completed successfully:**\n\nSelect [this link](command:codetour.sendTextToTerminal?[\"ls -la\"]) to list all files including hidden ones.\n\n**Success indicators:**\n- `.terraform/` folder exists (contains downloaded providers and modules)\n- `.terraform.lock.hcl` file exists (version lock file)\n- Your original files remain unchanged (main.tf, variables.tf, etc.)\n\n**In VS Code:** The `.terraform` folder may appear in the file explorer sidebar.\n\n**✅ Verification complete:** Your Terraform workspace is ready for deployment! 📂"
-    },
-    {
-      "directory": ".",
-      "description": "# 👀 Check Your Okta Dashboard - BEFORE\n\n**IMPORTANT:** Before running any terraform commands, let's see what's currently in your Okta org!\n\n🔍 **Go to your Okta Admin Console and check the Groups page**\n- You should see just \"Everyone\" and maybe a few default groups\n- Note what exists now so you can see the difference after Terraform runs\n\n**🎯 Why check first?**\n- See the \"before\" state\n- Appreciate the changes Terraform will make\n- Troubleshoot if things don't look right later\n\n**Ready to proceed?** Keep that browser tab open - you'll check again after deployment!"
-    },
-    {
-      "directory": ".",
-      "description": "# 🔍 Understanding Terraform Plan\n\n**What does `terraform plan` do?** It's your safety check before making changes:\n\n- **Compares** your code to current infrastructure state\n- **Shows** exactly what will be created, modified, or destroyed  \n- **Validates** your configuration without making changes\n- **Estimates** costs and potential issues\n\n**Think of it as:** Race strategy planning before the actual race!\n\n**Let's see your plan:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview what will be created.\n\n**📋 What to look for:**\n- `+ create` lines show new resources\n- Resource names like `okta_group.racing_teams[\"velocity\"]`\n- Plan summary: \"X to add, Y to change, Z to destroy\"\n\n**⏰ Takes 5-15 seconds** - Terraform is analyzing your configuration!"
-    },
-    {
-      "directory": ".",
-      "description": "# 📊 Reading Your Plan Output\n\n**Your plan should show something like:**\n\n```\n# okta_group.racing_teams[\"velocity\"] will be created\n+ resource \"okta_group\" \"racing_teams\" {\n    + description = \"Speed-focused racing team...\"\n    + name        = \"Velocity Racing\"\n    + type        = \"OKTA_GROUP\"\n  }\n```\n\n**Key symbols:**\n- `+` = Will be created\n- `~` = Will be modified \n- `-` = Will be destroyed\n- `#` = Comment explaining the action\n\n**Expected plan summary:** \"4 to add, 0 to change, 0 to destroy\"\n\n**✅ Success criteria:** Four new racing teams will be created, no existing resources affected.\n\n**Ready to deploy?** If your plan matches these expectations, proceed to the next step! 🏁"
-    },
-    {
-      "directory": ".",
-      "description": "# 🚀 Deploy Your Racing Teams\n\n**What does `terraform apply` do?** It executes your infrastructure plan:\n\n- **Executes** the plan you just reviewed\n- **Makes API calls** to create/modify/delete resources\n- **Updates state file** to track what exists\n- **Shows progress** as changes happen\n\n**Deploy your teams:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform apply\"]) to create your racing infrastructure!\n\n**Important:** Type `yes` when prompted to confirm the deployment.\n\n**Expected progress:**\n- Confirmation prompt asking for approval\n- Real-time creation messages for each team\n- Success confirmation for each resource\n- Final summary showing \"Apply complete! Resources: 4 added, 0 changed, 0 destroyed.\"\n\n**✅ Success criteria:** All 4 racing teams created successfully in Okta.\n\n**⏰ Takes 10-30 seconds** - Creating real resources via Okta API! 🏗️"
-    },
-    {
-      "directory": ".",
-      "description": "# 🏆 Check Your Okta Dashboard - AFTER\n\n**Time to see your infrastructure magic!**\n\n🔍 **Go back to your Okta Groups page and refresh it**\n- You should now see 4 new racing teams:\n  - 🏎️ **Velocity Racing** (aerodynamics specialists)\n  - ⚡ **Thunder Racing** (speed-focused team)\n  - 🔥 **Apex Racing** (precision-focused team)  \n  - 🚀 **Quantum Racing** (technology innovators)\n\n🔍 **Click on any team to see the rich descriptions with:**\n- Team principals, home circuits, and specialties\n- Season information\n- **(No drivers yet - that's next!)**\n\n**✅ Success?** Your Infrastructure as Code is working! 🎉"
     },
     {
       "directory": ".",
