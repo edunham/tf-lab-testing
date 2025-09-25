@@ -17,7 +17,7 @@ variable "racing_season" {
   }
 }
 
-# BEST PRACTICE: Module receives team information from racing-teams module
+# Module receives team information from racing-teams module
 variable "team_ids" {
   description = "Map of team keys to their Okta group IDs (from racing-teams module)"
   type        = map(string)

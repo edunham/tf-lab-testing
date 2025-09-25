@@ -25,8 +25,8 @@ resource "okta_user" "racing_drivers" {
   # For this educational lab, we keep the user profile simple and standard
 }
 
-# BEST PRACTICE: Assign Drivers to Teams using Group Memberships
-# This demonstrates resource dependencies and proper module integration
+# Assign Drivers to Teams using Group Memberships
+#
 resource "okta_group_memberships" "team_memberships" {
   for_each = var.create_drivers ? local.driver_team_assignments : {}
 
@@ -34,7 +34,7 @@ resource "okta_group_memberships" "team_memberships" {
   users    = [okta_user.racing_drivers[each.key].id]
 }
 
-# BEST PRACTICE: Use locals for computed values and business logic
+# Use locals for computed values and business logic
 locals {
   # Create a map of driver keys to their team group IDs
   # This uses the team_ids passed from the racing-teams module

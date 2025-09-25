@@ -11,27 +11,27 @@ terraform {
   }
 }
 
-# BEST PRACTICE: Create Racing Teams using for_each for scalable, maintainable code
-# This demonstrates how to use variables to drive resource creation
-# Benefits: DRY principle, easier to add/remove teams, consistent configuration
+# Create Racing Teams using for_each for scalable, maintainable code
+#
+#
 
 resource "okta_group" "racing_teams" {
   for_each = var.racing_teams
 
-  # BEST PRACTICE: Use descriptive, consistent naming
+  # Use descriptive, consistent naming
   name = each.value.display_name
 
-  # BEST PRACTICE: Build descriptions from structured data rather than hard-coding
+  # Build descriptions from structured data
   description = "${each.value.description} | Team Principal: ${each.value.team_principal} | Home Circuit: ${each.value.home_circuit} | Specialty: ${title(replace(each.value.specialty, "_", " "))} | Season: ${var.racing_season}"
 }
 
-# BEST PRACTICE: Use locals for computed values and business logic
-# This keeps complex logic separate from resource definitions
+# Use locals for computed values and business logic
+#
 locals {
-  # BEST PRACTICE: Calculate values dynamically instead of hard-coding
+  # Calculate values dynamically
   total_teams = length(var.racing_teams)
 
-  # BEST PRACTICE: Build comprehensive team summary from variable data and resource attributes
+  # Build comprehensive team summary from variable data and resource attributes
   team_summary = {
     for team_key, team_config in var.racing_teams : team_key => {
       group_id       = okta_group.racing_teams[team_key].id
@@ -44,7 +44,7 @@ locals {
     }
   }
 
-  # BEST PRACTICE: Add useful computed values for outputs and other resources
+  # Add useful computed values for outputs and other resources
   teams_by_specialty = {
     for specialty in distinct([for team in var.racing_teams : team.specialty]) : specialty => [
       for team_key, team in var.racing_teams : team_key
@@ -52,7 +52,7 @@ locals {
     ]
   }
 
-  # BEST PRACTICE: Consistent tagging strategy (would be used if Okta supported tags)
+  # Consistent tagging strategy (would be used if Okta supported tags)
   common_tags = {
     Environment = "lab"
     Purpose     = "terraform-101"
@@ -60,7 +60,7 @@ locals {
     League      = var.league_configuration.name
   }
 
-  # BEST PRACTICE: Create lookup maps for other modules to use
+  # Create lookup maps for other modules to use
   team_id_map = {
     for team_key, team_config in var.racing_teams : team_key => okta_group.racing_teams[team_key].id
   }

@@ -51,19 +51,19 @@ module "racing_teams" {
 module "racing_drivers" {
   source = "./modules/racing-drivers"
 
-  # BEST PRACTICE: Conditional module execution
+  # Conditional module execution
   count = var.enable_drivers ? 1 : 0
 
   create_drivers = var.create_example_drivers
   racing_season  = var.racing_season
   drivers        = var.drivers
 
-  # BEST PRACTICE: Pass outputs from one module to another
+  # Pass outputs from one module to another
   team_ids   = module.racing_teams.team_ids
   team_names = module.racing_teams.team_names
 }
 
-# BEST PRACTICE: Use locals for complex logic and computed values
+# Use locals for complex logic and computed values
 locals {
   # Determine if drivers module is active
   drivers_module_active = var.enable_drivers && var.create_example_drivers

@@ -36,7 +36,7 @@ variable "racing_season" {
 }
 
 # TEAMS CONFIGURATION
-# BEST PRACTICE: Complex object variable for structured, validated data
+# Complex object variable for structured, validated data
 
 variable "racing_teams" {
   description = "Configuration for racing teams to be created as Okta groups"

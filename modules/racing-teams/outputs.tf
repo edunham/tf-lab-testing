@@ -1,7 +1,7 @@
 # Racing Teams Module - Outputs
 # These outputs are used by other modules and the root configuration
 
-# BEST PRACTICE: Export key resource attributes for other modules
+# Export key resource attributes for other modules
 output "team_ids" {
   description = "Map of team keys to their Okta group IDs"
   value       = local.team_id_map
@@ -27,7 +27,7 @@ output "total_teams" {
   value       = local.total_teams
 }
 
-# BEST PRACTICE: Export computed statistics for root module outputs
+# Export computed statistics for root module outputs
 output "team_statistics" {
   description = "Computed team statistics"
   value = {
