@@ -21,7 +21,7 @@
           "character": 40
         }
       },
-      "description": "# 🏁 **Module magic:** Only modules which you enable will run, which gives you better control of your API rate limit usage!\n\n When the drivers module was disabled, it didn't make any API calls when you ran `terraform plan` and `terraform apply`. Now that it's enabled, Terraform will include it when you plan and apply. "
+      "description": "# 🏁 **Module magic:** \n\nOnly modules which you enable will run, which gives you better control of your API rate limit usage!\n\n When the drivers module was disabled, it didn't make any API calls when you ran `terraform plan` and `terraform apply`. Now that it's enabled, Terraform will include it when you plan and apply. "
     },
     {
       "directory": ".",
@@ -29,7 +29,7 @@
     },
     {
       "directory": ".",
-      "description": "# 🔍 Plan Your Driver Deployment\n\n**Time to add drivers to your racing teams!**\n\n**Run terraform plan to see the changes:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the driver module deployment.\n\n**📋 What you should see:**\n- **New users:** 8 racing drivers being created\n- **Team memberships:** 8 group assignments\n- **Plan summary:** \"16 to add, 0 to change, 0 to destroy\"\n\n**Key resource types:**\n- `okta_user.racing_drivers[\"max-speedwell\"]` - Individual driver accounts\n- `okta_group_memberships.team_memberships[\"max-speedwell\"]` - Team assignments\n\n**🎯 Notice:** Existing teams are unchanged - we're adding to the infrastructure!\n\n**⏰ Takes 5-15 seconds** - Analyzing the expanded configuration."
+      "description": "# 🔍 Plan Your Driver Deployment\n\n**Time to add drivers to your racing teams!**\n\n**Run terraform plan to see the changes:**\nSelect [this link](command:codetour.sendTextToTerminal?[\"terraform plan\"]) to preview the driver module deployment.\n\n**📋 What you should see:**\n- **New users:** 4 racing drivers being created\n- **Team memberships:** 4 group assignments\n- **Plan summary:** \"8 to add, 0 to change, 0 to destroy\"\n\n**Key resource types:**\n- `okta_user.racing_drivers[\"max-speedwell\"]` - Individual driver accounts\n- `okta_group_memberships.team_memberships[\"max-speedwell\"]` - Team assignments\n\n**🎯 Notice:** Existing teams are unchanged - we're adding to the infrastructure!\n\n**⏰ Takes 5-15 seconds** - Analyzing the expanded configuration."
     },
     {
       "directory": ".",
